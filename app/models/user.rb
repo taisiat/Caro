@@ -10,7 +10,6 @@
 #  is_clean_certified :boolean          default(FALSE)
 #  email              :string           not null
 #  phone_number       :string           not null
-#  profile_pic_url    :string
 #  password_digest    :string           not null
 #  session_token      :string           not null
 #  created_at         :datetime         not null
