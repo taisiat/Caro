@@ -1,9 +1,9 @@
 class Api::SessionsController < ApplicationController
+  
   def show
     if current_user
       @user = current_user
-      # render 'api/users/show'
-      render json: { user: @user }
+      render 'api/users/show'
     else
       render json: { user: nil }
     end
@@ -14,8 +14,7 @@ class Api::SessionsController < ApplicationController
 
     if @user
       login!(@user)
-      render json: { user: @user }
-      #  render 'api/users/show'
+      render 'api/users/show'
     else
       render json: { errors: ['Please check your email and password.'] }, status: :unauthorized
     end
