@@ -10,6 +10,7 @@ function SignupFormPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -21,7 +22,13 @@ function SignupFormPage() {
     if (password === confirmPassword) {
       setErrors([]);
       return dispatch(
-        sessionActions.signup({ email, password, firstName, lastName })
+        sessionActions.signup({
+          email,
+          password,
+          firstName,
+          lastName,
+          phoneNumber,
+        })
       ).catch(async (res) => {
         let data;
         try {
@@ -75,6 +82,13 @@ function SignupFormPage() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+        <label htmlFor="phone-number"> Phone number </label>
+        <input
+          id="phone-number"
+          type="text"
+          value={phoneNumber}
+          onChange={(e) => setPhoneNumber(e.target.value)}
+        />
         <label htmlFor="password"> Password </label>
         <input
           type="password"
@@ -83,7 +97,7 @@ function SignupFormPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <label htmlFor="confirm-password"> Email </label>
+        <label htmlFor="confirm-password"> Confirm password </label>
         <input
           type="password"
           id="confirm-password"
@@ -91,7 +105,7 @@ function SignupFormPage() {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        <button type="submit">Sign Up</button>
+        <button type="submit">Sign up</button>
       </form>
     </>
   );
