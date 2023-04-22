@@ -12,11 +12,6 @@ const removeCurrentUser = () => ({
   type: REMOVE_CURRENT_USER,
 });
 
-const storeCSRFToken = (response) => {
-  const csrfToken = response.headers.get("X-CSRF-Token");
-  if (csrfToken) sessionStorage.setItem("X-CSRF-Token", csrfToken);
-};
-
 const storeCurrentUser = (user) => {
   if (user) sessionStorage.setItem("currentUser", JSON.stringify(user));
   else sessionStorage.removeItem("currentUser");
@@ -71,7 +66,11 @@ export const logout = () => async (dispatch) => {
 const initialState = {
   user: JSON.parse(sessionStorage.getItem("currentUser")),
 };
-// const initialState = { user: null };
+
+const storeCSRFToken = (response) => {
+  const csrfToken = response.headers.get("X-CSRF-Token");
+  if (csrfToken) sessionStorage.setItem("X-CSRF-Token", csrfToken);
+};
 
 const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
