@@ -71,6 +71,7 @@ export const logout = () => async (dispatch) => {
 const initialState = {
   user: JSON.parse(sessionStorage.getItem("currentUser")),
 };
+// const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
