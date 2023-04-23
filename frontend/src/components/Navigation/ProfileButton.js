@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
 import "./Navigation.css";
 import { RxExit } from "react-icons/rx";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { RiUserLine } from "react-icons/ri";
 import { RiHeart3Line } from "react-icons/ri";
 import { GiRoad } from "react-icons/gi";
+import { VscAccount } from "react-icons/vsc";
+import { SlMenu } from "react-icons/sl";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -37,10 +37,8 @@ function ProfileButton({ user }) {
   return (
     <>
       <button id="profile-button" onClick={openMenu}>
-        <GiHamburgerMenu />
-        <RiUserLine />
-        {/* <i className="fa-solid fa-bars"></i>
-        <i className="fa-regular fa-circle-user"></i> */}
+        <SlMenu />
+        <VscAccount />
       </button>
       {showMenu && (
         <ul className="profile-dropdown">

@@ -4,8 +4,13 @@ import "./SplashPage.css";
 const SplashPage = () => {
   return (
     <>
-      <div className="splash-img-container">
-        {/* <img src={SplashImage} alt="car in front of stars" id="splash-image" /> */}
+      <div className="splash-img-container"></div>
+      <h1 id="leader-phrase">Find your drive</h1>
+      <div id="leader-tagline-container">
+        <p id="leader-tagline">
+          Explore the world's largest car sharing marketplace
+        </p>
+        <div id="leader-tagline-color"> </div>
       </div>
     </>
   );

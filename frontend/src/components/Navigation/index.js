@@ -33,15 +33,6 @@ function Navigation() {
       </div>
       <div id="nav-right">{sessionLinks}</div>
     </nav>
-
-    // <ul>
-    //   <li>
-    //     <NavLink exact to="/">
-    //       Home
-    //     </NavLink>
-    //     {sessionLinks}
-    //   </li>
-    // </ul>
   );
 }
 

@@ -16,12 +16,27 @@ nav {
 }
 
 #logo {
-  height: 40px;
+  height: 35px;
 }
 
 button {
   background-color: white;
-  border: 1px solid rgb(20, 20, 20);
+  border: 1px solid #141414;
   padding: 7px;
   margin: 3px;
+  transition: 0.25s ease-in-out;
+}
+
+button:hover {
+  background-color: rgb(239, 239, 239);
+  transition: 0.25s ease-in-out;
+}
+
+#profile-button {
+  border: 0;
+  font-size: 25px;
+  width: 75px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 8px;
 }

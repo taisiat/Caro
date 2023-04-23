@@ -1,1 +1,74 @@
+#login-container {
+  width: 500px;
+}
 
+h1 {
+  font-family: "DM Serif Text", serif;
+  color: rgb(20, 20, 20);
+  font-size: 40px;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  font-family: "Mulish", sans-serif;
+  font-size: 14px;
+  color: rgb(20, 20, 20);
+  margin-left: 35px;
+  margin-right: 35px;
+  /* height: 150px; */
+  justify-content: space-around;
+}
+
+#login-button {
+  background-color: #4a31da;
+  border: #4a31da 1px solid;
+  color: white;
+  /* border: 0; */
+  height: 50px;
+  font-size: 17px;
+  margin-top: 20px;
+  margin-bottom: 35px;
+  width: 100%;
+  padding: 10px;
+}
+
+#login-button:hover {
+  background-color: #3a1daa;
+  transition: 0.25s ease-in-out;
+}
+
+#email-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50px;
+  margin-bottom: 12px;
+}
+
+#password-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50px;
+}
+
+input {
+  padding: 7px;
+  border: 1px solid rgb(214, 213, 213);
+  /* width: 400px; */
+}
+
+#errors {
+  color: red;
+  font-size: 12px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.red-input {
+  border: 1px solid red;
+}

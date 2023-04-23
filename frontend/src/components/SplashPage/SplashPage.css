@@ -2,6 +2,38 @@
   background-image: url("./splash_main.jpg");
   background-size: cover;
   background-position: center;
-  width: 100vw; /* pre-defined width */
-  height: 450px; /* pre-defined height */
+  width: 100vw;
+  height: 450px;
+}
+
+#leader-phrase {
+  font-size: 8vw;
+  text-align: center;
+  padding-top: 30px;
+}
+
+#leader-tagline {
+  font-size: 2.5vw;
+  text-align: center;
+  padding-top: 1vh;
+}
+
+#leader-tagline-container {
+  width: 70vw;
+  margin: 0 auto;
+}
+
+#leader-tagline-color {
+  background-color: rgb(238, 221, 247);
+  width: 65vw;
+  height: 25px;
+  margin: 0 auto;
+  position: relative;
+  top: -10px;
+  z-index: -1;
+}
+
+h1 {
+  font-family: "DM Serif Text", serif;
+  color: rgb(20, 20, 20);
 }
