@@ -3,13 +3,13 @@
   background-size: cover;
   background-position: center;
   width: 100vw;
-  height: 450px;
+  height: 400px;
 }
 
 #leader-phrase {
   font-size: 8vw;
   text-align: center;
-  padding-top: 30px;
+  padding-top: 35px;
 }
 
 #leader-tagline {

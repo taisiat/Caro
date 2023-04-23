@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { Redirect } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css";
+import LoginFormModal from "../LoginFormModal";
 
 function SignupForm() {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ function SignupForm() {
   };
 
   return (
-    <>
+    <div id="signup-modal-container">
       <h1>{"Let’s get started"}</h1>
       <form onSubmit={handleSubmit}>
         <ul>
@@ -54,60 +55,87 @@ function SignupForm() {
           ))}
         </ul>
         <div id="name-inputs">
-          <label htmlFor="firstName"> First Name </label>
+          <div id="first-name-container">
+            <label htmlFor="first-name"> First Name </label>
+            <input
+              type="text"
+              id="first-name"
+              placeholder="required"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+          </div>
+          <div id="last-name-container">
+            <label htmlFor="last-name"> Last Name </label>
+            <input
+              type="text"
+              id="last-name"
+              placeholder="required"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+        <p id="name-explainer">
+          Enter your name as it appears on your driver’s license
+        </p>
+        <div className="input-container">
+          {" "}
+          <label htmlFor="email"> Email </label>
           <input
+            id="email"
             type="text"
-            id="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-          <label htmlFor="lastName"> Last Name </label>
-          <input
-            type="text"
-            id="lastName"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            placeholder="required"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
-        <br></br>
-        <p>Enter your name as it appears on your driver’s license</p>
-        <br></br>
-        <label htmlFor="email"> Email </label>
-        <input
-          id="email"
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <label htmlFor="phone-number"> Phone number </label>
-        <input
-          id="phone-number"
-          type="text"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-        />
-        <label htmlFor="password"> Password </label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <label htmlFor="confirm-password"> Confirm password </label>
-        <input
-          type="password"
-          id="confirm-password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Sign up</button>
+        <div className="input-container">
+          {" "}
+          <label htmlFor="phone-number"> Phone number </label>
+          <input
+            id="phone-number"
+            type="text"
+            placeholder="optional"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+        </div>
+        <div className="input-container">
+          {" "}
+          <label htmlFor="password"> Password </label>
+          <input
+            type="password"
+            id="password"
+            placeholder="required"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-container">
+          <label htmlFor="confirm-password"> Confirm password </label>
+          <input
+            type="password"
+            id="confirm-password"
+            placeholder="required"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" id="signup-button">
+          Sign up
+        </button>
       </form>
-    </>
+      <div id="other-option-container">
+        <p>Already have an account?</p>
+        <LoginFormModal />
+      </div>
+    </div>
   );
 }
 

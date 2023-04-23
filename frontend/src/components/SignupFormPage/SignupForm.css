@@ -1,0 +1,58 @@
+#signup-modal-container {
+  width: 500px;
+  font-family: "Mulish", sans-serif;
+  margin: 35px;
+  font-size: 13px;
+}
+
+#name-explainer {
+  font-size: 11px;
+  margin-bottom: 15px;
+}
+
+#signup-button {
+  background-color: #4a31da;
+  border: #4a31da 1px solid;
+  color: white;
+  height: 50px;
+  font-size: 17px;
+  margin-top: 15px;
+  margin-bottom: 35px;
+  width: 100%;
+  padding: 10px;
+  margin-left: 0;
+}
+
+#signup-button:hover {
+  background-color: #3a1daa;
+  transition: 0.25s ease-in-out;
+}
+
+#name-inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+#first-name-container,
+#last-name-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 49%;
+}
+
+.input-container {
+  padding-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  padding-bottom: 7px;
+}
+
+form {
+  font-size: 12px;
+}

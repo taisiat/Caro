@@ -1,17 +1,13 @@
 #login-container {
   width: 500px;
+  display: flex;
+  flex-direction: column;
+  /* height: 400px; */
+  /* background-color: white; */
+  /* padding: 35px; */
 }
 
-h1 {
-  font-family: "DM Serif Text", serif;
-  color: rgb(20, 20, 20);
-  font-size: 40px;
-  text-align: center;
-  padding-top: 50px;
-  padding-bottom: 30px;
-}
-
-form {
+#login-form {
   display: flex;
   flex-direction: column;
   font-family: "Mulish", sans-serif;
@@ -19,7 +15,6 @@ form {
   color: rgb(20, 20, 20);
   margin-left: 35px;
   margin-right: 35px;
-  /* height: 150px; */
   justify-content: space-around;
 }
 
@@ -34,6 +29,11 @@ form {
   margin-bottom: 35px;
   width: 100%;
   padding: 10px;
+  margin-left: 0;
+}
+
+#button-container {
+  margin-top: 20px;
 }
 
 #login-button:hover {
@@ -46,7 +46,7 @@ form {
   flex-direction: column;
   justify-content: space-between;
   height: 50px;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
 }
 
 #password-container {
@@ -56,7 +56,7 @@ form {
   height: 50px;
 }
 
-input {
+.login-input {
   padding: 7px;
   border: 1px solid rgb(214, 213, 213);
   /* width: 400px; */

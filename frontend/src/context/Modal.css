@@ -23,3 +23,40 @@
   background-color: white;
   border-radius: 10px;
 }
+
+h1 {
+  font-family: "DM Serif Text", serif;
+  color: rgb(20, 20, 20);
+  font-size: 40px;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+input {
+  border: 1px solid #cbcbcb;
+  height: 35px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+#other-option-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  padding-bottom: 20px;
+}
+
+#other-option-container p {
+  font-size: 15px;
+  margin-right: 12px;
+}
+
+#other-option-container button {
+  margin: 0;
+  font-size: 15px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
