@@ -4,6 +4,7 @@ nav {
   align-items: center;
   height: 70px;
   background-color: white;
+  color: rgba(20, 20, 20);
 }
 
 #nav-left {
@@ -19,7 +20,7 @@ nav {
   height: 35px;
 }
 
-button {
+.nav-button {
   background-color: white;
   border: 1px solid #141414;
   padding: 7px;
@@ -27,7 +28,7 @@ button {
   transition: 0.25s ease-in-out;
 }
 
-button:hover {
+.nav-button:hover {
   background-color: rgb(239, 239, 239);
   transition: 0.25s ease-in-out;
 }
@@ -39,4 +40,50 @@ button:hover {
   display: flex;
   justify-content: space-between;
   border-radius: 8px;
+}
+
+#profile-button:focus {
+  background-color: rgb(239, 239, 239);
+  border: 1px solid #cbc9c9;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  background-color: #fff;
+  padding: 7px;
+  list-style: none;
+  z-index: 9999;
+  border-radius: 8px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  font-family: "Mulish", sans-serif;
+  width: 200px;
+}
+
+/* #trips-drop {
+  border-bottom: 1px solid #cbc9c9;
+  padding-bottom: 20px;
+} */
+
+.hamburger-options {
+  /* background-color: pink; */
+  border-radius: 7px;
+  padding: 12px;
+  display: flex;
+}
+
+.hamburger-icon {
+  margin-right: 8px;
+}
+
+.division-line {
+  border-bottom: 1px solid #cbc9c9;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.hamburger-options:hover {
+  background-color: rgb(239, 239, 239);
+  transition: 0.25s ease-in-out;
 }

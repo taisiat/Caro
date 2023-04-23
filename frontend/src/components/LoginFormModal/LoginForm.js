@@ -70,10 +70,10 @@ function LoginForm() {
           </button>
         </div>
       </form>
-      <div id="other-option-container">
+      {/* <div id="other-option-container">
         <p>Don’t have an account?</p>
         <SignupFormModal />
-      </div>
+      </div> */}
     </div>
   );
 }

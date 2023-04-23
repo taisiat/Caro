@@ -131,10 +131,6 @@ function SignupForm() {
           Sign up
         </button>
       </form>
-      <div id="other-option-container">
-        <p>Already have an account?</p>
-        <LoginFormModal />
-      </div>
     </div>
   );
 }

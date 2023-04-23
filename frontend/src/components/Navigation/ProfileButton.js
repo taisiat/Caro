@@ -35,30 +35,32 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <>
-      <button id="profile-button" onClick={openMenu}>
+    <div id="profile-button-container">
+      <button id="profile-button" className="nav-button" onClick={openMenu}>
         <SlMenu />
         <VscAccount />
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
-          <li>{user.email}</li>
-          <li id="favorites-drop">
-            <RiHeart3Line />
+          <li id="favorites-drop" className="hamburger-options">
+            <RiHeart3Line className="hamburger-icon" />
             Favorites
           </li>
-          <li id="trips-drop">
-            <GiRoad />
+          <li id="trips-drop" className="hamburger-options">
+            <GiRoad className="hamburger-icon" />
             Trips
           </li>
-          <li id="profile-drop">Profile</li>
-          <li id="logout-drop" onClick={logout}>
-            <RxExit />
+          <li className="division-line"></li>
+          <li id="profile-drop" className="hamburger-options">
+            Profile
+          </li>
+          <li id="logout-drop" className="hamburger-options" onClick={logout}>
+            <RxExit className="hamburger-icon" />
             Log out
           </li>
         </ul>
       )}
-    </>
+    </div>
   );
 }
 
