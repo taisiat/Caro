@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
+import "./Navigation.css";
+import { RxExit } from "react-icons/rx";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { RiUserLine } from "react-icons/ri";
+import { RiHeart3Line } from "react-icons/ri";
+import { GiRoad } from "react-icons/gi";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -30,15 +36,27 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fa-regular fa-circle-user"></i>
+      <button id="profile-button" onClick={openMenu}>
+        <GiHamburgerMenu />
+        <RiUserLine />
+        {/* <i className="fa-solid fa-bars"></i>
+        <i className="fa-regular fa-circle-user"></i> */}
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
-          <li>{user.firstName}</li>
           <li>{user.email}</li>
-          <li>
-            <button onClick={logout}>Log out</button>
+          <li id="favorites-drop">
+            <RiHeart3Line />
+            Favorites
+          </li>
+          <li id="trips-drop">
+            <GiRoad />
+            Trips
+          </li>
+          <li id="profile-drop">Profile</li>
+          <li id="logout-drop" onClick={logout}>
+            <RxExit />
+            Log out
           </li>
         </ul>
       )}

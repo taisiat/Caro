@@ -1,0 +1,7 @@
+.splash-img-container {
+  background-image: url("./splash_main.jpg");
+  background-size: cover;
+  background-position: center;
+  width: 100vw; /* pre-defined width */
+  height: 450px; /* pre-defined height */
+}

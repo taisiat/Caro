@@ -1,0 +1,27 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  background-color: white;
+}
+
+#nav-left {
+  padding: 15px;
+}
+
+#nav-right {
+  padding: 15px;
+  display: flex;
+}
+
+#logo {
+  height: 40px;
+}
+
+button {
+  background-color: white;
+  border: 1px solid rgb(20, 20, 20);
+  padding: 7px;
+  margin: 3px;
+}
