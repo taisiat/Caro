@@ -7,6 +7,7 @@ import { RiHeart3Line } from "react-icons/ri";
 import { GiRoad } from "react-icons/gi";
 import { VscAccount } from "react-icons/vsc";
 import { SlMenu } from "react-icons/sl";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -43,16 +44,20 @@ function ProfileButton({ user }) {
       {showMenu && (
         <ul className="profile-dropdown">
           <li id="favorites-drop" className="hamburger-options">
-            <RiHeart3Line className="hamburger-icon" />
-            Favorites
+            <a href="/:userID/favorites">
+              <RiHeart3Line className="hamburger-icon" />
+              Favorites
+            </a>
           </li>
           <li id="trips-drop" className="hamburger-options">
-            <GiRoad className="hamburger-icon" />
-            Trips
+            <a href="/:userID/trips">
+              <GiRoad className="hamburger-icon" />
+              Trips
+            </a>
           </li>
           <li className="division-line"></li>
           <li id="profile-drop" className="hamburger-options">
-            Profile
+            <a href="/users/:userID">Profile</a>
           </li>
           <li id="logout-drop" className="hamburger-options" onClick={logout}>
             <RxExit className="hamburger-icon" />

@@ -54,11 +54,16 @@ nav {
   background-color: #fff;
   padding: 7px;
   list-style: none;
-  z-index: 9999;
+  z-index: 10;
   border-radius: 8px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   font-family: "Mulish", sans-serif;
   width: 200px;
+}
+
+.profile-dropdown a {
+  text-decoration: none;
+  color: #141414;
 }
 
 .hamburger-options {
