@@ -34,7 +34,7 @@ nav {
 }
 
 #profile-button {
-  border: 0;
+  border: 1px solid white;
   font-size: 25px;
   width: 75px;
   display: flex;

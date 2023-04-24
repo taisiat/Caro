@@ -59,9 +59,9 @@ function ProfileButton({ user }) {
           <li
             id="profile-drop"
             className="hamburger-options"
-            onClick={() => <Redirect to="/users/:userID" />}
+            // onClick={() => <Redirect to="/profile" />}
           >
-            <a href="/users/:userID">Profile</a>
+            <a href="/profile">Profile</a>
           </li>
           <li id="logout-drop" className="hamburger-options" onClick={logout}>
             <RxExit className="hamburger-icon" />

@@ -6,9 +6,24 @@ import LoginFormModal from "../LoginFormModal";
 import "./Navigation.css";
 import SignupFormModal from "../SignupFormPage";
 import logo from "./logo.png";
+import { useState } from "react";
 
 function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
+
+  const changeLoginModal = () => {
+    setShowLoginModal(!showLoginModal);
+  };
+  const changeSignupModal = () => {
+    setShowSignupModal(!showSignupModal);
+  };
+
+  const toggleForms = () => {
+    setShowLoginModal(!showLoginModal);
+    setShowSignupModal(!showSignupModal);
+  };
 
   let sessionLinks;
   if (sessionUser) {
@@ -16,8 +31,24 @@ function Navigation() {
   } else {
     sessionLinks = (
       <>
-        <LoginFormModal />
-        <SignupFormModal />
+        <LoginFormModal
+          showLoginModal={showLoginModal}
+          changeLoginModal={changeLoginModal}
+          setShowLoginModal={setShowLoginModal}
+          showSignupModal={showSignupModal}
+          changeSignupModal={changeSignupModal}
+          setShowSignupModal={setShowSignupModal}
+          toggleForms={toggleForms}
+        />
+        <SignupFormModal
+          showLoginModal={showLoginModal}
+          changeLoginModal={changeLoginModal}
+          setShowLoginModal={setShowLoginModal}
+          showSignupModal={showSignupModal}
+          changeSignupModal={changeSignupModal}
+          setShowSignupModal={setShowSignupModal}
+          toggleForms={toggleForms}
+        />
       </>
     );
   }

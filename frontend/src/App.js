@@ -11,7 +11,7 @@ function App() {
     <>
       <Navigation />
       <Switch>
-        <Route path={`/users/:userId`}>
+        <Route path={`/profile`}>
           <ProfilePage />
         </Route>
         <Route path={`/:userId/trips`}>
