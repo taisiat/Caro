@@ -61,13 +61,7 @@ nav {
   width: 200px;
 }
 
-/* #trips-drop {
-  border-bottom: 1px solid #cbc9c9;
-  padding-bottom: 20px;
-} */
-
 .hamburger-options {
-  /* background-color: pink; */
   border-radius: 7px;
   padding: 12px;
   display: flex;

@@ -44,7 +44,8 @@
 }
 
 .input-container {
-  padding-bottom: 8px;
+  padding-bottom: 6px;
+  padding-top: 6px;
   display: flex;
   flex-direction: column;
 }
@@ -55,4 +56,10 @@ label {
 
 form {
   font-size: 12px;
+}
+
+.error-message {
+  color: red;
+  font-size: 11px;
+  padding-bottom: 5px;
 }
