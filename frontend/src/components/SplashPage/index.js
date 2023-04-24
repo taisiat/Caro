@@ -1,4 +1,6 @@
-import SplashImage from "./splash_main.jpg";
+import SearchBar from "../SearchBar";
+import BrowseByDestinationComponent from "./BrowseByDestinationComponent";
+import BrowseByExperienceComponent from "./BrowseByExperienceComponent";
 import "./SplashPage.css";
 
 const SplashPage = () => {
@@ -11,6 +13,12 @@ const SplashPage = () => {
           Explore the world's largest car sharing marketplace
         </p>
         <div id="leader-tagline-color"> </div>
+      </div>
+      <SearchBar />
+      <BrowseByDestinationComponent />
+      <BrowseByExperienceComponent />
+      <div id="splash-footer">
+        <p>WIP - about TK</p>
       </div>
     </>
   );

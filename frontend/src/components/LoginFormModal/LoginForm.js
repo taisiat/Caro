@@ -29,6 +29,14 @@ function LoginForm() {
     );
   };
 
+  const handleDemo = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return dispatch(
+      sessionActions.login({ email: "dom@toretto.com", password: "password1" })
+    );
+  };
+
   return (
     <div id="login-container">
       <h1 id="welcome-header">Welcome back</h1>
@@ -68,8 +76,12 @@ function LoginForm() {
           <button id="login-button" type="submit">
             Log in
           </button>
+          <button id="demo-button" type="submit" onClick={handleDemo}>
+            Log in as Dom Torreto
+          </button>
         </div>
       </form>
+
       {/* <div id="other-option-container">
         <p>Don’t have an account?</p>
         <SignupFormModal />

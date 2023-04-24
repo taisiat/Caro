@@ -18,7 +18,8 @@
   justify-content: space-around;
 }
 
-#login-button {
+#login-button,
+#demo-button {
   background-color: #4a31da;
   border: #4a31da 1px solid;
   color: white;
@@ -26,7 +27,7 @@
   height: 50px;
   font-size: 17px;
   margin-top: 20px;
-  margin-bottom: 35px;
+  /* margin-bottom: 35px; */
   width: 100%;
   padding: 10px;
   margin-left: 0;
@@ -34,9 +35,11 @@
 
 #button-container {
   margin-top: 20px;
+  margin-bottom: 30px;
 }
 
-#login-button:hover {
+#login-button:hover,
+#demo-button:hover {
   background-color: #3a1daa;
   transition: 0.25s ease-in-out;
 }
@@ -71,4 +74,8 @@
 
 .red-input {
   border: 1px solid red;
+}
+
+#welcome-header {
+  margin-top: 40px;
 }

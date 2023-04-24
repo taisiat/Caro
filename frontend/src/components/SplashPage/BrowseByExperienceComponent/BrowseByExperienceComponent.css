@@ -1,0 +1,19 @@
+#experience-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.car-tile {
+  width: 270px;
+}
+
+.car-type-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: top;
+  width: 70vw;
+  height: 300px;
+  margin-bottom: 10px;
+  margin-left: 15vw;
+}

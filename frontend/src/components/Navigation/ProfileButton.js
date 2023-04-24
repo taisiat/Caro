@@ -56,7 +56,11 @@ function ProfileButton({ user }) {
             </a>
           </li>
           <li className="division-line"></li>
-          <li id="profile-drop" className="hamburger-options">
+          <li
+            id="profile-drop"
+            className="hamburger-options"
+            onClick={() => <Redirect to="/users/:userID" />}
+          >
             <a href="/users/:userID">Profile</a>
           </li>
           <li id="logout-drop" className="hamburger-options" onClick={logout}>

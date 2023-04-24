@@ -3,6 +3,7 @@
   font-family: "Mulish", sans-serif;
   margin: 35px;
   font-size: 13px;
+  /* overflow: auto; */
 }
 
 #name-explainer {

@@ -68,7 +68,7 @@ nav {
 
 .hamburger-options {
   border-radius: 7px;
-  padding: 12px;
+  /* padding: 12px; */
   display: flex;
 }
 
@@ -85,4 +85,13 @@ nav {
 .hamburger-options:hover {
   background-color: rgb(239, 239, 239);
   transition: 0.25s ease-in-out;
+}
+
+.hamburger-options a {
+  padding: 12px;
+  width: 100%;
+}
+
+#logout-drop {
+  padding: 12px;
 }
