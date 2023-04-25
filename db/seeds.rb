@@ -324,8 +324,8 @@ end
   puts "Attaching user photos..."
 User.first(2).each_with_index do |user, index|
   user.photo.attach(
-    io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/user_profiles/#{index + 1}p.jpg"), 
-    filename: "user_#{index + 1}.jpg"
+    io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/user_profiles/#{index + 1}p.jpeg"), 
+    filename: "user_#{index + 1}.jpeg"
   )
 end
     puts "User photos attached!"

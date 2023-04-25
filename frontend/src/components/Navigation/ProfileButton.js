@@ -8,10 +8,12 @@ import { GiRoad } from "react-icons/gi";
 import { VscAccount } from "react-icons/vsc";
 import { SlMenu } from "react-icons/sl";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { useSelector } from "react-redux";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const sessionUser = useSelector((state) => state.session.user);
 
   const openMenu = () => {
     if (showMenu) return;
@@ -61,7 +63,7 @@ function ProfileButton({ user }) {
             className="hamburger-options"
             // onClick={() => <Redirect to="/profile" />}
           >
-            <a href="/profile">Profile</a>
+            <a href={`/users/${sessionUser.id}`}>Profile</a>
           </li>
           <li id="logout-drop" className="hamburger-options" onClick={logout}>
             <RxExit className="hamburger-icon" />

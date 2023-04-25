@@ -7,15 +7,15 @@ import { fetchUser } from "../../store/user";
 
 function ProfilePage() {
   const sessionUser = useSelector((state) => state.session.user);
-  //   const { id } = useParams();
-  const user = useSelector((state) => state.users[26]);
+  const { userId } = useParams();
+  const user = useSelector((state) => state.users[userId]);
   //   const [user, setUser] = useState([]);
   const dispatch = useDispatch();
 
   //   if (!sessionUser) return <Redirect to="/" />;
 
   useEffect(() => {
-    dispatch(fetchUser(26));
+    dispatch(fetchUser(userId));
   }, [dispatch]);
 
   if (!user) {
@@ -29,10 +29,12 @@ function ProfilePage() {
       <li>{`${sessionUser.firstName} ${sessionUser.lastName}`}</li>
       <li>{sessionUser.email}</li>
       <li>{sessionUser.phoneNumber}</li>
-      <p>User:</p>
+      <p>Whose profile page is this based on url?:</p>
       <li>{`${user.firstName} ${user.lastName}`}</li>
       <li>{user.email}</li>
       <li>{user.phoneNumber}</li>
+      <li>{user.createdAt}</li>
+      <li>{user.isSuperhost ? "superhost" : ""}</li>
       <li>
         {" "}
         {user.photoUrl && (
