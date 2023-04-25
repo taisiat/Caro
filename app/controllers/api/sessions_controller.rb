@@ -21,12 +21,14 @@ class Api::SessionsController < ApplicationController
   end
 
   def destroy
-    if current_user
-      logout!
-      render json: { message: 'Logout successful.' }
-    else
-      render json: { message: 'No current user.' }, status: :unauthorized
-    end
+    # if current_user
+    #   logout!
+    #   render json: { message: 'Logout successful.' }
+    # else
+    #   render json: { message: 'No current user.' }, status: :unauthorized
+    # end
+    logout!
+    render json: { message: 'success' }
   end
 
 end

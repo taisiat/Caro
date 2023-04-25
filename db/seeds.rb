@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require "open-uri"
 
 ApplicationRecord.transaction do 
   puts "Destroying tables..."
@@ -23,7 +24,7 @@ ApplicationRecord.transaction do
     approved_to_drive: true,
     is_superhost: true,
     is_clean_certified: true,
-    email: "dominic.toretto@example.com",
+    email: "dom@toretto.com",
     phone_number: "222-333-4444",
     password: 'password1',
     created_at: "2023-02-14T00:00:00.000Z"
@@ -35,8 +36,8 @@ ApplicationRecord.transaction do
         approved_to_drive: false,
         is_superhost: false,
         is_clean_certified: true,
-        email: "john.wick@example.com",
-        phone_number: "999-888-7777",
+        email: "john.wick@wick.com",
+        phone_number: "",
         password: 'password22',
         created_at: "2022-01-01T00:00:00.000Z"
     )
@@ -48,7 +49,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "emma.watson@example.com",
+        email: "emma.watson@awesome.com",
         phone_number: "222-222-2222",
         created_at: "2022-02-14T00:00:00.000Z"
     )
@@ -60,7 +61,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: true,
         is_clean_certified: true,
-        email: "tom.hanks@example.com",
+        email: "tom.hanks@actors.com",
         phone_number: "666-666-6666",
         created_at: "2022-12-25T00:00:00.000Z"
     )
@@ -72,7 +73,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: true,
         is_clean_certified: false,
-        email: "elon.musk@example.com",
+        email: "elon.musk@tesla.com",
         phone_number: "333-333-3333",
         created_at: "2021-11-11T00:00:00.000Z"
     )
@@ -84,7 +85,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: false,
-        email: "serena.williams@example.com",
+        email: "serena.williams@tennis.com",
         phone_number: "444-444-4444",
         created_at: "2022-01-01T00:00:00.000Z"
     )
@@ -96,7 +97,7 @@ ApplicationRecord.transaction do
         approved_to_drive: false,
         is_superhost: false,
         is_clean_certified: false,
-        email: "harry.potter@example.com",
+        email: "harry.potter@hogwarts.com",
         phone_number: "555-555-5555",
         created_at: "2023-03-15T00:00:00.000Z"
     )
@@ -108,7 +109,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "beyonce.knowles@example.com",
+        email: "beyonce.knowles@music.com",
         phone_number: "777-777-7777",
         created_at: "2021-07-04T00:00:00.000Z"
     )
@@ -120,7 +121,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: true,
         is_clean_certified: false,
-        email: "leonardo.dicaprio@example.com",
+        email: "leonardo.dicaprio@titanic.com",
         phone_number: "888-888-8888",
         created_at: "2022-06-01T00:00:00.000Z"
     )
@@ -132,7 +133,7 @@ ApplicationRecord.transaction do
         approved_to_drive: false,
         is_superhost: true,
         is_clean_certified: true,
-        email: "jennifer.lawrence@example.com",
+        email: "jennifer.lawrence@hungry.com",
         phone_number: "999-999-9999",
         created_at: "2023-02-14T00:00:00.000Z"
     )
@@ -144,8 +145,8 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "michael.jordan@example.com",
-        phone_number: "000-000-0000",
+        email: "michael.jordan@bball.com",
+        phone_number: "",
         created_at: "2021-08-08T00:00:00.000Z"
     )
 
@@ -156,7 +157,7 @@ ApplicationRecord.transaction do
         approved_to_drive: false,
         is_superhost: false,
         is_clean_certified: true,
-        email: "wonder.woman@example.com",
+        email: "wonder.woman@comics.com",
         phone_number: "111-222-3333",
         created_at: "2022-09-01T00:00:00.000Z"
     )
@@ -168,7 +169,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "john.travolta@example.com",
+        email: "john.travolta@actors.com",
         phone_number: "222-333-4444",
         created_at: "2021-12-31T00:00:00.000Z"
     )
@@ -180,7 +181,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: true,
         is_clean_certified: true,
-        email: "taylor.swift@example.com",
+        email: "taylor.swift@music.com",
         phone_number: "333-444-5555",
         created_at: "2022-01-15T00:00:00.000Z"
     )
@@ -192,8 +193,8 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "james.bond@example.com",
-        phone_number: "444-555-6666",
+        email: "james.bond@undercover.com",
+        phone_number: "",
         created_at: "2021-06-30T00:00:00.000Z"
     )
 
@@ -204,7 +205,7 @@ ApplicationRecord.transaction do
         approved_to_drive: false,
         is_superhost: true,
         is_clean_certified: true,
-        email: "katy.perry@example.com",
+        email: "katy.perry@music.com",
         phone_number: "555-666-7777",
         created_at: "2023-03-10T00:00:00.000Z"
     )
@@ -216,7 +217,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: true,
         is_clean_certified: false,
-        email: "tony.stark@example.com",
+        email: "tony.stark@stark.com",
         phone_number: "666-777-8888",
         created_at: "2021-05-15T00:00:00.000Z"
     )
@@ -228,19 +229,19 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "steve@example.com",
-        phone_number: "777-888-9999",
+        email: "steve@apple.com",
+        phone_number: "",
         created_at: "2022-11-11T00:00:00.000Z"
     )
 
     User.create!(
         password: 'password18',
-        first_name: "Allie",
+        first_name: "Ali",
         last_name: "Wong",
         approved_to_drive: true,
         is_superhost: true,
         is_clean_certified: true,
-        email: "allie@example.com",
+        email: "ali@comedy.com",
         phone_number: "888-999-0000",
         created_at: "2023-01-01T00:00:00.000Z"
     )
@@ -252,7 +253,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "adele.adkins@example.com",
+        email: "adele.adkins@deep.com",
         phone_number: "999-000-1111",
         created_at: "2021-09-20T00:00:00.000Z"
     )
@@ -264,7 +265,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "han.lue@example.com",
+        email: "han.lue@fastandfurious.com",
         phone_number: "777-888-9999",
         created_at: "2023-04-01T00:00:00.000Z"
     )
@@ -276,7 +277,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "letty.ortiz@example.com",
+        email: "letty.ortiz@fastandfurious.com",
         phone_number: "111-222-3333",
         created_at: "2022-05-05T00:00:00.000Z"
     )
@@ -288,8 +289,8 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "roman.pearce@example.com",
-        phone_number: "555-666-7777",
+        email: "roman.pearce@fastandfurious.com",
+        phone_number: "",
         created_at: "2022-06-20T00:00:00.000Z"
     )
 
@@ -300,7 +301,7 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: false,
         is_clean_certified: true,
-        email: "mia.toretto@example.com",
+        email: "mia.toretto@fastandfurious.com",
         phone_number: "333-444-5555",
         created_at: "2022-09-01T00:00:00.000Z"
     )
@@ -312,10 +313,19 @@ ApplicationRecord.transaction do
         approved_to_drive: true,
         is_superhost: true,
         is_clean_certified: false,
-        email: "brian.oconner@example.com",
-        phone_number: "444-555-6666",
+        email: "brian.oconner@fastandfurious.com",
+        phone_number: "",
         created_at: "2021-08-12T00:00:00.000Z"
     )
 
-  puts "Done!"
+  puts "User creation done!"
 end
+
+  puts "Attaching user photos..."
+User.first(2).each_with_index do |user, index|
+  user.photo.attach(
+    io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/user_profiles/#{index + 1}p.jpg"), 
+    filename: "user_#{index + 1}.jpg"
+  )
+end
+    puts "User photos attached!"

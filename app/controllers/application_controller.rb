@@ -20,32 +20,14 @@ class ApplicationController < ActionController::API
     end
 
     def logout!
-        if current_user
-            current_user.reset_session_token!
-            session[:session_token] = nil
-            @current_user = nil
-        end
+        current_user.reset_session_token! if current_user
+        session[:session_token] = nil
+        @current_user = nil
     end
 
     def require_logged_in
         unless current_user
             render json: { message: 'You must be logged in to do this action.' }, status: :unauthorized 
-        end
-    end
-
-    #testing
-
-    def test
-        if params.has_key?(:login)
-            login!(User.first)
-        elsif params.has_key?(:logout)
-            logout!
-        end
-
-        if current_user
-            render json: { user: current_user.slice('id', 'email', 'session_token') }
-        else
-            render json: ['No current user']
         end
     end
 
