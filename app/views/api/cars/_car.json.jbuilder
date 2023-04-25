@@ -16,13 +16,14 @@ json.extract! car,
     :host_id,
     :created_at
   
-# if car.photos.attached?
-#   json.photos_url url_for(car.photos) 
-# end
 if car.photos.attached?
   photos = []
   car.photos.each do |photo|
     photos << url_for(photo)
   end
   json.photos_url photos
+end
+
+json.host do
+    json.partial! 'api/users/user', user: car.host
 end

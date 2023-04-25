@@ -14,6 +14,12 @@ function CarsSearchIndex() {
     dispatch(fetchCars());
   }, [dispatch]);
 
+  const monthYear = (dateString) => {
+    const dateObj = new Date(dateString);
+    const options = { year: "numeric", month: "long" };
+    return dateObj.toLocaleDateString("en-US", options);
+  };
+
   if (!cars) {
     return null;
   }
@@ -23,7 +29,9 @@ function CarsSearchIndex() {
       Hi from car index page!
       {cars.map((car, idx) => (
         <li key={idx}>
-          {`${car.id} ${car.make} ${car.model}`}
+          {`${car.id} ${car.make} ${car.model} Listed in: ${monthYear(
+            car.createdAt
+          )} Owned by ${car.host.firstName} ${car.host.lastName}`}
           <ul>
             {car.photosUrl &&
               car.photosUrl.map((photoUrl, picIdx) => (
@@ -32,6 +40,16 @@ function CarsSearchIndex() {
                 </li>
               ))}
           </ul>
+          <li>
+            {" "}
+            {car.host.photoUrl && (
+              <img
+                src={car.host.photoUrl}
+                alt="User profile picture"
+                className="user-show-image"
+              />
+            )}
+          </li>
           <br />
         </li>
       ))}
