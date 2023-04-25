@@ -37,11 +37,26 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
+  const profileImg = () => {
+    if (sessionUser.photoUrl) {
+      return (
+        <img
+          src={sessionUser.photoUrl}
+          alt="profile picture"
+          id="profile-img-button"
+        />
+      );
+    } else {
+      return <VscAccount />;
+    }
+  };
+
   return (
     <div id="profile-button-container">
       <button id="profile-button" className="nav-button" onClick={openMenu}>
         <SlMenu />
-        <VscAccount />
+        {/* <VscAccount /> */}
+        {profileImg()}
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
@@ -63,7 +78,10 @@ function ProfileButton({ user }) {
             className="hamburger-options"
             // onClick={() => <Redirect to="/profile" />}
           >
-            <a href={`/users/${sessionUser.id}`}>Profile</a>
+            <a href={`/users/${sessionUser.id}`}>
+              <VscAccount className="hamburger-icon" />
+              Profile
+            </a>
           </li>
           <li id="logout-drop" className="hamburger-options" onClick={logout}>
             <RxExit className="hamburger-icon" />

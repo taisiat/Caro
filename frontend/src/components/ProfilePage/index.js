@@ -22,18 +22,20 @@ function ProfilePage() {
     return null;
   }
 
+  const monthYear = (dateString) => {
+    const dateObj = new Date(dateString);
+    const options = { year: "numeric", month: "long" };
+    return dateObj.toLocaleDateString("en-US", options);
+  };
+
   return (
     <>
       Hi from user profile page!
-      <p>session user:</p>
-      <li>{`${sessionUser.firstName} ${sessionUser.lastName}`}</li>
-      <li>{sessionUser.email}</li>
-      <li>{sessionUser.phoneNumber}</li>
       <p>Whose profile page is this based on url?:</p>
       <li>{`${user.firstName} ${user.lastName}`}</li>
       <li>{user.email}</li>
       <li>{user.phoneNumber}</li>
-      <li>{user.createdAt}</li>
+      <li>{`Joined Caro: ${monthYear(user.createdAt)}`}</li>
       <li>{user.isSuperhost ? "superhost" : ""}</li>
       <li>
         {" "}

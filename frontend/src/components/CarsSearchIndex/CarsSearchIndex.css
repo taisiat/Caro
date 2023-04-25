@@ -1,0 +1,73 @@
+/* #car-index-container SearchLine {
+  top: 0;
+} */
+
+#search-buttons button {
+  background-color: white;
+  border: 1px solid #e7e7e8;
+  padding: 7px;
+  border-radius: 8px;
+  line-height: 12px;
+  font-size: 16px;
+  text-align: center;
+  color: #1c1919;
+  height: 30px;
+  transition: 0.3s;
+  margin-right: 10px;
+}
+
+#search-buttons {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 60px;
+  position: fixed;
+  top: 70px;
+  /* left: 100px; */
+  padding-left: 25px;
+  /* color: #1c1919; */
+  border-bottom: 1px solid #e2e0e0;
+  box-shadow: inset 0 -10px 10px -10px rgba(0, 0, 0, 0.2);
+  border-top: 1px solid #e2e0e0;
+  z-index: 1;
+  background-color: white;
+}
+
+#search-buttons p {
+  font-size: 12px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#search-buttons button:hover,
+#search-buttons button:focus {
+  background-color: #e7e7e8;
+  transition: 0.3s;
+}
+
+#car-search-summary {
+  position: absolute;
+  top: 150px;
+  font-family: "Mulish", sans-serif;
+  margin-left: 25px;
+}
+
+#car-search-summary h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: #1c1919;
+}
+
+#car-search-summary p {
+  font-size: 16px;
+  color: #aeacac;
+}
+
+#map-container {
+  position: absolute;
+  top: 130px;
+  left: 800px;
+  width: 100vw;
+  height: 100vh;
+  background-color: aquamarine;
+}

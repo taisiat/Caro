@@ -54,7 +54,7 @@ function Navigation() {
   }
 
   return (
-    <nav>
+    <nav id="nav-bar">
       <div id="nav-left">
         <a href="/">
           <img src={logo} alt="logo" id="logo" />

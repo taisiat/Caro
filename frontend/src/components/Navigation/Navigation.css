@@ -5,6 +5,9 @@ nav {
   height: 70px;
   background-color: white;
   color: rgba(20, 20, 20);
+  position: fixed;
+  width: 100vw;
+  z-index: 10;
 }
 
 #nav-left {
@@ -40,6 +43,9 @@ nav {
   display: flex;
   justify-content: space-between;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  z-index: 100;
 }
 
 #profile-button:focus {
@@ -54,7 +60,7 @@ nav {
   background-color: #fff;
   padding: 7px;
   list-style: none;
-  z-index: 10;
+  z-index: 300;
   border-radius: 8px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
   font-family: "Mulish", sans-serif;
@@ -94,4 +100,16 @@ nav {
 
 #logout-drop {
   padding: 12px;
+}
+
+#nav-bar {
+  border-bottom: 1px solid #ece9e9;
+}
+
+#profile-img-button {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  text-align: center;
 }
