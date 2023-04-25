@@ -9,6 +9,7 @@ import { VscAccount } from "react-icons/vsc";
 import { SlMenu } from "react-icons/sl";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector } from "react-redux";
+import { fetchUser } from "../../store/user";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -19,6 +20,10 @@ function ProfileButton({ user }) {
     if (showMenu) return;
     setShowMenu(true);
   };
+
+  useEffect(() => {
+    dispatch(fetchUser(sessionUser.id));
+  }, [dispatch, sessionUser]);
 
   useEffect(() => {
     if (!showMenu) return;

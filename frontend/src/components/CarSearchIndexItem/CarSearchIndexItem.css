@@ -1,0 +1,120 @@
+#car-index-item-container {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: top;
+  width: 740px;
+  height: 220px;
+  margin-bottom: 20px;
+  margin-left: 30px;
+  border: 1px solid #e2e0e0;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+#car-index-item-container:hover {
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.301);
+  transition: 0.3s;
+  background-color: #f7f7f7;
+}
+
+#car-image-container {
+  width: 45%;
+  height: 100%;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 10px;
+  background-color: pink;
+}
+
+#car-image-container .car-index-item-tile {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+
+  /* display: none; */
+}
+
+#car-name {
+  font-size: 25px;
+  margin-bottom: 10px;
+  color: #1c1919;
+  font-family: Mulish, sans-serif;
+}
+
+#car-tile-info {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  /* height: 90%; */
+  width: 60%;
+  /* margin-top: 20px; */
+  /* position: relative;
+  top: -60px; */
+  margin-top: 15px;
+}
+
+#car-tile-trips-and-host-info {
+  display: flex;
+}
+
+#car-tile-trips-and-host-info p {
+  margin-right: 10px;
+}
+
+#car-tile-location-info {
+  display: flex;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+#car-tile-location-info p {
+  margin-right: 10px;
+}
+
+#rating-star {
+  color: rgb(89, 60, 251);
+}
+
+#car-heart-price-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  align-items: right;
+  height: 85%;
+  width: 100px;
+  margin-top: 15px;
+  margin-right: 20px;
+  text-align: right;
+}
+
+#car-heart {
+  font-size: 30px;
+  text-align: center;
+  color: rgb(190, 188, 188);
+  transition: 0.25s;
+}
+
+#car-heart:hover {
+  color: red;
+  transition: 0.25s;
+}
+
+#car-price-container h3 {
+  font-size: 20px;
+  font-family: Mulish, sans-serif;
+  font-weight: 600;
+}
+
+#car-price-container p {
+  font-size: 13px;
+  font-family: Mulish, sans-serif;
+  margin-top: 10px;
+  text-decoration: underline;
+}
+
+.heart-clicked {
+  /* color: red; */
+  fill: red;
+}

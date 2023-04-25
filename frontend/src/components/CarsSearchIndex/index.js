@@ -6,6 +6,7 @@ import { fetchUser } from "../../store/user";
 import { fetchCars } from "../../store/cars";
 import SearchLine from "../SearchLine";
 import { IoOptionsOutline } from "react-icons/io5";
+import CarSearchIndexItem from "../CarSearchIndexItem";
 
 function CarsSearchIndex() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -23,7 +24,11 @@ function CarsSearchIndex() {
   };
 
   if (!cars) {
-    return null;
+    return (
+      <>
+        <img src="./no_car_found.png" alt="no cars found"></img>
+      </>
+    );
   }
 
   return (
@@ -43,43 +48,15 @@ function CarsSearchIndex() {
         </button>
       </div>
       <div id="car-search-summary">
-        <h2>200+ cars available</h2>
+        <h2>{`${cars ? cars.length : 0} cars available`}</h2>
         <p>These cars can be picked up in this city.</p>
       </div>
       <div id="map-container"></div>
-
-      {/* <div id="car-results-container">
+      <div id="car-tile-container">
         {cars.map((car, idx) => (
-          <li key={idx}>
-            {`${car.id} ${car.make} ${car.model} Listed in: ${monthYear(
-              car.createdAt
-            )} Owned by ${car.host.firstName} ${car.host.lastName}`}
-            <ul>
-              {car.photosUrl &&
-                car.photosUrl.map((photoUrl, picIdx) => (
-                  <li key={picIdx}>
-                    <img
-                      src={photoUrl}
-                      alt="Car picture"
-                      className="car-image"
-                    />
-                  </li>
-                ))}
-            </ul>
-            <li>
-              {" Lucky owner of this car:"}
-              {car.host.photoUrl && (
-                <img
-                  src={car.host.photoUrl}
-                  alt="User profile picture"
-                  className="user-show-image"
-                />
-              )}
-            </li>
-            <br />
-          </li>
+          <CarSearchIndexItem key={idx} className="car-tile" car={car} />
         ))}
-      </div> */}
+      </div>
     </div>
   );
 }

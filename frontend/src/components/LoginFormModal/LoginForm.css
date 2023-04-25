@@ -5,6 +5,7 @@
   /* height: 400px; */
   /* background-color: white; */
   /* padding: 35px; */
+  z-index: 10000;
 }
 
 #login-form {
