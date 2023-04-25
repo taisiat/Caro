@@ -25,6 +25,12 @@ class User < ApplicationRecord
 
   before_validation :ensure_session_token
   has_one_attached :photo
+  has_many :cars,
+    foreign_key: :host_id,
+    class_name: :Car,
+    dependent: :destroy,
+    inverse_of: :host
+
 
   def self.find_by_credentials(email, password)
     user = User.find_by(:email => email) #changed from User.find_by(email: email)

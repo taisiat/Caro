@@ -5,6 +5,7 @@ import SplashPage from "./components/SplashPage";
 import ProfilePage from "./components/ProfilePage";
 import TripsPage from "./components/TripsPage";
 import FavoritesPage from "./components/FavoritesPage";
+import CarsSearchIndex from "./components/CarsSearchIndex";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route path={`/:userId/favorites`}>
           <FavoritesPage />
+        </Route>
+        <Route path={`/cars`}>
+          <CarsSearchIndex />
         </Route>
         <Route path="/">
           <SplashPage />
