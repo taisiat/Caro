@@ -28,6 +28,7 @@
 #signup-button:hover {
   background-color: #3a1daa;
   transition: 0.25s ease-in-out;
+  cursor: pointer;
 }
 
 #name-inputs {
@@ -64,4 +65,8 @@ form {
   color: red;
   font-size: 11px;
   padding-bottom: 5px;
+}
+
+#other-option-container p {
+  cursor: pointer;
 }

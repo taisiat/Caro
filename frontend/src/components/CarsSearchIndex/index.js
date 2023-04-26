@@ -7,6 +7,7 @@ import { fetchCars } from "../../store/cars";
 import SearchLine from "../SearchLine";
 import { IoOptionsOutline } from "react-icons/io5";
 import CarSearchIndexItem from "../CarSearchIndexItem";
+import { Redirect } from "react-router-dom";
 
 function CarsSearchIndex() {
   const sessionUser = useSelector((state) => state.session.user);

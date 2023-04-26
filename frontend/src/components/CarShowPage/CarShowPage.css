@@ -145,6 +145,10 @@
   margin-right: 15px;
 }
 
+#car-show-host-container-profile:hover {
+  cursor: pointer;
+}
+
 #car-show-host-container-profile img {
   height: 100%;
   width: 100%;
@@ -165,6 +169,13 @@
 
 #car-show-host-container-info p {
   padding-top: 10px;
+}
+
+#car-show-host-container-info h3 {
+  font-size: 20px;
+  font-family: "Mulish", sans-serif;
+  font-weight: 500;
+  /* margin-bottom: 10px; */
 }
 
 #car-show-host-badges {
@@ -195,93 +206,6 @@
   text-transform: none;
 }
 
-#car-show-price-container {
-  border-bottom: 1px solid #ebebeb;
-  padding-bottom: 20px;
-}
-
-#car-show-price-container h3 {
-  font-size: 20px;
-  font-family: Mulish, sans-serif;
-  font-weight: 600;
-}
-
-#car-show-price-container p {
-  font-size: 13px;
-  font-family: Mulish, sans-serif;
-  margin-top: 10px;
-  text-decoration: underline;
-}
-
-#search-car-show-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: left;
-  width: 100%;
-  height: 160px;
-  color: #1c1919;
-  margin-top: 20px;
-}
-
-#search-car-show-container p {
-  font-size: 16px;
-  color: rgb(89, 60, 251);
-  margin-bottom: 5px;
-}
-
-#until-input-container-car-show,
-#from-input-container-car-show {
-  display: flex;
-  justify-content: space-between;
-
-  width: 100%;
-}
-
-#where-container-car-show,
-#from-container-car-show,
-#until-container-car-show {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: left;
-  /* border-bottom: 1px solid #e2e0e0; */
-  /* margin-right: 20px; */
-  margin-bottom: 20px;
-}
-
-.search-input-car-show {
-  margin: 0;
-  border: 1px solid #e2e0e0;
-  width: 100%;
-  /* padding: 5px; */
-  font-size: 16px;
-}
-
-#trip-insurance-input-container-car-show .search-input-car-show {
-  padding: 8px;
-  width: 100%;
-}
-
-#book-car-button {
-  width: 100%;
-  margin-top: 20px;
-  border-radius: 10px;
-  background-color: #593cfb;
-  color: white;
-  padding: 18px;
-  border: 0;
-  font-size: 18px;
-}
-
-#book-car-button:hover {
-  cursor: pointer;
-  background-color: #4d2cfb;
-  transition: 0.2s;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
-  transform: translateY(2px);
-}
-
 #img-sliders-container {
   display: flex;
   justify-content: space-between;
@@ -304,3 +228,8 @@
   transition-duration: 1s;
   transform: scale(1.1);
 } */
+
+.car-image-rotate-button:hover {
+  cursor: pointer;
+  color: rgb(213, 207, 244);
+}

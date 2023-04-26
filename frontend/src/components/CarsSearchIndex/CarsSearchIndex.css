@@ -43,6 +43,7 @@
 #search-buttons button:focus {
   background-color: #e7e7e8;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 #car-search-summary {

@@ -3,6 +3,8 @@ import { AiTwotoneStar } from "react-icons/ai";
 import { IoRibbonSharp } from "react-icons/io5";
 import { BiMapAlt } from "react-icons/bi";
 import FavHeart from "../FavHeart";
+import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const CarSearchIndexItem = ({ car }) => {
   //   const [heartClick, setHeartClick] = useState(false);
@@ -10,9 +12,13 @@ const CarSearchIndexItem = ({ car }) => {
   //   const handleHeartClick = () => {
   //     setHeartClick(!heartClick);
   //   };
+  const history = useHistory();
 
   return (
-    <div id="car-index-item-container">
+    <div
+      id="car-index-item-container"
+      onClick={() => history.push(`/cars/${car.id}`)}
+    >
       <div id="car-image-container">
         {car.photosUrl && (
           <img

@@ -8,6 +8,7 @@
 #car-heart:hover {
   color: red;
   transition: 0.25s;
+  cursor: pointer;
 }
 
 .heart-clicked {

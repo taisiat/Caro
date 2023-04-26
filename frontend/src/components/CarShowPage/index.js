@@ -15,6 +15,9 @@ import { IoRibbonSharp } from "react-icons/io5";
 import { MdCleanHands } from "react-icons/md";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { FaChevronCircleRight } from "react-icons/fa";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
+import CarBookForm from "../CarBookForm";
 
 function CarShowPage() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -23,6 +26,7 @@ function CarShowPage() {
   const dispatch = useDispatch();
   const [currentImg, setCurrentImg] = useState(0);
   const imageListLength = car?.photosUrl ? car.photosUrl.length : 0;
+  const history = useHistory();
 
   const handleImgSlider = (direction) => {
     handleChangeImage();
@@ -91,8 +95,14 @@ function CarShowPage() {
           })} */}
       </div>
       <div id="img-sliders-container">
-        <FaChevronCircleLeft onClick={() => handleImgSlider(-1)} />
-        <FaChevronCircleRight onClick={() => handleImgSlider(1)} />
+        <FaChevronCircleLeft
+          className="car-image-rotate-button"
+          onClick={() => handleImgSlider(-1)}
+        />
+        <FaChevronCircleRight
+          className="car-image-rotate-button"
+          onClick={() => handleImgSlider(1)}
+        />
       </div>
       <div id="car-show-info-booking-container">
         <div id="car-show-info">
@@ -125,7 +135,10 @@ function CarShowPage() {
           <div id="car-show-host-info">
             <h2 className="car-show-section-header">HOSTED BY</h2>
             <div id="car-show-host-container">
-              <div id="car-show-host-container-profile">
+              <div
+                id="car-show-host-container-profile"
+                onClick={() => history.push(`/users/${car.host.id}`)}
+              >
                 <img src={car.host.photoUrl} alt="Host profile picture" />
               </div>
               <div id="car-show-host-container-info">
@@ -177,60 +190,7 @@ function CarShowPage() {
           </div>
         </div>
         <div id="car-show-booking">
-          <div id="car-show-price-container">
-            <h3>{`$${car.dailyRate} / day`}</h3>
-            <p>{`$${car.dailyRate}  total`}</p>
-          </div>
-          <div id="search-car-show-container">
-            <form>
-              <div id="where-container-car-show">
-                <p>Pickup & return location</p>
-                {/* <input className="search-input-car-show"></input> */}
-                <h3>{car.location}</h3>
-              </div>
-              <div id="from-container-car-show">
-                <p>Trip start</p>
-                <div id="from-input-container-car-show">
-                  <input
-                    type="date"
-                    className="search-input-car-show search-date"
-                  ></input>
-                  <input type="time" className="search-input-car-show"></input>
-                </div>
-              </div>
-              <div id="until-container-car-show">
-                <p>Trip end</p>
-                <div id="until-input-container-car-show">
-                  <input
-                    type="date"
-                    className="search-input-car-show search-date"
-                  ></input>
-                  <input type="time" className="search-input-car-show"></input>
-                </div>
-              </div>
-              <div id="trip-insurance-car-show">
-                <p>Please select a protection plan</p>
-                <div id="trip-insurance-input-container-car-show">
-                  <select className="search-input-car-show">
-                    <option disabled>Plans:</option>
-                    <option>
-                      Premier: Chill out and drive happy with the maximum
-                      coverage plan.
-                    </option>
-                    <option>
-                      Standard: Hit the road confidently with solid protection.
-                    </option>
-                    <option>
-                      Minimum: Stay covered while pinching some pennies.
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <button id="book-car-button">Book this car</button>
-              </div>
-            </form>
-          </div>
+          <CarBookForm car={car} />
         </div>
       </div>
       <div id="car-show-map">

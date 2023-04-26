@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 950px;
+  width: 800px;
   height: 60px;
   position: fixed;
   top: 5px;
@@ -23,6 +23,7 @@
   border: 0;
   width: 100%;
   font-size: 16px;
+  margin: 0;
 }
 
 #until-input-container-line,
@@ -43,9 +44,9 @@
 }
 
 #where-container-line {
-  width: 35%;
+  width: 45%;
 }
 
-.search-input-line {
-  margin: 0;
+.search-input-line:hover {
+  cursor: pointer;
 }

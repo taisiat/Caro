@@ -31,6 +31,10 @@
   margin-left: -10px;
 }
 
+.search-input:hover {
+  cursor: pointer;
+}
+
 #until-input-container,
 #from-input-container {
   display: flex;
@@ -47,7 +51,7 @@
 }
 
 #where-container {
-  width: 35%;
+  width: 45%;
 }
 
 .search-divider {
@@ -69,6 +73,7 @@
   background-color: #3a1daa;
   cursor: pointer;
   transition: 0.25s ease-in-out;
+  cursor: pointer;
 }
 
 #search-icon {

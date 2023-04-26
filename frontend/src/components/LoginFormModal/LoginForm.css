@@ -43,6 +43,7 @@
 #demo-button:hover {
   background-color: #3a1daa;
   transition: 0.25s ease-in-out;
+  cursor: pointer;
 }
 
 #email-container {

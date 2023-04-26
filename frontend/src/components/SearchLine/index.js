@@ -12,14 +12,14 @@ const SearchLine = () => {
         <p>From</p>
         <div id="from-input-container-line">
           <input type="date" className="search-input-line search-date"></input>
-          <input type="time" className="search-input-line"></input>
+          {/* <input type="time" className="search-input-line"></input> */}
         </div>
       </div>
       <div id="until-container-line">
         <p>Until</p>
         <div id="until-input-container-line">
           <input type="date" className="search-input-line search-date"></input>
-          <input type="time" className="search-input-line"></input>
+          {/* <input type="time" className="search-input-line"></input> */}
         </div>
       </div>
     </div>
