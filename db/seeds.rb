@@ -774,25 +774,26 @@ Car.create!(
 end
 
   puts "Attaching user photos..."
-User.first(2).each_with_index do |user, index|
+User.order(:id).first(25).each_with_index do |user, index|
   user.photo.attach(
-    io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/user_profiles/#{index + 1}p.jpeg"), 
-    filename: "user_#{index + 1}.jpeg"
+    io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/user_profiles/#{index + 1}p.jpg"), 
+    filename: "user_#{index + 1}.jpg"
   )
 end
     puts "User photos attached!"
 
     puts "Attaching car photos..."
-Car.first(2).each_with_index do |car, index|
+Car.order(:id).first(25).each_with_index do |car, index|
+    (1..3).each do |i|
   car.photos.attach(
-    io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/car_pics/#{index + 1}_1.jpg"), 
-    filename: "car_#{index + 1}_1.jpg")
-  car.photos.attach(
-    io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/car_pics/#{index + 1}_2.jpg"), 
-    filename: "car_#{index + 1}_2.jpg")
-  car.photos.attach(
-    io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/car_pics/#{index + 1}_3.jpg"), 
-    filename: "car_#{index + 1}_3.jpg"
-  )
+    io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/car_pics/#{car.id}_#{i}.jpg"), 
+    filename: "car_#{car.id}_#{i}.jpg")
+#   car.photos.attach(
+#     io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/car_pics/#{index + 1}_2.jpg"), 
+#     filename: "car_#{index + 1}_2.jpg")
+#   car.photos.attach(
+#     io: URI.open("https://caro-seeds.s3.us-west-1.amazonaws.com/car_pics/#{index + 1}_3.jpg"), 
+#     filename: "car_#{index + 1}_3.jpg")
+  end
 end
     puts "Car photos attached!"
