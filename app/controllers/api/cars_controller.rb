@@ -4,11 +4,11 @@ class Api::CarsController < ApplicationController
     # wrap_parameters include: Car.attribute_names + [:photo], format: :multipart_form + ['doorsCount'] + ['seatsCount'] + ['dailyRate']
 
   def index
-    @cars = Car.all
+    @cars = Car.includes(:host).all
   end
 
   def show
-    @car = Car.find(params[:id])
+    @car = Car.includes(:host).find(params[:id])
   end
 
   def create

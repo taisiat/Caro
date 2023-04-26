@@ -6,6 +6,7 @@ import ProfilePage from "./components/ProfilePage";
 import TripsPage from "./components/TripsPage";
 import FavoritesPage from "./components/FavoritesPage";
 import CarsSearchIndex from "./components/CarsSearchIndex";
+import CarShowPage from "./components/CarShowPage";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
       <Switch>
         <Route path={`/users/:userId`}>
           <ProfilePage />
+        </Route>
+        <Route path={`/cars/:carId`}>
+          <CarShowPage />
         </Route>
         <Route path={`/:userId/trips`}>
           <TripsPage />

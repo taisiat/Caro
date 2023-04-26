@@ -38,12 +38,12 @@ h1 {
   color: rgb(20, 20, 20);
 }
 
-#splash-footer {
+/* #splash-footer {
   background-color: #f4f4f4;
   border-top: solid 1px #e7e7e8;
   height: 100px;
   width: 100vw;
-}
+} */
 
 .browse-by-tagline {
   font-size: 17px;

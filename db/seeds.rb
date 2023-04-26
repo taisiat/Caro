@@ -322,7 +322,13 @@ ApplicationRecord.transaction do
     seats_count: 5,
     category: "Electric",
     automatic: true,
-    description: "Rent my Tesla Model S and experience the future of driving today! This top-of-the-line electric vehicle is the perfect way to make a statement and arrive in style. With a sleek, modern design, the Model S is perfect for both business and pleasure. The car is equipped with autopilot, which means it practically drives itself, and it comes with a premium sound system that will make your road trip more enjoyable than ever before. Don't miss out on this incredible opportunity to experience one of the most innovative cars on the market today.",
+    description: "Hey there, car enthusiasts! I've got a sweet ride that's sure to turn heads and give you a smooth ride like no other. It's a Tesla Model S, and let me tell you, it's a game-changer in the world of electric cars. This sleek and stylish sedan boasts a luxurious interior with top-of-the-line technology, making it the perfect ride for those who want to travel in style and comfort.
+
+The Tesla Model S has a range of up to 400 miles on a single charge, which means you can go from LA to Vegas and back without needing to stop and recharge. With its smooth handling and quiet ride, you'll feel like you're floating on air as you cruise down the highway.
+
+This Model S is equipped with a panoramic sunroof that lets you take in the beautiful California sunshine, and its state-of-the-art sound system will have you jamming to your favorite tunes on the road. Plus, with its autopilot feature, you can sit back and relax as the car does most of the work for you.
+
+Overall, the Tesla Model S is a stunning and innovative car that's sure to impress anyone who sees it. Whether you're cruising through the city or taking a long road trip, this car will provide you with an unforgettable driving experience. So what are you waiting for? Rent this beauty today and hit the road in style!",
     guidelines: "Please return the car fully charged and in the same condition as you received it. No smoking, no pets, no racing, and please be mindful of the car's range when planning your trip.",
     daily_rate: 300,
     location: [37.7749, -122.4194],

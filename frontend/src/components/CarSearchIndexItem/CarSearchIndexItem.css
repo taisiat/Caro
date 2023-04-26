@@ -89,7 +89,7 @@
   text-align: right;
 }
 
-#car-heart {
+/* #car-heart {
   font-size: 30px;
   text-align: center;
   color: rgb(190, 188, 188);
@@ -99,7 +99,7 @@
 #car-heart:hover {
   color: red;
   transition: 0.25s;
-}
+} */
 
 #car-price-container h3 {
   font-size: 20px;
@@ -114,7 +114,6 @@
   text-decoration: underline;
 }
 
-.heart-clicked {
-  /* color: red; */
+/* .heart-clicked {
   fill: red;
-}
+} */

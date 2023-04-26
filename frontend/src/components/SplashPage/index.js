@@ -1,3 +1,4 @@
+import Footer from "../Footer";
 import SearchBar from "../SearchBar";
 import BrowseByDestinationComponent from "./BrowseByDestinationComponent";
 import BrowseByExperienceComponent from "./BrowseByExperienceComponent";
@@ -17,9 +18,7 @@ const SplashPage = () => {
       <SearchBar />
       <BrowseByDestinationComponent />
       <BrowseByExperienceComponent />
-      <div id="splash-footer">
-        <p>WIP - about TK</p>
-      </div>
+      <Footer />
     </>
   );
 };

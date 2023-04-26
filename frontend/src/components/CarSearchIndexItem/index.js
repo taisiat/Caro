@@ -2,15 +2,14 @@ import "./CarSearchIndexItem.css";
 import { AiTwotoneStar } from "react-icons/ai";
 import { IoRibbonSharp } from "react-icons/io5";
 import { BiMapAlt } from "react-icons/bi";
-import { FaHeart } from "react-icons/fa";
-import { useState } from "react";
+import FavHeart from "../FavHeart";
 
 const CarSearchIndexItem = ({ car }) => {
-  const [heartClick, setHeartClick] = useState(false);
+  //   const [heartClick, setHeartClick] = useState(false);
 
-  const handleHeartClick = () => {
-    setHeartClick(!heartClick);
-  };
+  //   const handleHeartClick = () => {
+  //     setHeartClick(!heartClick);
+  //   };
 
   return (
     <div id="car-index-item-container">
@@ -43,13 +42,14 @@ const CarSearchIndexItem = ({ car }) => {
         </div>
       </div>
       <div id="car-heart-price-container">
-        <div>
+        {/* <div>
           <FaHeart
             id="car-heart"
             className={heartClick ? "heart-clicked" : ""}
             onClick={handleHeartClick}
           />
-        </div>
+        </div> */}
+        <FavHeart />
 
         <div id="car-price-container">
           <h3>{`$${car.dailyRate}/day`}</h3>

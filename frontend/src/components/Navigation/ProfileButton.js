@@ -44,6 +44,9 @@ function ProfileButton({ user }) {
 
   const profileImg = () => {
     if (sessionUser.photoUrl) {
+      // let profilePicNoCache =
+      //   sessionUser.photoUrl + "?cache_buster=" + Date.now();
+      // console.log(profilePicNoCache);
       return (
         <img
           src={sessionUser.photoUrl}
