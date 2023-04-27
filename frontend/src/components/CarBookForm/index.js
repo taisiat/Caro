@@ -43,9 +43,8 @@ const CarBookForm = ({ car }) => {
       protectionPlan: insurance,
       totalPrice: tripPrice(),
     };
-    console.log(tripData, "TRIP DATA");
     dispatch(createTrip(tripData));
-    // history.push("/trips");
+    history.push("/trips");
   };
 
   return (

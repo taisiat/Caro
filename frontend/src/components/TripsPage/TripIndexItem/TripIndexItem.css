@@ -1,0 +1,84 @@
+#trips-item-container {
+  border-bottom: 1px solid #e7e7e8;
+  border-top: 1px solid #e7e7e8;
+  width: 100%;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  align-items: center;
+}
+
+#trip-car-image-container {
+  height: 100px;
+  width: 150px;
+  border-radius: 5px;
+}
+
+#trip-car-image-container:hover {
+  cursor: pointer;
+}
+
+#trip-car-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+#trip-stats-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Mulish", sans-serif;
+  margin-left: 15px;
+  height: 50px;
+  width: 60%;
+}
+
+#trip-stats-container:hover {
+  cursor: pointer;
+}
+
+#trip-stats-label {
+  font-size: 12px;
+  font-family: "Mulish", sans-serif;
+  color: gray;
+  text-align: left;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+#trip-stats-car {
+  font-size: 15px;
+  font-family: "Mulish", sans-serif;
+  text-align: left;
+  padding-top: 0px;
+}
+
+#trip-stats-dates {
+  font-size: 12px;
+  font-family: "Mulish", sans-serif;
+  text-align: left;
+}
+
+.trips-options-buttons {
+  border: 0;
+  background-color: #593cfb;
+  color: white;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 14px;
+  margin-left: 10px;
+  transition: 0.2s;
+}
+
+.trips-options-buttons:hover {
+  cursor: pointer;
+  background-color: #4730c7;
+  transition: 0.2s;
+}

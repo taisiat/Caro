@@ -2,5 +2,7 @@
   background-color: #f4f4f4;
   border-top: solid 1px #e7e7e8;
   height: 100px;
-  width: 100vw;
+  width: 100%;
+  /* position: absolute;
+  bottom: 0; */
 }

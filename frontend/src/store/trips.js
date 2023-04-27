@@ -2,6 +2,7 @@ import csrfFetch from "./csrf.js";
 
 const SET_TRIPS = "trips/setTrips";
 const ADD_TRIP = "trips/addTrip";
+const REMOVE_TRIP = "trips/removeTrip";
 
 const setTrips = (trips) => ({
   type: SET_TRIPS,
@@ -11,6 +12,11 @@ const setTrips = (trips) => ({
 export const addTrip = (trip) => ({
   type: ADD_TRIP,
   payload: trip,
+});
+
+export const removeTrip = (tripId) => ({
+  type: REMOVE_TRIP,
+  payload: tripId,
 });
 
 export const fetchTrips = () => async (dispatch) => {
@@ -38,6 +44,14 @@ export const createTrip = (tripFormData) => async (dispatch) => {
   return response;
 };
 
+export const deleteTrip = (tripId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/trips/${tripId}`, {
+    method: "DELETE",
+  });
+  dispatch(removeTrip(tripId));
+  return response;
+};
+
 function tripsReducer(state = {}, action) {
   switch (action.type) {
     case SET_TRIPS:
@@ -45,6 +59,10 @@ function tripsReducer(state = {}, action) {
     case ADD_TRIP:
       const trip = action.payload;
       return { ...state, [trip.id]: trip };
+    case REMOVE_TRIP:
+      const newState = { ...state };
+      delete newState[action.payload];
+      return newState;
     default:
       return state;
   }

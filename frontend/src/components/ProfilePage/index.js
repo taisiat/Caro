@@ -36,7 +36,7 @@ function ProfilePage() {
       // console.log(profilePicNoCache);
       return <img src={user.photoUrl} alt="profile picture" />;
     } else {
-      return <VscAccount />;
+      return <VscAccount id="profile-page-placeholder-img" />;
     }
   };
 
