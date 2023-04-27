@@ -1,0 +1,17 @@
+{
+  "name": "caro",
+  "version": "1.0.0",
+  "engines": {
+    "node": "v16.19.0"
+  },
+  "description": "Fullstack clone of Turo.",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

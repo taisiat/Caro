@@ -147,7 +147,6 @@ const TripShowPage = () => {
           </div>
           {errors &&
             errors.map((error) => {
-              console.log(error, "error in trip show page");
               if (error.includes("Start"))
                 return (
                   <p className="booking-error-msg" key={error}>

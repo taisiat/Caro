@@ -13,7 +13,6 @@ const TripIndexItem = ({ trip }) => {
     // const date = new Date(dateStr);
     // const options = { month: "long", day: "numeric" };
     // return date.toLocaleString("en-US", options);
-    console.log(dateStr);
     const date = new Date(dateStr);
     const day = date.getDate(dateStr);
     const month = date.toLocaleString("default", { month: "long" });
