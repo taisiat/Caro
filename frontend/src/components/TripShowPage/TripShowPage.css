@@ -1,0 +1,41 @@
+#trip-edit-form-container {
+  position: absolute;
+  top: 100px;
+  width: 900px;
+  left: Calc(50vw - 450px);
+  font-family: "Mulish", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+#delete-trip-button {
+  /* position: absolute; */
+  /* top: 0; */
+  /* right: 0; */
+  /* margin: 10px; */
+  background-color: #ff5a5f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  height: 60px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+#delete-trip-button:hover {
+  background-color: #ff3b3f;
+  /* transition: 0.25s ease-in-out; */
+  transition: 0.2s;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
+  transform: translateY(2px);
+  cursor: pointer;
+}
+
+#protection-plan-options-container {
+  display: flex;
+  flex-direction: column;
+}

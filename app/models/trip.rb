@@ -14,7 +14,7 @@
 #
 class Trip < ApplicationRecord
   validates :start_date, :end_date, presence: true
-  validates :protection_plan, inclusion: { in: ["Minimum", "Standard", "Premier"] }
+  validates :protection_plan, inclusion: { in: ["Minimum", "Standard", "Premier", "None"] }
   validates :total_price , numericality: { greater_than_or_equal_to: 0 }
   validate :end_date_after_start_date
 

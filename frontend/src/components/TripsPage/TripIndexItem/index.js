@@ -2,6 +2,8 @@ import "./TripIndexItem.css";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteTrip } from "../../../store/trips";
+import { fetchTrips } from "../../../store/trips";
+import { useEffect } from "react";
 
 const TripIndexItem = ({ trip }) => {
   const history = useHistory();
@@ -9,13 +11,14 @@ const TripIndexItem = ({ trip }) => {
 
   const dateFormat = (dateStr) => {
     const date = new Date(dateStr);
+    date.setUTCHours(0, 0, 0, 0);
     const options = { month: "long", day: "numeric" };
     return date.toLocaleDateString("en-US", options);
   };
 
-  //   const handleDelete = (tripId) => {
-  //     dispatch(deleteTrip(tripId));
-  //   };
+  useEffect(() => {
+    dispatch(fetchTrips());
+  }, [dispatch]);
 
   return (
     <div id="trips-item-container">
@@ -40,8 +43,19 @@ const TripIndexItem = ({ trip }) => {
         )} - ${dateFormat(trip.endDate)}`}</h3>
       </div>
       <div id="trip-buttons-container">
-        <button className="trips-options-buttons">View details</button>
-        <button className="trips-options-buttons">Cancel trip</button>
+        <button
+          className="trips-options-buttons"
+          onClick={() => history.push(`/trips/${trip.id}`)}
+        >
+          Update or delete trip
+        </button>
+        {/* <button
+        //   className="trips-options-buttons"
+          //   onClick={() => dispatch(deleteTrip(trip.id))}
+        //   onClick={() => handleTripDelete(trip.id)}
+        >
+          Cancel trip
+        </button> */}
       </div>
     </div>
   );

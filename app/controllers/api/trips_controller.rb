@@ -18,13 +18,13 @@ class Api::TripsController < ApplicationController
     end
 
     def index
-        @trips = Trip.includes(:driver).includes(:car).where(driver_id: current_user.id)
+        @trips = Trip.includes(:driver).includes(:car).where(driver_id: current_user.id).order(start_date: :desc)
     end
 
     def update
         @trip = current_user.trips.find(params[:id])
         if @trip&.update(trip_params)
-            render :index
+            render :show
         else
             render json: { message: 'Unauthorized' }, status: :unauthorized
         end
@@ -33,7 +33,8 @@ class Api::TripsController < ApplicationController
     def destroy
         @trip = current_user.trips.find(params[:id])
         if @trip&.destroy
-            render :index
+            # render :index
+            head :no_content
         else
             render json: { message: 'Unauthorized' }, status: :unauthorized
         end

@@ -15,21 +15,29 @@ function TripsPage() {
   const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const trips = useSelector((state) => Object.values(state.trips));
+  // const trips = useSelector((state) => Object.values(state.trips));
+  const trips = useSelector((state) =>
+    Object.values(state.trips).sort(
+      (a, b) => new Date(b.startDate) - new Date(a.startDate)
+    )
+  );
+
+  // const [tripsList, setTripsList] = useState([]);
 
   useEffect(() => {
     dispatch(fetchTrips());
   }, [dispatch, sessionUser]);
 
-  const handleDelete = (tripId) => {
-    dispatch(deleteTrip(tripId));
-  };
+  // const handleTripDelete = (tripId) => {
+  //   dispatch(deleteTrip(tripId));
+  //   setTripsList(tripsList.filter((trip) => trip.id !== tripId));
+  // };
 
-  const monthYear = (dateString) => {
-    const dateObj = new Date(dateString);
-    const options = { year: "numeric", month: "long" };
-    return dateObj.toLocaleDateString("en-US", options);
-  };
+  // const monthYear = (dateString) => {
+  //   const dateObj = new Date(dateString);
+  //   const options = { year: "numeric", month: "long" };
+  //   return dateObj.toLocaleDateString("en-US", options);
+  // };
   if (!sessionUser) return <Redirect to="/" />;
 
   const pageContent = () => {
@@ -49,11 +57,9 @@ function TripsPage() {
           <h1 id="trips-header">Trips</h1>
 
           {trips.map((trip) => (
-            <TripIndexItem
-              trip={trip}
-              key={trip.id}
-              onClick={() => handleDelete(trip.id)}
-            />
+            <>
+              <TripIndexItem trip={trip} key={trip.id}></TripIndexItem>
+            </>
           ))}
         </>
       );

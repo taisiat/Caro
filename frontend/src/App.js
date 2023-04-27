@@ -7,6 +7,7 @@ import TripsPage from "./components/TripsPage";
 import FavoritesPage from "./components/FavoritesPage";
 import CarsSearchIndex from "./components/CarsSearchIndex";
 import CarShowPage from "./components/CarShowPage";
+import TripShowPage from "./components/TripShowPage";
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
         </Route>
         <Route path={`/cars/:carId`}>
           <CarShowPage />
+        </Route>
+        <Route path={`/trips/:tripId`}>
+          <TripShowPage />
         </Route>
         <Route path={`/trips`}>
           <TripsPage />

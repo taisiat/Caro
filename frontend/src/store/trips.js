@@ -34,9 +34,18 @@ export const fetchTrip = (tripId) => async (dispatch) => {
 };
 
 export const createTrip = (tripFormData) => async (dispatch) => {
-  console.log("inside createtrip before csrfFetch");
   const response = await csrfFetch("/api/trips", {
     method: "POST",
+    body: JSON.stringify(tripFormData),
+  });
+  const data = await response.json();
+  dispatch(addTrip(data.trip));
+  return response;
+};
+
+export const updateTrip = (tripFormData) => async (dispatch) => {
+  const response = await csrfFetch(`/api/trips/${tripFormData.tripId}`, {
+    method: "PATCH",
     body: JSON.stringify(tripFormData),
   });
   const data = await response.json();
