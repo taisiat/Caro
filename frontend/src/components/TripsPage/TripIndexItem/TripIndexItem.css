@@ -34,7 +34,7 @@
   justify-content: space-between;
   font-family: "Mulish", sans-serif;
   margin-left: 15px;
-  height: 50px;
+  height: 60px;
   width: 60%;
 }
 
@@ -58,7 +58,8 @@
   padding-top: 0px;
 }
 
-#trip-stats-dates {
+#trip-stats-dates,
+#trip-stats-pp {
   font-size: 12px;
   font-family: "Mulish", sans-serif;
   text-align: left;

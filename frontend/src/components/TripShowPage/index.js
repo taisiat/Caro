@@ -62,10 +62,15 @@ const TripShowPage = () => {
     return <div>Loading...</div>;
   }
 
+  if (trip.driverId !== sessionUser.id) {
+    history.push("/");
+    return null;
+  }
+
   const tripPrice = () => {
     const start = new Date(startDate);
     const end = new Date(endDate);
-    const days = (end - start) / (1000 * 60 * 60 * 24);
+    const days = (end - start) / (1000 * 60 * 60 * 24) + 1;
     const protectionPrice = protectionPrices[selectedAnswer] * days;
     return days * trip.car.dailyRate + protectionPrice;
   };

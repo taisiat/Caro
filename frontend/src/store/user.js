@@ -28,6 +28,17 @@ export const fetchUser = (userId) => async (dispatch) => {
   return response;
 };
 
+// export const fetchUserRedirect = (userId) => async (dispatch) => {
+
+//   const response = await csrfFetch(`/api/users/${userId}`);
+//   if (!response.ok) {
+//           history.push("/")
+// }
+//   const data = await response.json();
+//   dispatch(addUser(data.user));
+//   return response;
+// };
+
 function usersReducer(state = {}, action) {
   switch (action.type) {
     case SET_USERS:

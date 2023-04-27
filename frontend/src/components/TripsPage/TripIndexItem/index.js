@@ -10,11 +10,23 @@ const TripIndexItem = ({ trip }) => {
   const dispatch = useDispatch();
 
   const dateFormat = (dateStr) => {
+    // const date = new Date(dateStr);
+    // const options = { month: "long", day: "numeric" };
+    // return date.toLocaleString("en-US", options);
+    console.log(dateStr);
     const date = new Date(dateStr);
-    date.setUTCHours(0, 0, 0, 0);
-    const options = { month: "long", day: "numeric" };
-    return date.toLocaleDateString("en-US", options);
+    const day = date.getDate(dateStr);
+    const month = date.toLocaleString("default", { month: "long" });
+    return `${month} ${day}`;
   };
+
+  //   const dateFormat = (dateStr) => {
+  //     const date = new Date(dateStr);
+  //     const utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+  //     utcDate.setUTCHours(0, 0, 0, 0);
+  //     const options = { month: "long", day: "numeric" };
+  //     return utcDate.toLocaleDateString("en-US", options);
+  //   };
 
   useEffect(() => {
     dispatch(fetchTrips());
@@ -41,6 +53,7 @@ const TripIndexItem = ({ trip }) => {
         <h3 id="trip-stats-dates">{`${dateFormat(
           trip.startDate
         )} - ${dateFormat(trip.endDate)}`}</h3>
+        <h3 id="trip-stats-pp">{`Protection plan: ${trip.protectionPlan}`}</h3>
       </div>
       <div id="trip-buttons-container">
         <button

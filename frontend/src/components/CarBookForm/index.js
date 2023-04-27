@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { createTrip } from "../../store/trips";
 import { __esModule } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
+import LoginForm from "../LoginFormModal/LoginForm";
 
 const CarBookForm = ({ car }) => {
   const sessionUser = useSelector((state) => state.session.user);
@@ -27,7 +28,7 @@ const CarBookForm = ({ car }) => {
   const tripPrice = () => {
     const start = new Date(startDate);
     const end = new Date(endDate);
-    const days = (end - start) / (1000 * 60 * 60 * 24);
+    const days = (end - start) / (1000 * 60 * 60 * 24) + 1;
     const protectionPrice = protectionPrices[selectedAnswer] * days;
     return days * car.dailyRate + protectionPrice;
   };
@@ -35,9 +36,14 @@ const CarBookForm = ({ car }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
+    // if (!sessionUser) {
+    //   history.push("/login");
+    //   return;
+    // }
     if (!sessionUser) {
-      history.push("/login");
+      setErrors(["Please log in or sign up to book a trip."]);
       return;
+      //   return <LoginForm />;
     }
     const tripData = {
       carId,
@@ -217,6 +223,14 @@ const CarBookForm = ({ car }) => {
         <div>
           <button id="book-car-button">Book this car</button>
         </div>
+        {errors.map((error) => {
+          if (error.includes("Please log in or sign up"))
+            return (
+              <p className="booking-error-msg" key={error}>
+                {error}
+              </p>
+            );
+        })}
       </form>
     </>
   );

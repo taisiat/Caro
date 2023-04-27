@@ -33,7 +33,6 @@ class Api::TripsController < ApplicationController
     def destroy
         @trip = current_user.trips.find(params[:id])
         if @trip&.destroy
-            # render :index
             head :no_content
         else
             render json: { message: 'Unauthorized' }, status: :unauthorized
