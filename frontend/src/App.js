@@ -19,7 +19,7 @@ function App() {
         <Route path={`/cars/:carId`}>
           <CarShowPage />
         </Route>
-        <Route path={`/:userId/trips`}>
+        <Route path={`/trips`}>
           <TripsPage />
         </Route>
         <Route path={`/:userId/favorites`}>

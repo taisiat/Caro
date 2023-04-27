@@ -30,6 +30,11 @@ class User < ApplicationRecord
     class_name: :Car,
     dependent: :destroy,
     inverse_of: :host
+  has_many :trips,
+    foreign_key: :driver_id,
+    class_name: :Trip,
+    dependent: :destroy,
+    inverse_of: :driver
 
 
   def self.find_by_credentials(email, password)

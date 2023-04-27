@@ -75,7 +75,7 @@ function ProfileButton({ user }) {
             </a>
           </li>
           <li id="trips-drop" className="hamburger-options">
-            <a href="/:userID/trips">
+            <a href="/trips">
               <GiRoad className="hamburger-icon" />
               Trips
             </a>

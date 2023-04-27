@@ -34,6 +34,12 @@ class Car < ApplicationRecord
     foreign_key: :host_id,
     class_name: :User
 
+  has_many :trips,
+    foreign_key: :car_id,
+    class_name: :Trip,
+    dependent: :destroy
+
+
   # def average_rating
   #   average = reviews.average(:rating)
   #   average && average.round(1)
