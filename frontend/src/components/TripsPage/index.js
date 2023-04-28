@@ -70,7 +70,9 @@ function TripsPage() {
     <>
       <SearchLine />
       <div id="trips-page-container">{pageContent()}</div>
-      <Footer />
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }

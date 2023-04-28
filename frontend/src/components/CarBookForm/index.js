@@ -48,12 +48,13 @@ const CarBookForm = ({ car }) => {
     const tripData = {
       carId,
       //   driverId: sessionUser.id,
-      startDate,
-      endDate,
+      startDate: new Date(startDate.toLocaleString()).toISOString(),
+      endDate: new Date(endDate.toLocaleString()).toISOString(),
       protectionPlan: selectedAnswer,
       totalPrice: tripPrice(),
     };
 
+    console.log(tripData, "tripData");
     try {
       await dispatch(createTrip(tripData));
       history.push("/trips");
@@ -75,6 +76,13 @@ const CarBookForm = ({ car }) => {
 
   const handleAnswerClick = (e) => {
     setSelectedAnswer(e.target.value);
+  };
+
+  const handleDateChange = (dateVal) => {
+    // const localDate = new Date(dateVal).toLocaleDateString();
+    return new Date(dateVal).toLocaleDateString();
+    // if (type === "start") setStartDate(localDate);
+    // else setEndDate(localDate);
   };
 
   return (
@@ -232,6 +240,22 @@ const CarBookForm = ({ car }) => {
             );
         })}
       </form>
+
+      {errors.map((error) => {
+        if (error.includes("Trip dates overlap"))
+          return (
+            <p className="booking-error-msg" key={error}>
+              {error}
+            </p>
+          );
+      })}
+      {errors.map((error) => {
+        return (
+          <p className="booking-error-msg" key={error}>
+            {error}
+          </p>
+        );
+      })}
     </>
   );
 };

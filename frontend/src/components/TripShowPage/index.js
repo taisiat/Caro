@@ -11,14 +11,19 @@ import { fetchTrip } from "../../store/trips";
 import { fetchUser } from "../../store/user";
 import SearchLine from "../SearchLine";
 import Footer from "../Footer";
+import Spinner from "../Spinner";
 
 const TripShowPage = () => {
   const formattedDate = (rawDate) => {
     const date = new Date(rawDate);
-    return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10);
+    return new Date(date.getTime()).toISOString().substr(0, 10);
   };
+  // const formattedDate = (rawDate) => {
+  //   const date = new Date(rawDate);
+  //   return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+  //     .toISOString()
+  //     .substr(0, 10);
+  // };
 
   const { tripId } = useParams();
   const trip = useSelector((state) => state.trips[tripId]);
@@ -40,6 +45,8 @@ const TripShowPage = () => {
     if (trip) {
       setStartDate(formattedDate(trip.startDate));
       setEndDate(formattedDate(trip.endDate));
+      //   setStartDate(trip.startDate);
+      //   setEndDate(trip.endDate);
       setSelectedAnswer(trip.protectionPlan);
     }
   }, [trip]);
@@ -59,7 +66,7 @@ const TripShowPage = () => {
   const isLoading = !trip || !sessionUser;
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   if (trip.driverId !== sessionUser.id) {
@@ -85,8 +92,8 @@ const TripShowPage = () => {
     const tripData = {
       tripId: trip.id,
       carId: trip.car.id,
-      startDate,
-      endDate,
+      startDate: new Date(startDate.toLocaleString()).toISOString(),
+      endDate: new Date(endDate.toLocaleString()).toISOString(),
       protectionPlan: selectedAnswer,
       totalPrice: tripPrice(),
     };
@@ -120,7 +127,11 @@ const TripShowPage = () => {
     <>
       <SearchLine />
       <div id="trip-edit-form-container">
-        {errors && errors.map((error) => <li key={error}>{error}</li>)}
+        {/* {errors &&
+          errors.map((error) => {
+            console.log(errors, "errorsssss");
+            return <li key={error}>{error}</li>;
+          })} */}
         <div id="car-show-price-container">
           <h3>{`$${trip.car.dailyRate} / day`}</h3>
           {startDate && endDate && selectedAnswer ? (
@@ -142,10 +153,10 @@ const TripShowPage = () => {
               type="date"
               className="search-input-car-show search-date"
               value={startDate}
-              onChange={(e) => setStartDate(formattedDate(e.target.value))}
+              onChange={(e) => setStartDate(e.target.value)}
             ></input>
           </div>
-          {errors &&
+          {/* {errors &&
             errors.map((error) => {
               if (error.includes("Start"))
                 return (
@@ -153,17 +164,17 @@ const TripShowPage = () => {
                     {error}
                   </p>
                 );
-            })}
+            })} */}
           <p className="form-field-title">Trip end</p>
           <div id="until-input-container-car-show">
             <input
               type="date"
               className="search-input-car-show search-date"
               value={endDate}
-              onChange={(e) => setEndDate(formattedDate(e.target.value))}
+              onChange={(e) => setEndDate(e.target.value)}
             ></input>
           </div>
-          {errors &&
+          {/* {errors &&
             errors.map((error) => {
               if (error.includes("End"))
                 return (
@@ -171,7 +182,7 @@ const TripShowPage = () => {
                     {error}
                   </p>
                 );
-            })}
+            })} */}
 
           <h2 className="form-field-title">Please select a protection plan</h2>
           <div id="protection-plan-options-container">
@@ -231,7 +242,7 @@ const TripShowPage = () => {
               None: Decline Caro's coverage. Price: $0 / day
             </label>
           </div>
-          {errors &&
+          {/* {errors &&
             errors.map((error) => {
               if (error.includes("Protection"))
                 return (
@@ -239,7 +250,7 @@ const TripShowPage = () => {
                     Please select a protection option from the above
                   </p>
                 );
-            })}
+            })} */}
           <div>
             <button id="book-car-button">Update this booking</button>
           </div>
@@ -250,7 +261,24 @@ const TripShowPage = () => {
           </button>
         </div>
       </div>
-      <Footer />
+      {/* {errors.map((error) => {
+        if (error.includes("Trip dates overlap"))
+          return (
+            <p className="booking-error-msg" key={error}>
+              {error}
+            </p>
+          );
+      })} */}
+      {errors.map((error) => {
+        return (
+          <p className="booking-error-msg" key={error}>
+            {error}
+          </p>
+        );
+      })}
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 };

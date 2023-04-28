@@ -11,6 +11,7 @@ import { VscVerified } from "react-icons/vsc";
 import { VscUnverified } from "react-icons/vsc";
 import { IoRibbonSharp } from "react-icons/io5";
 import { MdCleanHands } from "react-icons/md";
+import Footer from "../Footer";
 
 function ProfilePage() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -118,6 +119,9 @@ function ProfilePage() {
           </div>
         </div>
       </div>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }

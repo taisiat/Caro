@@ -8,6 +8,7 @@ import FavoritesPage from "./components/FavoritesPage";
 import CarsSearchIndex from "./components/CarsSearchIndex";
 import CarShowPage from "./components/CarShowPage";
 import TripShowPage from "./components/TripShowPage";
+import Spinner from "./components/Spinner";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
         </Route>
         <Route path={`/cars`}>
           <CarsSearchIndex />
+        </Route>
+        <Route path={`/spinner`}>
+          <Spinner />
         </Route>
         <Route path="/">
           <SplashPage />
