@@ -23,6 +23,8 @@ class Trip < ApplicationRecord
   belongs_to :driver, class_name: :User, foreign_key: :driver_id
   belongs_to :car, class_name: :Car, foreign_key: :car_id
 
+  # get pacific start date, another for end date
+
   private
 
   def end_date_after_start_date
@@ -34,7 +36,7 @@ class Trip < ApplicationRecord
 
   def no_overlapping_bookings
      if car.trips.where.not(id: id).where('start_date < ? AND end_date > ?', end_date, start_date).exists?
-      errors.add(["Trip dates overlap with an existing booking for the same car, please try another date range"])
+      errors.add(:Trip, "dates overlap with an existing booking for the same car, please try another date range")
     end
   end
 end

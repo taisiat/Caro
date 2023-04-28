@@ -18,13 +18,19 @@ const TripIndexItem = ({ trip }) => {
   //     // const month = date.toLocaleString("default", { month: "long" });
   //     // return `${month} ${day}`;
   // };
-  const dateFormat = (dateStr) => {
-    const utcDate = new Date(dateStr);
-    const localDate = new Date(
-      utcDate.getTime() - utcDate.getTimezoneOffset() * 60000
-    );
+  const dateFormat = (utcDateString) => {
+    // const utcDate = new Date(dateStr);
+    // const localDate = new Date(
+    //   utcDate.getTime() - utcDate.getTimezoneOffset() * 60000
+    // );
     const options = { month: "long", day: "numeric" };
-    return localDate.toLocaleString("en-US", options);
+    // return localDate.toLocaleString("en-US", options);
+    const utcDate = new Date(utcDateString);
+    const localDate = new Date(
+      utcDate.getTime() + utcDate.getTimezoneOffset() * 60000
+    );
+    const localDateString = localDate.toLocaleString("en-US", options);
+    return localDateString;
   };
 
   //   const dateFormat = (dateStr) => {

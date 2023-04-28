@@ -39,6 +39,9 @@ class Car < ApplicationRecord
     class_name: :Trip,
     dependent: :destroy
 
+  has_many :reviews,
+    dependent: :destroy
+
 
   # def average_rating
   #   average = reviews.average(:rating)

@@ -35,6 +35,11 @@ class User < ApplicationRecord
     class_name: :Trip,
     dependent: :destroy,
     inverse_of: :driver
+  has_many :reviews,
+    foreign_key: :driver_id,
+    class_name: :Review,
+    dependent: :destroy,
+    inverse_of: :driver
 
 
   def self.find_by_credentials(email, password)

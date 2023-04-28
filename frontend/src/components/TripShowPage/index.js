@@ -33,6 +33,7 @@ const TripShowPage = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState([]);
+  const [overlapError, setOverlapError] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const protectionPrices = {
     Premier: 50,
@@ -108,6 +109,16 @@ const TripShowPage = () => {
       } catch {
         data = await error.text();
       }
+      //   console.log(data, "data", data.errors, "errors");
+      //   if (data?.errors.overlap) {
+      //     setOverlapError(data.errors.overlap);
+      //     setErrors(Object.values(data.errors));
+      //   } else if (data?.errors) {
+      //     setErrors(data.errors);
+      //   }
+      //   //   if (data?.errors) setErrors(data.errors);
+      //   else if (data) setErrors([data]);
+      //   else setErrors([error.statusText]);
       if (data?.errors) setErrors(data.errors);
       else if (data) setErrors([data]);
       else setErrors([error.statusText]);
@@ -127,11 +138,6 @@ const TripShowPage = () => {
     <>
       <SearchLine />
       <div id="trip-edit-form-container">
-        {/* {errors &&
-          errors.map((error) => {
-            console.log(errors, "errorsssss");
-            return <li key={error}>{error}</li>;
-          })} */}
         <div id="car-show-price-container">
           <h3>{`$${trip.car.dailyRate} / day`}</h3>
           {startDate && endDate && selectedAnswer ? (
@@ -156,7 +162,7 @@ const TripShowPage = () => {
               onChange={(e) => setStartDate(e.target.value)}
             ></input>
           </div>
-          {/* {errors &&
+          {errors &&
             errors.map((error) => {
               if (error.includes("Start"))
                 return (
@@ -164,7 +170,7 @@ const TripShowPage = () => {
                     {error}
                   </p>
                 );
-            })} */}
+            })}
           <p className="form-field-title">Trip end</p>
           <div id="until-input-container-car-show">
             <input
@@ -174,7 +180,7 @@ const TripShowPage = () => {
               onChange={(e) => setEndDate(e.target.value)}
             ></input>
           </div>
-          {/* {errors &&
+          {errors &&
             errors.map((error) => {
               if (error.includes("End"))
                 return (
@@ -182,7 +188,7 @@ const TripShowPage = () => {
                     {error}
                   </p>
                 );
-            })} */}
+            })}
 
           <h2 className="form-field-title">Please select a protection plan</h2>
           <div id="protection-plan-options-container">
@@ -242,7 +248,7 @@ const TripShowPage = () => {
               None: Decline Caro's coverage. Price: $0 / day
             </label>
           </div>
-          {/* {errors &&
+          {errors &&
             errors.map((error) => {
               if (error.includes("Protection"))
                 return (
@@ -250,7 +256,7 @@ const TripShowPage = () => {
                     Please select a protection option from the above
                   </p>
                 );
-            })} */}
+            })}
           <div>
             <button id="book-car-button">Update this booking</button>
           </div>
@@ -261,24 +267,18 @@ const TripShowPage = () => {
           </button>
         </div>
       </div>
-      {/* {errors.map((error) => {
+      {errors.map((error) => {
         if (error.includes("Trip dates overlap"))
           return (
             <p className="booking-error-msg" key={error}>
               {error}
             </p>
           );
-      })} */}
-      {errors.map((error) => {
-        return (
-          <p className="booking-error-msg" key={error}>
-            {error}
-          </p>
-        );
       })}
-      <footer>
+
+      {/* <footer>
         <Footer />
-      </footer>
+      </footer> */}
     </>
   );
 };

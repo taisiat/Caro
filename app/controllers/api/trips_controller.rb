@@ -26,7 +26,9 @@ class Api::TripsController < ApplicationController
         if @trip&.update(trip_params)
             render :show
         else
-            render json: { message: 'Unauthorized' }, status: :unauthorized
+            # render json: { message: 'Unauthorized' }, status: :unauthorized
+            render json: { errors: @trip.errors.full_messages }, status: :unprocessable_entity
+
         end
     end
 

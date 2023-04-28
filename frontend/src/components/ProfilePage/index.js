@@ -119,9 +119,9 @@ function ProfilePage() {
           </div>
         </div>
       </div>
-      <footer>
+      {/* <footer>
         <Footer />
-      </footer>
+      </footer> */}
     </>
   );
 }
