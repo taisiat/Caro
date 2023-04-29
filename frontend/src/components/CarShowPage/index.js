@@ -59,6 +59,22 @@ function CarShowPage() {
     }, 500);
   };
 
+  const avgCarRating = () => {
+    const avg =
+      (parseFloat(car.avgCleanlinessRating) +
+        parseFloat(car.avgCommunicationRating) +
+        parseFloat(car.avgMaintenanceRating) +
+        parseFloat(car.avgConvenienceRating) +
+        parseFloat(car.avgAccuracyRating)) /
+      5.0;
+    console.log(avg, "avg");
+    if (avg) {
+      return avg.toFixed(2);
+    } else {
+      return "not yet rated";
+    }
+  };
+
   return (
     <div id="car-show-container">
       <SearchLine />
@@ -108,10 +124,12 @@ function CarShowPage() {
         <div id="car-show-info">
           <div id="car-title">
             <h1>{`${car.make} ${car.model} ${car.year}`}</h1>
-            <div id="car-show-mini-rating">
-              <h3>X</h3>
+            <div className="rating-and-star-container">
+              <h3 id="car-show-mini-rating">{avgCarRating()}</h3>
               <AiTwotoneStar id="car-show-rating-star" />
-              <p>(X trips)</p>
+              <p>{`(${car.tripsCount} ${
+                car.tripsCount === 1 ? "trip" : "trips"
+              })`}</p>
             </div>
           </div>
           <div id="car-show-stats">
@@ -149,7 +167,7 @@ function CarShowPage() {
                   </p>
                 )}
                 <div id="car-show-host-trips-joined">
-                  <p>X trips</p>
+                  <p>{`${car.host.tripsCount} trips`}</p>
                   <p>{`Joined ${monthYear(car.host.createdAt)}`}</p>
                 </div>
               </div>
@@ -177,15 +195,105 @@ function CarShowPage() {
             <h2 className="car-show-section-header">DESCRIPTION</h2>
             <p className="car-host-paragraph">{car.description}</p>
           </div>
-          <div className="car-show-section">
+          {/* <div className="car-show-section">
             <h2 className="car-show-section-header">FEATURES</h2>
-          </div>
+          </div> */}
           <div className="car-show-section">
             <h2 className="car-show-section-header">RATINGS AND REVIEWS</h2>
-            <div id="car-show-mini-rating">
-              <h3>X</h3>
+            <div className="rating-and-star-container">
+              <h3 id="car-show-big-rating">{avgCarRating()}</h3>
               <AiTwotoneStar id="car-show-rating-star" />
-              <p>(X ratings)</p>
+            </div>
+            <p>{`(${car.reviewsCount} ${
+              car.reviewsCount === 1 ? "review" : "reviews"
+            })`}</p>
+            <div id="ratings-bars-container">
+              <div className="ratings-bars-subcontainer">
+                <h2 className="bar-container-label">Cleanliness</h2>
+                <div className="bar-container">
+                  <div className="rating-bar-gray"></div>
+                  <div
+                    className="rating-bar"
+                    id="rating-bar--cleanliness"
+                    style={{
+                      "--cleanliness-rating": parseFloat(
+                        car.avgCleanlinessRating || 0
+                      ),
+                    }}
+                  />
+                </div>
+                <h2>{parseFloat(car.avgCleanlinessRating || 0).toFixed(1)}</h2>
+              </div>
+
+              <div className="ratings-bars-subcontainer">
+                <h2 className="bar-container-label">Maintenance</h2>
+                <div className="bar-container">
+                  <div className="rating-bar-gray"></div>
+                  <div
+                    className="rating-bar"
+                    id="rating-bar--maintenance"
+                    style={{
+                      "--maintenance-rating": parseFloat(
+                        car.avgMaintenanceRating || 0
+                      ),
+                    }}
+                  />
+                </div>
+                <h2>{parseFloat(car.avgMaintenanceRating || 0).toFixed(1)}</h2>
+              </div>
+
+              <div className="ratings-bars-subcontainer">
+                <h2 className="bar-container-label">Communication</h2>
+                <div className="bar-container">
+                  <div className="rating-bar-gray"></div>
+                  <div
+                    className="rating-bar"
+                    id="rating-bar--communication"
+                    style={{
+                      "--communication-rating": parseFloat(
+                        car.avgCommunicationRating || 0
+                      ),
+                    }}
+                  />
+                </div>
+                <h2>
+                  {parseFloat(car.avgCommunicationRating || 0).toFixed(1)}
+                </h2>
+              </div>
+
+              <div className="ratings-bars-subcontainer">
+                <h2 className="bar-container-label">Convenience</h2>
+                <div className="bar-container">
+                  <div className="rating-bar-gray"></div>
+                  <div
+                    className="rating-bar"
+                    id="rating-bar--convenience"
+                    style={{
+                      "--convenience-rating": parseFloat(
+                        car.avgConvenienceRating || 0
+                      ),
+                    }}
+                  />
+                </div>
+                <h2>{parseFloat(car.avgConvenienceRating || 0).toFixed(1)}</h2>
+              </div>
+
+              <div className="ratings-bars-subcontainer">
+                <h2 className="bar-container-label">Accuracy</h2>
+                <div className="bar-container">
+                  <div className="rating-bar-gray"></div>
+                  <div
+                    className="rating-bar"
+                    id="rating-bar--accuracy"
+                    style={{
+                      "--accuracy-rating": parseFloat(
+                        car.avgAccuracyRating || 0
+                      ),
+                    }}
+                  />
+                </div>
+                <h2>{parseFloat(car.avgAccuracyRating || 0).toFixed(1)}</h2>
+              </div>
             </div>
           </div>
         </div>

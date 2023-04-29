@@ -83,7 +83,7 @@
 
 #review-textarea {
   width: 100%;
-  height: 165px;
+  height: 130px;
   border-radius: 10px;
   border: 1px solid #e2e0e0;
   padding: 10px;
@@ -116,4 +116,11 @@
 
 #review-title-tag {
   margin-bottom: 10px;
+}
+
+.create-review-error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

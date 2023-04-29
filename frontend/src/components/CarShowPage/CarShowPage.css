@@ -83,7 +83,7 @@
   /* margin-top: 10px; */
 }
 
-#car-show-mini-rating h3 {
+#car-show-mini-rating {
   font-size: 20px;
   font-family: "Mulish", sans-serif;
   font-weight: 500;
@@ -232,4 +232,102 @@
 .car-image-rotate-button:hover {
   cursor: pointer;
   color: rgb(213, 207, 244);
+}
+
+#car-show-big-rating {
+  font-size: 40px;
+  margin-bottom: 5px;
+}
+
+.rating-and-star-container {
+  display: flex;
+  align-items: center;
+}
+
+.ratings-bars-subcontainer {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+}
+
+#ratings-bars-container {
+  margin-top: 30px;
+  /* width: 100px; */
+}
+
+.rating-bar-gray {
+  background-color: #e0e0e0;
+  height: 10px;
+  width: 100%;
+  /* width: calc(var(--cleanliness-rating) / 5 * 100%); */
+
+  border-radius: 5px;
+  /* margin-left: 15px; */
+  /* margin-right: 15px; */
+}
+#rating-bar--cleanliness {
+  background-color: #593cfb;
+  height: 10px;
+  /* width: 100%; */
+  width: calc(var(--cleanliness-rating) / 5 * 100%);
+
+  border-radius: 5px;
+  /* margin-left: 15px; */
+  /* margin-right: 15px; */
+  position: relative;
+  top: -10px;
+}
+
+#rating-bar--maintenance {
+  background-color: #593cfb;
+  height: 10px;
+  /* width: 100%; */
+  width: calc(var(--maintenance-rating) / 5 * 100%);
+
+  border-radius: 5px;
+  /* margin-left: 15px; */
+  /* margin-right: 15px; */
+  position: relative;
+  top: -10px;
+}
+
+#rating-bar--communication {
+  background-color: #593cfb;
+  height: 10px;
+  width: calc(var(--communication-rating) / 5 * 100%);
+  border-radius: 5px;
+  position: relative;
+  top: -10px;
+}
+
+#rating-bar--convenience {
+  background-color: #593cfb;
+  height: 10px;
+  width: calc(var(--convenience-rating) / 5 * 100%);
+  border-radius: 5px;
+  position: relative;
+  top: -10px;
+}
+
+#rating-bar--accuracy {
+  background-color: #593cfb;
+  height: 10px;
+  width: calc(var(--accuracy-rating) / 5 * 100%);
+  border-radius: 5px;
+  position: relative;
+  top: -10px;
+}
+
+.bar-container {
+  width: 430px;
+  margin-top: 10px;
+}
+
+#rating-bar--cleanliness {
+  width: calc(var(--cleanliness-rating) / 5 * 100%);
+}
+
+.bar-container-label {
+  width: 100px;
 }

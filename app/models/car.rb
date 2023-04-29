@@ -48,4 +48,49 @@ class Car < ApplicationRecord
   #   average && average.round(1)
   # end
 
+  # def average_star_rating
+  #   average = (
+  #     reviews.average(:cleanliness_rating) +
+  #     reviews.average(:maintenance_rating) +
+  #     reviews.average(:communication_rating) +
+  #     reviews.average(:convenience_rating) +
+  #     reviews.average(:accuracy_rating)
+  #   ) / 5.0
+  #   average && average.round(1)
+  # end
+
+  def avg_cleanliness_rating
+    average = reviews.average(:cleanliness_rating)
+    average && average.round(2)
+  end
+
+  def avg_maintenance_rating
+    average = reviews.average(:maintenance_rating)
+    average && average.round(2)
+  end
+
+  def avg_communication_rating
+    average = reviews.average(:communication_rating)
+    average && average.round(2)
+  end
+
+  def avg_convenience_rating  
+    average = reviews.average(:convenience_rating)
+    average && average.round(2)
+  end
+
+  def avg_accuracy_rating
+    average = reviews.average(:accuracy_rating)
+    average && average.round(2)
+  end
+
+  def trips_count
+    trips.length
+  end
+
+  def reviews_count
+    reviews.length
+  end
+
+
 end

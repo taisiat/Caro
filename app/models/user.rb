@@ -51,6 +51,14 @@ class User < ApplicationRecord
     self.update!(session_token: generate_unique_session_token)
     self.session_token
   end
+
+  def trips_count
+    total_trips = trips.length
+    cars.each do |car|
+      total_trips += car.trips.length
+    end
+    total_trips
+  end
   
   private
 

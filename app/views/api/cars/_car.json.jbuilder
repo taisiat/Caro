@@ -14,7 +14,15 @@ json.extract! car,
     :location,
     :active,
     :host_id,
-    :created_at
+    :created_at,
+    # :average_star_rating
+    :avg_cleanliness_rating,
+    :avg_maintenance_rating,
+    :avg_communication_rating,
+    :avg_convenience_rating,
+    :avg_accuracy_rating,
+    :trips_count,
+    :reviews_count
   
 if car.photos.attached?
   photos = []

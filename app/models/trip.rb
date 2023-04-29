@@ -23,7 +23,7 @@ class Trip < ApplicationRecord
   belongs_to :driver, class_name: :User, foreign_key: :driver_id
   belongs_to :car, class_name: :Car, foreign_key: :car_id
 
-  # get pacific start date, another for end date
+
 
   private
 

@@ -76,11 +76,47 @@ const ReviewCreateForm = () => {
     }
   };
 
-  const onChange = (number) => {
+  //   const onChange = (number,type) => {
+  //     if (type === "overall") {
+  //         setStarRating(parseInt(number))}
+  //     else if (type === "cleanliness") {setCleanlinessRating(parseInt(number))}
+  //     else if (type === "maintenance") {setMaintenanceRating(parseInt(number))}
+  //     else if (type === "communication") {setCommunicationRating(parseInt(number))}
+  //     else if (type === "convenience") {setConvenienceRating(parseInt(number))}
+  //     else if (type === "accuracy") {setAccuracyRating(parseInt(number))}
+  //   };
+
+  const onChangeOverallRating = (number) => {
     setStarRating(parseInt(number));
   };
 
+  const onChangeCleanlinessRating = (number) => {
+    setCleanlinessRating(parseInt(number));
+  };
+
+  const onChangeMaintenanceRating = (number) => {
+    setMaintenanceRating(parseInt(number));
+  };
+
+  const onChangeCommunicationRating = (number) => {
+    setCommunicationRating(parseInt(number));
+  };
+
+  const onChangeConvenienceRating = (number) => {
+    setConvenienceRating(parseInt(number));
+  };
+
+  const onChangeAccuracyRating = (number) => {
+    setAccuracyRating(parseInt(number));
+  };
+
   if (!car) return <Spinner />;
+
+  if (car && sessionUser)
+    if (car.hostId === sessionUser.id) {
+      history.push(`/cars/${car.id}`);
+      return;
+    }
 
   return (
     <>
@@ -97,16 +133,16 @@ const ReviewCreateForm = () => {
         <form onSubmit={handleSubmit} id="create-review-form">
           <div id="review-inputs">
             <div id="star-inputs-container">
-              <div className="star-and-title-container">
+              {/* <div className="star-and-title-container">
                 <p className="form-field-title-stars">Overall rating</p>
                 <div id="form-input-overall-rating">
                   <StarRatingInput
                     disabled={false}
-                    onChange={onChange}
+                    onChange={onChangeOverallRating}
                     rating={starRating}
                   />
                 </div>
-              </div>
+              </div> */}
 
               <div className="star-and-title-container">
                 <p className="form-field-title-stars">Cleanliness</p>
@@ -114,8 +150,8 @@ const ReviewCreateForm = () => {
                   <StarRatingInput
                     disabled={false}
                     s
-                    onChange={onChange}
-                    rating={starRating}
+                    onChange={onChangeCleanlinessRating}
+                    rating={cleanlinessRating}
                   />
                 </div>
               </div>
@@ -126,8 +162,8 @@ const ReviewCreateForm = () => {
                   <StarRatingInput
                     disabled={false}
                     s
-                    onChange={onChange}
-                    rating={starRating}
+                    onChange={onChangeMaintenanceRating}
+                    rating={maintenanceRating}
                   />
                 </div>
               </div>
@@ -138,8 +174,8 @@ const ReviewCreateForm = () => {
                   <StarRatingInput
                     disabled={false}
                     s
-                    onChange={onChange}
-                    rating={starRating}
+                    onChange={onChangeCommunicationRating}
+                    rating={communicationRating}
                   />
                 </div>
               </div>
@@ -150,8 +186,8 @@ const ReviewCreateForm = () => {
                   <StarRatingInput
                     disabled={false}
                     s
-                    onChange={onChange}
-                    rating={starRating}
+                    onChange={onChangeConvenienceRating}
+                    rating={convenienceRating}
                   />
                 </div>
               </div>
@@ -162,8 +198,8 @@ const ReviewCreateForm = () => {
                   <StarRatingInput
                     disabled={false}
                     s
-                    onChange={onChange}
-                    rating={starRating}
+                    onChange={onChangeAccuracyRating}
+                    rating={accuracyRating}
                   />
                 </div>
               </div>
@@ -181,13 +217,15 @@ const ReviewCreateForm = () => {
               </div>
             </div>
           </div>
+          {errors.map((error) => (
+            <p key={error} className="create-review-error">
+              {error}
+            </p>
+          ))}
           <div>
             <button id="create-review-button">Publish car review</button>
           </div>
         </form>
-        {errors.map((error) => (
-          <li key={error}>{error}</li>
-        ))}
       </div>
     </>
   );

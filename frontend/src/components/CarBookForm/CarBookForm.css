@@ -124,6 +124,10 @@ input[type="radio"] {
   font-size: 14px;
 }
 
+.booking-protection-button:hover {
+  background-color: #d0d0d0;
+}
+
 .booking-protection-button.active {
   background-color: #817e84;
   color: #fff;

@@ -1,6 +1,5 @@
 json.extract! review, 
     :id,      
-    :star_rating,
     :cleanliness_rating,
     :maintenance_rating,
     :communication_rating,

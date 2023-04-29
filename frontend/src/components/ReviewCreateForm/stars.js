@@ -22,7 +22,6 @@ const StarRatingInput = ({ rating, disabled, onChange }) => {
         className={activeRating >= number ? "filled" : "empty"}
         {...props}
       >
-        {/* <i className="fa fa-paw"></i> */}
         <AiFillStar />
       </div>
     );
