@@ -9,7 +9,8 @@ json.extract! review,
     :driver_id,
     :car_id,
     :created_at,
-    :updated_at
+    :updated_at,
+    :average_rating
 
 json.driver do
     json.partial! 'api/users/user', user: review.driver

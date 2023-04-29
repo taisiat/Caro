@@ -1,9 +1,9 @@
-import "./ReviewCreateForm.css";
+import "./ReviewUpdateForm.css";
 import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { createReview } from "../../store/reviews";
+import { updateReview } from "../../store/reviews";
 import {
   Redirect,
   __esModule,
@@ -11,13 +11,14 @@ import {
 import { useDispatch } from "react-redux";
 import CarSearchIndexItem from "../CarSearchIndexItem";
 import { fetchUser } from "../../store/user";
+import { fetchReview } from "../../store/reviews";
 import { useEffect } from "react";
 import SearchLine from "../SearchLine";
-import StarRatingInput from "./stars";
-import { fetchCar } from "../../store/cars";
+import StarRatingInput from "../ReviewCreateForm/stars";
 import Spinner from "../Spinner";
+import { deleteReview } from "../../store/reviews";
 
-const ReviewCreateForm = () => {
+const ReviewUpdateForm = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -29,20 +30,40 @@ const ReviewCreateForm = () => {
   const [accuracyRating, setAccuracyRating] = useState(5);
   const [comment, setComment] = useState("");
   const [errors, setErrors] = useState([]);
-  const { carId } = useParams();
-  const car = useSelector((state) => state.cars[carId]);
+  const { reviewId } = useParams();
+  const review = useSelector((state) => state.reviews[reviewId]);
 
   useEffect(() => {
-    dispatch(fetchCar(carId));
-  }, [dispatch, carId]);
+    dispatch(fetchReview(reviewId));
+    // dispatch(fetchUser(sessionUser.id));
+  }, [dispatch, reviewId]);
 
-  //   useEffect(() => {
-  //     dispatch(fetchUser(sessionUser.id));
-  //   }, [dispatch]);
+  useEffect(() => {
+    if (review) {
+      setStarRating(review.starRating);
+      setCleanlinessRating(review.cleanlinessRating);
+      setMaintenanceRating(review.maintenanceRating);
+      setCommunicationRating(review.communicationRating);
+      setConvenienceRating(review.convenienceRating);
+      setAccuracyRating(review.accuracyRating);
+      setComment(review.comment);
+    }
+  }, [review]);
 
   if (!sessionUser) {
     history.push("/");
     return;
+  }
+
+  const isLoading = !review || !sessionUser;
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (sessionUser && review.driverId !== sessionUser.id) {
+    history.push("/");
+    return null;
   }
 
   const handleSubmit = async (e) => {
@@ -50,7 +71,8 @@ const ReviewCreateForm = () => {
     setErrors([]);
 
     const reviewData = {
-      carId: car.id,
+      //   carId: car.id,
+      reviewId: review.id,
       starRating,
       cleanlinessRating,
       maintenanceRating,
@@ -61,8 +83,8 @@ const ReviewCreateForm = () => {
     };
 
     try {
-      await dispatch(createReview(reviewData));
-      history.push(`/cars/${car.id}`);
+      await dispatch(updateReview(reviewData));
+      history.push(`/cars/${review.car.id}`);
     } catch (error) {
       let data;
       try {
@@ -76,19 +98,9 @@ const ReviewCreateForm = () => {
     }
   };
 
-  //   const onChange = (number,type) => {
-  //     if (type === "overall") {
-  //         setStarRating(parseInt(number))}
-  //     else if (type === "cleanliness") {setCleanlinessRating(parseInt(number))}
-  //     else if (type === "maintenance") {setMaintenanceRating(parseInt(number))}
-  //     else if (type === "communication") {setCommunicationRating(parseInt(number))}
-  //     else if (type === "convenience") {setConvenienceRating(parseInt(number))}
-  //     else if (type === "accuracy") {setAccuracyRating(parseInt(number))}
+  //   const onChangeOverallRating = (number) => {
+  //     setStarRating(parseInt(number));
   //   };
-
-  const onChangeOverallRating = (number) => {
-    setStarRating(parseInt(number));
-  };
 
   const onChangeCleanlinessRating = (number) => {
     setCleanlinessRating(parseInt(number));
@@ -110,40 +122,34 @@ const ReviewCreateForm = () => {
     setAccuracyRating(parseInt(number));
   };
 
-  if (!car) return <Spinner />;
+  //   if (!car) return <Spinner />;
 
-  if (car && sessionUser)
-    if (car.hostId === sessionUser.id) {
-      history.push(`/cars/${car.id}`);
-      return;
-    }
+  //   if (car && sessionUser)
+  //     if (car.hostId === sessionUser.id) {
+  //       history.push(`/cars/${car.id}`);
+  //       return;
+  //     }
+
+  const handleReviewDelete = () => {
+    dispatch(deleteReview(review.id));
+    history.push(`/cars/${review.car.id}`);
+  };
 
   return (
     <>
       <SearchLine />
       <div id="create-review-container">
-        <h2 id="review-header">Leave a review for this car</h2>
+        <h2 id="review-header">Revise your review for this car</h2>
         <div id="create-review-car-tile-container">
           <CarSearchIndexItem
             className="car-tile"
             id="car-tile-review"
-            car={car}
+            car={review.car}
           />
         </div>
         <form onSubmit={handleSubmit} id="create-review-form">
           <div id="review-inputs">
             <div id="star-inputs-container">
-              {/* <div className="star-and-title-container">
-                <p className="form-field-title-stars">Overall rating</p>
-                <div id="form-input-overall-rating">
-                  <StarRatingInput
-                    disabled={false}
-                    onChange={onChangeOverallRating}
-                    rating={starRating}
-                  />
-                </div>
-              </div> */}
-
               <div className="star-and-title-container">
                 <p className="form-field-title-stars">Cleanliness</p>
                 <div id="form-input-cleanliness">
@@ -224,12 +230,17 @@ const ReviewCreateForm = () => {
             </p>
           ))}
           <div>
-            <button id="create-review-button">Publish car review</button>
+            <button id="create-review-button">Update car review</button>
           </div>
         </form>
+        <div id="delete-review-button-container">
+          <button id="delete-review-button" onClick={handleReviewDelete}>
+            Delete car review
+          </button>
+        </div>
       </div>
     </>
   );
 };
 
-export default ReviewCreateForm;
+export default ReviewUpdateForm;

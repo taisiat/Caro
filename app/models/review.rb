@@ -25,7 +25,7 @@ class Review < ApplicationRecord
   belongs_to :car
 
   def average_rating
-    average = (cleanliness_rating + maintenance_rating + communication_rating + convenience_rating + accuracy_rating) / 5
+    average = (cleanliness_rating + maintenance_rating + communication_rating + convenience_rating + accuracy_rating) / 5.0
     average && average.round(1)
   end
 

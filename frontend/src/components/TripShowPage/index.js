@@ -54,7 +54,7 @@ const TripShowPage = () => {
 
   useEffect(() => {
     dispatch(fetchTrip(tripId));
-    dispatch(fetchUser(sessionUser.id));
+    // dispatch(fetchUser(sessionUser.id));
   }, [dispatch, tripId]);
 
   //   if (!trip) return "nothing";
@@ -64,13 +64,18 @@ const TripShowPage = () => {
   //     return;
   //   }
 
+  if (!sessionUser) {
+    history.push("/");
+    return;
+  }
+
   const isLoading = !trip || !sessionUser;
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  if (trip.driverId !== sessionUser.id) {
+  if (sessionUser && trip.driverId !== sessionUser.id) {
     history.push("/");
     return null;
   }

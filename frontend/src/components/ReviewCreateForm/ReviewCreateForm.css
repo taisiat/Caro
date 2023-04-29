@@ -89,6 +89,8 @@
   padding: 10px;
   box-sizing: border-box;
   color: rgb(21, 20, 20);
+  font-family: "Mulish", sans-serif;
+  font-size: 16px;
 }
 
 #review-summary-container {

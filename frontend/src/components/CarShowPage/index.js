@@ -18,11 +18,15 @@ import { FaChevronCircleRight } from "react-icons/fa";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useHistory } from "react-router-dom";
 import CarBookForm from "../CarBookForm";
+import { fetchReviews } from "../../store/reviews";
+import Spinner from "../Spinner";
+import ReviewIndexItem from "../ReviewIndexItem";
 
 function CarShowPage() {
   const sessionUser = useSelector((state) => state.session.user);
   const { carId } = useParams();
   const car = useSelector((state) => state.cars[carId]);
+  const reviews = useSelector((state) => Object.values(state.reviews));
   const dispatch = useDispatch();
   const [currentImg, setCurrentImg] = useState(0);
   const imageListLength = car?.photosUrl ? car.photosUrl.length : 0;
@@ -40,8 +44,16 @@ function CarShowPage() {
     dispatch(fetchCar(carId));
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(fetchReviews());
+  }, [dispatch]);
+
+  //   if (!car) {
+  //     return null;
+  //   }
+
   if (!car) {
-    return null;
+    return <Spinner />;
   }
 
   const monthYear = (dateString) => {
@@ -72,6 +84,17 @@ function CarShowPage() {
       return avg.toFixed(2);
     } else {
       return "not yet rated";
+    }
+  };
+
+  const reviewsSection = () => {
+    if (reviews) {
+      return reviews.map((review, idx) => {
+        if (review.car.id === car.id)
+          return <ReviewIndexItem review={review} key={idx} />;
+      });
+    } else {
+      return <p>No reviews yet</p>;
     }
   };
 
@@ -167,7 +190,10 @@ function CarShowPage() {
                   </p>
                 )}
                 <div id="car-show-host-trips-joined">
-                  <p>{`${car.host.tripsCount} trips`}</p>
+                  {/* <p>{`${car.host.tripsCount} trips`}</p> */}
+                  <p>{`${car.host.tripsCount} ${
+                    car.host.tripsCount === 1 ? "trip" : "trips"
+                  }`}</p>
                   <p>{`Joined ${monthYear(car.host.createdAt)}`}</p>
                 </div>
               </div>
@@ -195,9 +221,10 @@ function CarShowPage() {
             <h2 className="car-show-section-header">DESCRIPTION</h2>
             <p className="car-host-paragraph">{car.description}</p>
           </div>
-          {/* <div className="car-show-section">
-            <h2 className="car-show-section-header">FEATURES</h2>
-          </div> */}
+          <div className="car-show-section">
+            <h2 className="car-show-section-header">GUIDELINES</h2>
+            <p className="car-host-paragraph">{car.guidelines}</p>
+          </div>
           <div className="car-show-section">
             <h2 className="car-show-section-header">RATINGS AND REVIEWS</h2>
             <div className="rating-and-star-container">
@@ -293,6 +320,28 @@ function CarShowPage() {
                   />
                 </div>
                 <h2>{parseFloat(car.avgAccuracyRating || 0).toFixed(1)}</h2>
+              </div>
+            </div>
+            <div className="car-show-section">
+              <h2 className="car-show-section-header">REVIEWS</h2>
+              <div id="reviews-index-container">
+                {/* {reviews &&
+                  reviews.map((review, idx) => {
+                    if (review.car.id === car.id)
+                      return <ReviewIndexItem review={review} key={idx} />;
+                  })}
+                {!reviews && <p>No reviews yet</p>} */}
+                {/* {reviewsSection} */}
+                {reviews &&
+                reviews.filter((review) => review.car.id === car.id).length >
+                  0 ? (
+                  reviews.map((review, idx) => {
+                    if (review.car.id === car.id)
+                      return <ReviewIndexItem review={review} key={idx} />;
+                  })
+                ) : (
+                  <p>No reviews yet</p>
+                )}
               </div>
             </div>
           </div>

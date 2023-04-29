@@ -179,12 +179,13 @@
 }
 
 #car-show-host-badges {
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 #car-show-superhost-clean {
   display: flex;
   margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 #car-show-superhost-clean p {

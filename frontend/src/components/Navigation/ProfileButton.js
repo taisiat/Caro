@@ -26,6 +26,10 @@ function ProfileButton({ user }) {
   }, [dispatch, sessionUser]);
 
   useEffect(() => {
+    dispatch(fetchUser(sessionUser.id));
+  }, [dispatch, sessionUser]);
+
+  useEffect(() => {
     if (!showMenu) return;
 
     const closeMenu = () => {

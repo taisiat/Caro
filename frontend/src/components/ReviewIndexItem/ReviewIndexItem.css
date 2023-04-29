@@ -1,0 +1,97 @@
+#review-index-item-container {
+  border-bottom: 1px solid #e2e0e0;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  display: flex;
+}
+#review-driver-image-container {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+#reviewer-profile-pic {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+#reviewer-profile-pic:hover {
+  cursor: pointer;
+}
+
+#reviewer-name-joined-info {
+  display: flex;
+  /* justify-content: space-between; */
+  width: 100%;
+  margin-bottom: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+#reviewer-name-p {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+#review-create-p {
+  color: #7b7b7b;
+  font-size: 14px;
+}
+
+#review-text {
+  font-size: 16px;
+  line-height: 25px;
+}
+
+.review-star-filled {
+  color: rgb(89, 60, 251);
+  /* font-size: 30px; */
+}
+
+.review-star-empty {
+  color: #e2e0e0;
+  /* font-size: 30px; */
+}
+
+#review-star {
+  /* border: 1px solid rgb(89, 60, 251); */
+  font-size: 30px;
+}
+
+#review-star-rating-show {
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 10px; */
+}
+
+#star-and-delete-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#revise-own-review-button {
+  background-color: rgb(217, 188, 253);
+  border: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  color: #383737;
+  font-size: 12px;
+  /* margin-right: 10px; */
+  cursor: pointer;
+  margin: 0;
+}
+
+#revise-own-review-button:hover {
+  cursor: pointer;
+  background-color: rgb(171, 92, 250);
+  color: white;
+}
