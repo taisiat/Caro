@@ -41,6 +41,11 @@ class User < ApplicationRecord
     dependent: :destroy,
     inverse_of: :driver
 
+  has_many :reviews_for_own_cars,
+    through: :cars,
+    source: :reviews
+
+
 
   def self.find_by_credentials(email, password)
     user = User.find_by(:email => email) #changed from User.find_by(email: email)
@@ -59,6 +64,18 @@ class User < ApplicationRecord
     end
     total_trips
   end
+
+  def user_rating  
+    return 0.00 if reviews_for_own_cars.length == 0
+    return 1/5.00*(reviews_for_own_cars.average(:communication_rating).round(2) +
+    reviews_for_own_cars.average(:cleanliness_rating).round(2) +
+    reviews_for_own_cars.average(:convenience_rating).round(2) +
+    reviews_for_own_cars.average(:accuracy_rating).round(2) +
+    reviews_for_own_cars.average(:maintenance_rating).round(2))
+  end
+
+
+
   
   private
 

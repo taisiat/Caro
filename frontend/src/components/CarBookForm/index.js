@@ -231,9 +231,21 @@ const CarBookForm = ({ car }) => {
               </p>
             );
         })}
-        <div>
+
+        {sessionUser ? (
+          <div>
+            <button id="book-car-button">Book this car</button>
+          </div>
+        ) : (
+          <div>
+            <div id="cant-book-car-button">Book this car</div>
+            <p id="cant-book-car-mssg">Log in or sign up to book this car</p>
+          </div>
+        )}
+
+        {/* <div>
           <button id="book-car-button">Book this car</button>
-        </div>
+        </div> */}
         {errors.map((error) => {
           if (error.includes("Please log in or sign up"))
             return (

@@ -160,6 +160,7 @@
   display: flex;
   align-items: center;
   margin-top: 15px;
+  margin-bottom: 50px;
 }
 
 .car-show-section-header {
@@ -167,6 +168,9 @@
   margin-bottom: 10px;
 }
 
+#car-show-host-container-info {
+  margin-left: 10px;
+}
 #car-show-host-container-info p {
   padding-top: 10px;
 }
@@ -196,6 +200,10 @@
   font-size: 30px;
   color: #593cfb;
 }
+
+/* #car-show-host-badges {
+  margin-top: 20px;
+} */
 
 .car-show-section {
   margin-top: 40px;
@@ -331,4 +339,13 @@
 
 .bar-container-label {
   width: 100px;
+}
+
+#profile-and-user-star-container-car-show {
+  position: relative;
+  top: 0px;
+}
+
+#ratings-bars-user-rating-container {
+  margin-top: 20px;
 }

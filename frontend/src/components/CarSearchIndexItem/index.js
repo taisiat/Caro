@@ -15,6 +15,22 @@ const CarSearchIndexItem = ({ car }) => {
   };
   const history = useHistory();
 
+  const avgCarRating = () => {
+    const avg =
+      (parseFloat(car.avgCleanlinessRating) +
+        parseFloat(car.avgCommunicationRating) +
+        parseFloat(car.avgMaintenanceRating) +
+        parseFloat(car.avgConvenienceRating) +
+        parseFloat(car.avgAccuracyRating)) /
+      5.0;
+    console.log(avg, "avg");
+    if (avg) {
+      return avg.toFixed(2);
+    } else {
+      return "not yet rated";
+    }
+  };
+
   return (
     <div
       id="car-index-item-container"
@@ -35,8 +51,9 @@ const CarSearchIndexItem = ({ car }) => {
       <div id="car-tile-info" onClick={() => history.push(`/cars/${car.id}`)}>
         <h2 id="car-name">{`${car.make} ${car.model} ${car.year}`}</h2>
         <div id="car-tile-trips-and-host-info">
-          <p>
-            X <AiTwotoneStar id="rating-star" /> (X trips)
+          <p id="car-tile-rating-trips-container">
+            {avgCarRating()} <AiTwotoneStar id="rating-star" />{" "}
+            {`(${car.tripsCount} ${car.tripsCount === 1 ? "trip" : "trips"})`}
           </p>
           {car.host.isSuperhost && (
             <p>

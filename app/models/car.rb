@@ -43,6 +43,9 @@ class Car < ApplicationRecord
     dependent: :destroy
 
 
+
+
+
   # def average_rating
   #   average = reviews.average(:rating)
   #   average && average.round(1)

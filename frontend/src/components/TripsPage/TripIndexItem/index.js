@@ -75,6 +75,21 @@ const TripIndexItem = ({ trip }) => {
         >
           Update or delete trip
         </button>
+        {trip.endDate < new Date().toISOString() &&
+        trip.driver.id !== trip.car.host.id ? (
+          <button
+            className="trips-options-buttons"
+            onClick={() => history.push(`/cars/${trip.car.id}/reviews`)}
+          >
+            Review car
+          </button>
+        ) : null}
+        {/* <button
+          className="trips-options-buttons"
+          onClick={() => history.push(`/cars/${trip.car.id}/reviews`)}
+        >
+          Review car
+        </button> */}
         {/* <button
         //   className="trips-options-buttons"
           //   onClick={() => dispatch(deleteTrip(trip.id))}

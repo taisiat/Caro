@@ -119,3 +119,17 @@
 /* .heart-clicked {
   fill: red;
 } */
+
+#car-tile-rating-trips-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* width: 100%; */
+  /* height: 160px; */
+  /* color: #1c1919; */
+  /* margin-top: 20px; */
+}
+
+#rating-star {
+  margin-right: 5px;
+}

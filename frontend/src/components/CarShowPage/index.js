@@ -21,6 +21,7 @@ import CarBookForm from "../CarBookForm";
 import { fetchReviews } from "../../store/reviews";
 import Spinner from "../Spinner";
 import ReviewIndexItem from "../ReviewIndexItem";
+import { VscAccount } from "react-icons/vsc";
 
 function CarShowPage() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -95,6 +96,14 @@ function CarShowPage() {
       });
     } else {
       return <p>No reviews yet</p>;
+    }
+  };
+
+  const profileImg = () => {
+    if (car.host.photoUrl) {
+      return <img src={car.host.photoUrl} alt="profile picture" />;
+    } else {
+      return <VscAccount id="profile-page-placeholder-img" />;
     }
   };
 
@@ -180,7 +189,20 @@ function CarShowPage() {
                 id="car-show-host-container-profile"
                 onClick={() => history.push(`/users/${car.host.id}`)}
               >
-                <img src={car.host.photoUrl} alt="Host profile picture" />
+                {/* <img src={car.host.photoUrl} alt="Host profile picture" />
+                <div id="user-rating-container">
+                  {parseInt(car.host.userRating).toFixed(1)}
+                  <AiTwotoneStar id="user-rating-star" />
+                </div> */}
+                <div id="profile-and-user-star-container-car-show">
+                  <div id="profile-img-container">
+                    {profileImg()}
+                    <div id="user-rating-container">
+                      {parseInt(car.host.userRating).toFixed(1)}{" "}
+                      <AiTwotoneStar id="user-rating-star" />
+                    </div>
+                  </div>
+                </div>
               </div>
               <div id="car-show-host-container-info">
                 <h3>{car.host.firstName}</h3>
@@ -190,7 +212,6 @@ function CarShowPage() {
                   </p>
                 )}
                 <div id="car-show-host-trips-joined">
-                  {/* <p>{`${car.host.tripsCount} trips`}</p> */}
                   <p>{`${car.host.tripsCount} ${
                     car.host.tripsCount === 1 ? "trip" : "trips"
                   }`}</p>
@@ -234,7 +255,7 @@ function CarShowPage() {
             <p>{`(${car.reviewsCount} ${
               car.reviewsCount === 1 ? "review" : "reviews"
             })`}</p>
-            <div id="ratings-bars-container">
+            <div id="ratings-bars-user-rating-container">
               <div className="ratings-bars-subcontainer">
                 <h2 className="bar-container-label">Cleanliness</h2>
                 <div className="bar-container">
