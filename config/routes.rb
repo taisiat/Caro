@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :cars, only: [:index, :show, :create, :update, :destroy]
     resources :trips, only: [:create, :index, :update, :destroy, :show]
     resources :reviews, only: [:create, :index, :update, :destroy, :show]
+    resources :favorites, only: [:create, :index, :destroy]
   end
 
     get '*path', to: "static_pages#frontend_index"

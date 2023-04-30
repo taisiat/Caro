@@ -80,7 +80,6 @@ function CarShowPage() {
         parseFloat(car.avgConvenienceRating) +
         parseFloat(car.avgAccuracyRating)) /
       5.0;
-    console.log(avg, "avg");
     if (avg) {
       return avg.toFixed(2);
     } else {
@@ -111,7 +110,7 @@ function CarShowPage() {
     <div id="car-show-container">
       <SearchLine />
       <div id="car-show-heart-container">
-        <FavHeart className="heart-car-show" />
+        <FavHeart className="heart-car-show" car={car} />
       </div>
       <div id="car-show-imgs-container">
         {car.photosUrl && (

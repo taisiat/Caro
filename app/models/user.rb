@@ -45,7 +45,11 @@ class User < ApplicationRecord
     through: :cars,
     source: :reviews
 
-
+  has_many :favorites,
+    foreign_key: :driver_id,
+    class_name: :Favorite,
+    dependent: :destroy,
+    inverse_of: :driver
 
   def self.find_by_credentials(email, password)
     user = User.find_by(:email => email) #changed from User.find_by(email: email)
