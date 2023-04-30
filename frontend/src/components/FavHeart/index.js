@@ -9,6 +9,7 @@ import {
 } from "../../store/favorites";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { fetchUser } from "../../store/user";
 
 const FavHeart = ({ car }) => {
   const [heartClick, setHeartClick] = useState(false);
@@ -20,6 +21,10 @@ const FavHeart = ({ car }) => {
   useEffect(() => {
     dispatch(fetchFavorites());
   }, [dispatch, sessionUser]);
+
+  // useEffect(() => {
+  //   dispatch(fetchUser(sessionUser.id));
+  // }, [dispatch, sessionUser]);
 
   let fav;
   if (favorites) {
@@ -53,6 +58,23 @@ const FavHeart = ({ car }) => {
       setHeartClick(true);
     }
   }, [fav, car.id]);
+
+  if (!sessionUser)
+    return (
+      // <>
+      //   <FaHeart id="car-heart" className="car-heart-unauth" />
+      // </>
+      <div>
+        <FaHeart
+          id="car-heart"
+          className="car-heart-unauth"
+          // className={
+          //   heartClick ? "heart-clicked car-heart-unauth" : "car-heart-unauth"
+          // }
+          // onClick={handleHeartClick}
+        />
+      </div>
+    );
 
   // const handleHeartClick = async () => {
   //   if (loading) return;
