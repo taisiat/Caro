@@ -9,14 +9,28 @@ const TripIndexItem = ({ trip }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const dateFormat = (dateStr) => {
-    // const date = new Date(dateStr);
-    // const options = { month: "long", day: "numeric" };
-    // return date.toLocaleString("en-US", options);
-    const date = new Date(dateStr);
-    const day = date.getDate(dateStr);
-    const month = date.toLocaleString("default", { month: "long" });
-    return `${month} ${day}`;
+  //   const dateFormat = (dateStr) => {
+  //     const date = new Date(dateStr);
+  //     const options = { month: "long", day: "numeric" };
+  //     return date.toLocaleString("en-US", options);
+  //     // const date = new Date(dateStr);
+  //     // const day = date.getDate(dateStr);
+  //     // const month = date.toLocaleString("default", { month: "long" });
+  //     // return `${month} ${day}`;
+  // };
+  const dateFormat = (utcDateString) => {
+    // const utcDate = new Date(dateStr);
+    // const localDate = new Date(
+    //   utcDate.getTime() - utcDate.getTimezoneOffset() * 60000
+    // );
+    const options = { month: "long", day: "numeric" };
+    // return localDate.toLocaleString("en-US", options);
+    const utcDate = new Date(utcDateString);
+    const localDate = new Date(
+      utcDate.getTime() + utcDate.getTimezoneOffset() * 60000
+    );
+    const localDateString = localDate.toLocaleString("en-US", options);
+    return localDateString;
   };
 
   //   const dateFormat = (dateStr) => {
@@ -61,6 +75,21 @@ const TripIndexItem = ({ trip }) => {
         >
           Update or delete trip
         </button>
+        {trip.endDate < new Date().toISOString() &&
+        trip.driver.id !== trip.car.host.id ? (
+          <button
+            className="trips-options-buttons"
+            onClick={() => history.push(`/cars/${trip.car.id}/reviews`)}
+          >
+            Review car
+          </button>
+        ) : null}
+        {/* <button
+          className="trips-options-buttons"
+          onClick={() => history.push(`/cars/${trip.car.id}/reviews`)}
+        >
+          Review car
+        </button> */}
         {/* <button
         //   className="trips-options-buttons"
           //   onClick={() => dispatch(deleteTrip(trip.id))}

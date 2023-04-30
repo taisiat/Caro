@@ -7,7 +7,10 @@
   background-color: white;
   position: absolute;
   top: 90px;
-  left: calc(50vw - 475px);
+  /* left: calc(50vw - 475px); */
+  left: 50%;
+  transform: translateX(-50%);
+
   /* z-index: 1; */
   border-radius: 60px;
   padding-left: 25px;

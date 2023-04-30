@@ -9,6 +9,7 @@
   left: 50%;
   transform: translate(-50%);
   /* margin-bottom: 20px; */
+  /* min-height: calc(100vh - 100px); */
 }
 
 #trips-header {

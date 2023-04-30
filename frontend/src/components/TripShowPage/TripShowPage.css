@@ -6,6 +6,8 @@
   font-family: "Mulish", sans-serif;
   display: flex;
   flex-direction: column;
+  margin-bottom: 30px;
+  height: 1000px;
 }
 
 #delete-trip-button {
@@ -38,4 +40,10 @@
 #protection-plan-options-container {
   display: flex;
   flex-direction: column;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

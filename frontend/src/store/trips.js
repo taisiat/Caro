@@ -39,6 +39,7 @@ export const createTrip = (tripFormData) => async (dispatch) => {
     body: JSON.stringify(tripFormData),
   });
   const data = await response.json();
+
   dispatch(addTrip(data.trip));
   return response;
 };

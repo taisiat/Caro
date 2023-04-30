@@ -1,9 +1,12 @@
 #spinner {
-  height: 100px;
-  width: 100px;
-  border: 15px solid white;
+  position: absolute;
+  top: Calc(50% - 50px);
+  left: Calc(50% - 50px);
+  height: 90px;
+  width: 90px;
+  border: 30px solid white;
   border-radius: 50%;
-  border-top: 15px solid rgb(238, 221, 247);
+  border-top: 30px solid rgb(238, 221, 247);
   animation: spin 1s infinite linear;
 }
 
@@ -12,7 +15,7 @@
     transform: rotate(0);
   }
   50% {
-    border-top: 15px solid rgb(0, 255, 132);
+    border-top: 30px solid #593cfb;
   }
   100% {
     transform: rotate(360deg);

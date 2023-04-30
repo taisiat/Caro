@@ -18,11 +18,16 @@ import { FaChevronCircleRight } from "react-icons/fa";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useHistory } from "react-router-dom";
 import CarBookForm from "../CarBookForm";
+import { fetchReviews } from "../../store/reviews";
+import Spinner from "../Spinner";
+import ReviewIndexItem from "../ReviewIndexItem";
+import { VscAccount } from "react-icons/vsc";
 
 function CarShowPage() {
   const sessionUser = useSelector((state) => state.session.user);
   const { carId } = useParams();
   const car = useSelector((state) => state.cars[carId]);
+  const reviews = useSelector((state) => Object.values(state.reviews));
   const dispatch = useDispatch();
   const [currentImg, setCurrentImg] = useState(0);
   const imageListLength = car?.photosUrl ? car.photosUrl.length : 0;
@@ -40,8 +45,16 @@ function CarShowPage() {
     dispatch(fetchCar(carId));
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(fetchReviews());
+  }, [dispatch]);
+
+  //   if (!car) {
+  //     return null;
+  //   }
+
   if (!car) {
-    return null;
+    return <Spinner />;
   }
 
   const monthYear = (dateString) => {
@@ -57,6 +70,41 @@ function CarShowPage() {
     setTimeout(() => {
       imageContainer.classList.remove("image-transition");
     }, 500);
+  };
+
+  const avgCarRating = () => {
+    const avg =
+      (parseFloat(car.avgCleanlinessRating) +
+        parseFloat(car.avgCommunicationRating) +
+        parseFloat(car.avgMaintenanceRating) +
+        parseFloat(car.avgConvenienceRating) +
+        parseFloat(car.avgAccuracyRating)) /
+      5.0;
+    console.log(avg, "avg");
+    if (avg) {
+      return avg.toFixed(2);
+    } else {
+      return "not yet rated";
+    }
+  };
+
+  const reviewsSection = () => {
+    if (reviews) {
+      return reviews.map((review, idx) => {
+        if (review.car.id === car.id)
+          return <ReviewIndexItem review={review} key={idx} />;
+      });
+    } else {
+      return <p>No reviews yet</p>;
+    }
+  };
+
+  const profileImg = () => {
+    if (car.host.photoUrl) {
+      return <img src={car.host.photoUrl} alt="profile picture" />;
+    } else {
+      return <VscAccount id="profile-page-placeholder-img" />;
+    }
   };
 
   return (
@@ -108,10 +156,12 @@ function CarShowPage() {
         <div id="car-show-info">
           <div id="car-title">
             <h1>{`${car.make} ${car.model} ${car.year}`}</h1>
-            <div id="car-show-mini-rating">
-              <h3>X</h3>
+            <div className="rating-and-star-container">
+              <h3 id="car-show-mini-rating">{avgCarRating()}</h3>
               <AiTwotoneStar id="car-show-rating-star" />
-              <p>(X trips)</p>
+              <p>{`(${car.tripsCount} ${
+                car.tripsCount === 1 ? "trip" : "trips"
+              })`}</p>
             </div>
           </div>
           <div id="car-show-stats">
@@ -139,7 +189,20 @@ function CarShowPage() {
                 id="car-show-host-container-profile"
                 onClick={() => history.push(`/users/${car.host.id}`)}
               >
-                <img src={car.host.photoUrl} alt="Host profile picture" />
+                {/* <img src={car.host.photoUrl} alt="Host profile picture" />
+                <div id="user-rating-container">
+                  {parseInt(car.host.userRating).toFixed(1)}
+                  <AiTwotoneStar id="user-rating-star" />
+                </div> */}
+                <div id="profile-and-user-star-container-car-show">
+                  <div id="profile-img-container">
+                    {profileImg()}
+                    <div id="user-rating-container">
+                      {parseInt(car.host.userRating).toFixed(1)}{" "}
+                      <AiTwotoneStar id="user-rating-star" />
+                    </div>
+                  </div>
+                </div>
               </div>
               <div id="car-show-host-container-info">
                 <h3>{car.host.firstName}</h3>
@@ -149,7 +212,9 @@ function CarShowPage() {
                   </p>
                 )}
                 <div id="car-show-host-trips-joined">
-                  <p>X trips</p>
+                  <p>{`${car.host.tripsCount} ${
+                    car.host.tripsCount === 1 ? "trip" : "trips"
+                  }`}</p>
                   <p>{`Joined ${monthYear(car.host.createdAt)}`}</p>
                 </div>
               </div>
@@ -178,14 +243,127 @@ function CarShowPage() {
             <p className="car-host-paragraph">{car.description}</p>
           </div>
           <div className="car-show-section">
-            <h2 className="car-show-section-header">FEATURES</h2>
+            <h2 className="car-show-section-header">GUIDELINES</h2>
+            <p className="car-host-paragraph">{car.guidelines}</p>
           </div>
           <div className="car-show-section">
             <h2 className="car-show-section-header">RATINGS AND REVIEWS</h2>
-            <div id="car-show-mini-rating">
-              <h3>X</h3>
+            <div className="rating-and-star-container">
+              <h3 id="car-show-big-rating">{avgCarRating()}</h3>
               <AiTwotoneStar id="car-show-rating-star" />
-              <p>(X ratings)</p>
+            </div>
+            <p>{`(${car.reviewsCount} ${
+              car.reviewsCount === 1 ? "review" : "reviews"
+            })`}</p>
+            <div id="ratings-bars-user-rating-container">
+              <div className="ratings-bars-subcontainer">
+                <h2 className="bar-container-label">Cleanliness</h2>
+                <div className="bar-container">
+                  <div className="rating-bar-gray"></div>
+                  <div
+                    className="rating-bar"
+                    id="rating-bar--cleanliness"
+                    style={{
+                      "--cleanliness-rating": parseFloat(
+                        car.avgCleanlinessRating || 0
+                      ),
+                    }}
+                  />
+                </div>
+                <h2>{parseFloat(car.avgCleanlinessRating || 0).toFixed(1)}</h2>
+              </div>
+
+              <div className="ratings-bars-subcontainer">
+                <h2 className="bar-container-label">Maintenance</h2>
+                <div className="bar-container">
+                  <div className="rating-bar-gray"></div>
+                  <div
+                    className="rating-bar"
+                    id="rating-bar--maintenance"
+                    style={{
+                      "--maintenance-rating": parseFloat(
+                        car.avgMaintenanceRating || 0
+                      ),
+                    }}
+                  />
+                </div>
+                <h2>{parseFloat(car.avgMaintenanceRating || 0).toFixed(1)}</h2>
+              </div>
+
+              <div className="ratings-bars-subcontainer">
+                <h2 className="bar-container-label">Communication</h2>
+                <div className="bar-container">
+                  <div className="rating-bar-gray"></div>
+                  <div
+                    className="rating-bar"
+                    id="rating-bar--communication"
+                    style={{
+                      "--communication-rating": parseFloat(
+                        car.avgCommunicationRating || 0
+                      ),
+                    }}
+                  />
+                </div>
+                <h2>
+                  {parseFloat(car.avgCommunicationRating || 0).toFixed(1)}
+                </h2>
+              </div>
+
+              <div className="ratings-bars-subcontainer">
+                <h2 className="bar-container-label">Convenience</h2>
+                <div className="bar-container">
+                  <div className="rating-bar-gray"></div>
+                  <div
+                    className="rating-bar"
+                    id="rating-bar--convenience"
+                    style={{
+                      "--convenience-rating": parseFloat(
+                        car.avgConvenienceRating || 0
+                      ),
+                    }}
+                  />
+                </div>
+                <h2>{parseFloat(car.avgConvenienceRating || 0).toFixed(1)}</h2>
+              </div>
+
+              <div className="ratings-bars-subcontainer">
+                <h2 className="bar-container-label">Accuracy</h2>
+                <div className="bar-container">
+                  <div className="rating-bar-gray"></div>
+                  <div
+                    className="rating-bar"
+                    id="rating-bar--accuracy"
+                    style={{
+                      "--accuracy-rating": parseFloat(
+                        car.avgAccuracyRating || 0
+                      ),
+                    }}
+                  />
+                </div>
+                <h2>{parseFloat(car.avgAccuracyRating || 0).toFixed(1)}</h2>
+              </div>
+            </div>
+            <div className="car-show-section">
+              <h2 className="car-show-section-header">REVIEWS</h2>
+              <div id="reviews-index-container">
+                {/* {reviews &&
+                  reviews.map((review, idx) => {
+                    if (review.car.id === car.id)
+                      return <ReviewIndexItem review={review} key={idx} />;
+                  })}
+                {!reviews && <p>No reviews yet</p>} */}
+                {/* {reviewsSection} */}
+                {reviews &&
+                reviews.filter((review) => review.car.id === car.id).length >
+                  0 ? (
+                  reviews.map((review, idx) => {
+                    if (review.car.id === car.id)
+                      return <ReviewIndexItem review={review} key={idx} />;
+                  })
+                ) : (
+                  <p>No reviews yet</p>
+                )}
+              </div>
             </div>
           </div>
         </div>

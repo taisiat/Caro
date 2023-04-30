@@ -11,14 +11,19 @@ import { fetchTrip } from "../../store/trips";
 import { fetchUser } from "../../store/user";
 import SearchLine from "../SearchLine";
 import Footer from "../Footer";
+import Spinner from "../Spinner";
 
 const TripShowPage = () => {
   const formattedDate = (rawDate) => {
     const date = new Date(rawDate);
-    return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10);
+    return new Date(date.getTime()).toISOString().substr(0, 10);
   };
+  // const formattedDate = (rawDate) => {
+  //   const date = new Date(rawDate);
+  //   return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+  //     .toISOString()
+  //     .substr(0, 10);
+  // };
 
   const { tripId } = useParams();
   const trip = useSelector((state) => state.trips[tripId]);
@@ -28,6 +33,7 @@ const TripShowPage = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState([]);
+  const [overlapError, setOverlapError] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const protectionPrices = {
     Premier: 50,
@@ -40,13 +46,15 @@ const TripShowPage = () => {
     if (trip) {
       setStartDate(formattedDate(trip.startDate));
       setEndDate(formattedDate(trip.endDate));
+      //   setStartDate(trip.startDate);
+      //   setEndDate(trip.endDate);
       setSelectedAnswer(trip.protectionPlan);
     }
   }, [trip]);
 
   useEffect(() => {
     dispatch(fetchTrip(tripId));
-    dispatch(fetchUser(sessionUser.id));
+    // dispatch(fetchUser(sessionUser.id));
   }, [dispatch, tripId]);
 
   //   if (!trip) return "nothing";
@@ -56,13 +64,18 @@ const TripShowPage = () => {
   //     return;
   //   }
 
+  if (!sessionUser) {
+    history.push("/");
+    return;
+  }
+
   const isLoading = !trip || !sessionUser;
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
-  if (trip.driverId !== sessionUser.id) {
+  if (sessionUser && trip.driverId !== sessionUser.id) {
     history.push("/");
     return null;
   }
@@ -85,8 +98,8 @@ const TripShowPage = () => {
     const tripData = {
       tripId: trip.id,
       carId: trip.car.id,
-      startDate,
-      endDate,
+      startDate: new Date(startDate.toLocaleString()).toISOString(),
+      endDate: new Date(endDate.toLocaleString()).toISOString(),
       protectionPlan: selectedAnswer,
       totalPrice: tripPrice(),
     };
@@ -101,6 +114,16 @@ const TripShowPage = () => {
       } catch {
         data = await error.text();
       }
+      //   console.log(data, "data", data.errors, "errors");
+      //   if (data?.errors.overlap) {
+      //     setOverlapError(data.errors.overlap);
+      //     setErrors(Object.values(data.errors));
+      //   } else if (data?.errors) {
+      //     setErrors(data.errors);
+      //   }
+      //   //   if (data?.errors) setErrors(data.errors);
+      //   else if (data) setErrors([data]);
+      //   else setErrors([error.statusText]);
       if (data?.errors) setErrors(data.errors);
       else if (data) setErrors([data]);
       else setErrors([error.statusText]);
@@ -120,7 +143,6 @@ const TripShowPage = () => {
     <>
       <SearchLine />
       <div id="trip-edit-form-container">
-        {errors && errors.map((error) => <li key={error}>{error}</li>)}
         <div id="car-show-price-container">
           <h3>{`$${trip.car.dailyRate} / day`}</h3>
           {startDate && endDate && selectedAnswer ? (
@@ -142,7 +164,7 @@ const TripShowPage = () => {
               type="date"
               className="search-input-car-show search-date"
               value={startDate}
-              onChange={(e) => setStartDate(formattedDate(e.target.value))}
+              onChange={(e) => setStartDate(e.target.value)}
             ></input>
           </div>
           {errors &&
@@ -160,7 +182,7 @@ const TripShowPage = () => {
               type="date"
               className="search-input-car-show search-date"
               value={endDate}
-              onChange={(e) => setEndDate(formattedDate(e.target.value))}
+              onChange={(e) => setEndDate(e.target.value)}
             ></input>
           </div>
           {errors &&
@@ -250,7 +272,18 @@ const TripShowPage = () => {
           </button>
         </div>
       </div>
-      <Footer />
+      {errors.map((error) => {
+        if (error.includes("Trip dates overlap"))
+          return (
+            <p className="booking-error-msg" key={error}>
+              {error}
+            </p>
+          );
+      })}
+
+      {/* <footer>
+        <Footer />
+      </footer> */}
     </>
   );
 };

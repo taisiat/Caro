@@ -3,6 +3,8 @@
   border-top: solid 1px #e7e7e8;
   height: 100px;
   width: 100%;
-  /* position: absolute;
+  /* position: relative;
   bottom: 0; */
+  /* bottom: 0;
+  position: fixed; */
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_26_225739) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_230158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_26_225739) do
     t.index ["host_id"], name: "index_cars_on_host_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "cleanliness_rating", null: false
+    t.integer "maintenance_rating", null: false
+    t.integer "communication_rating", null: false
+    t.integer "convenience_rating", null: false
+    t.integer "accuracy_rating", null: false
+    t.string "comment", null: false
+    t.bigint "driver_id", null: false
+    t.bigint "car_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["car_id"], name: "index_reviews_on_car_id"
+    t.index ["driver_id", "car_id"], name: "index_reviews_on_driver_id_and_car_id", unique: true
+    t.index ["driver_id"], name: "index_reviews_on_driver_id"
+  end
+
   create_table "trips", force: :cascade do |t|
     t.integer "total_price", null: false
     t.datetime "start_date", null: false
@@ -94,6 +110,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_26_225739) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cars", "users", column: "host_id"
+  add_foreign_key "reviews", "cars"
+  add_foreign_key "reviews", "users", column: "driver_id"
   add_foreign_key "trips", "cars"
   add_foreign_key "trips", "users", column: "driver_id"
 end

@@ -82,6 +82,29 @@
   font-size: 18px;
 }
 
+#cant-book-car-button {
+  width: 100%;
+  margin-top: 30px;
+  border-radius: 10px;
+  background-color: #aa9cfc;
+  color: white;
+  border: 0;
+  font-size: 18px;
+  cursor: not-allowed;
+  padding: 0;
+  text-align: center;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+#cant-book-car-mssg {
+  font-size: 16px;
+  color: #593cfb;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  text-align: center;
+}
+
 #book-car-button:hover {
   cursor: pointer;
   background-color: #4d2cfb;
@@ -122,6 +145,10 @@ input[type="radio"] {
   /* margin-right: 8px; */
   margin-bottom: 5px;
   font-size: 14px;
+}
+
+.booking-protection-button:hover {
+  background-color: #d0d0d0;
 }
 
 .booking-protection-button.active {

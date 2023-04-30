@@ -83,7 +83,7 @@
   /* margin-top: 10px; */
 }
 
-#car-show-mini-rating h3 {
+#car-show-mini-rating {
   font-size: 20px;
   font-family: "Mulish", sans-serif;
   font-weight: 500;
@@ -160,6 +160,7 @@
   display: flex;
   align-items: center;
   margin-top: 15px;
+  margin-bottom: 50px;
 }
 
 .car-show-section-header {
@@ -167,6 +168,9 @@
   margin-bottom: 10px;
 }
 
+#car-show-host-container-info {
+  margin-left: 10px;
+}
 #car-show-host-container-info p {
   padding-top: 10px;
 }
@@ -179,12 +183,13 @@
 }
 
 #car-show-host-badges {
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 #car-show-superhost-clean {
   display: flex;
   margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 #car-show-superhost-clean p {
@@ -195,6 +200,10 @@
   font-size: 30px;
   color: #593cfb;
 }
+
+/* #car-show-host-badges {
+  margin-top: 20px;
+} */
 
 .car-show-section {
   margin-top: 40px;
@@ -232,4 +241,111 @@
 .car-image-rotate-button:hover {
   cursor: pointer;
   color: rgb(213, 207, 244);
+}
+
+#car-show-big-rating {
+  font-size: 40px;
+  margin-bottom: 5px;
+}
+
+.rating-and-star-container {
+  display: flex;
+  align-items: center;
+}
+
+.ratings-bars-subcontainer {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  align-items: center;
+}
+
+#ratings-bars-container {
+  margin-top: 30px;
+  /* width: 100px; */
+}
+
+.rating-bar-gray {
+  background-color: #e0e0e0;
+  height: 10px;
+  width: 100%;
+  /* width: calc(var(--cleanliness-rating) / 5 * 100%); */
+
+  border-radius: 5px;
+  /* margin-left: 15px; */
+  /* margin-right: 15px; */
+}
+#rating-bar--cleanliness {
+  background-color: #593cfb;
+  height: 10px;
+  /* width: 100%; */
+  width: calc(var(--cleanliness-rating) / 5 * 100%);
+
+  border-radius: 5px;
+  /* margin-left: 15px; */
+  /* margin-right: 15px; */
+  position: relative;
+  top: -10px;
+}
+
+#rating-bar--maintenance {
+  background-color: #593cfb;
+  height: 10px;
+  /* width: 100%; */
+  width: calc(var(--maintenance-rating) / 5 * 100%);
+
+  border-radius: 5px;
+  /* margin-left: 15px; */
+  /* margin-right: 15px; */
+  position: relative;
+  top: -10px;
+}
+
+#rating-bar--communication {
+  background-color: #593cfb;
+  height: 10px;
+  width: calc(var(--communication-rating) / 5 * 100%);
+  border-radius: 5px;
+  position: relative;
+  top: -10px;
+}
+
+#rating-bar--convenience {
+  background-color: #593cfb;
+  height: 10px;
+  width: calc(var(--convenience-rating) / 5 * 100%);
+  border-radius: 5px;
+  position: relative;
+  top: -10px;
+}
+
+#rating-bar--accuracy {
+  background-color: #593cfb;
+  height: 10px;
+  width: calc(var(--accuracy-rating) / 5 * 100%);
+  border-radius: 5px;
+  position: relative;
+  top: -10px;
+}
+
+.bar-container {
+  width: 430px;
+  margin-top: 10px;
+}
+
+#rating-bar--cleanliness {
+  width: calc(var(--cleanliness-rating) / 5 * 100%);
+}
+
+.bar-container-label {
+  width: 100px;
+}
+
+#profile-and-user-star-container-car-show {
+  position: relative;
+  top: 0px;
+}
+
+#ratings-bars-user-rating-container {
+  margin-top: 20px;
 }

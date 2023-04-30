@@ -48,8 +48,10 @@ const CarBookForm = ({ car }) => {
     const tripData = {
       carId,
       //   driverId: sessionUser.id,
-      startDate,
-      endDate,
+      //   startDate: new Date(startDate.toLocaleString()).toISOString(),
+      //   endDate: new Date(endDate.toLocaleString()).toISOString(),
+      startDate: handleDateChange(startDate),
+      endDate: handleDateChange(endDate),
       protectionPlan: selectedAnswer,
       totalPrice: tripPrice(),
     };
@@ -77,11 +79,20 @@ const CarBookForm = ({ car }) => {
     setSelectedAnswer(e.target.value);
   };
 
+  const handleDateChange = (userInputDate) => {
+    // const localDate = new Date(dateVal).toLocaleDateString();
+    // return new Date(dateVal).toLocaleDateString();
+    // if (type === "start") setStartDate(localDate);
+    // else setEndDate(localDate);
+    const dateObj = new Date(Date.parse(userInputDate));
+    const utcDate = new Date(
+      dateObj.getTime() + dateObj.getTimezoneOffset() * 60000
+    );
+    return utcDate;
+  };
+
   return (
     <>
-      {/* {errors.map((error) => (
-        <li key={error}>{error}</li>
-      ))} */}
       <div id="car-show-price-container">
         <h3>{`$${car.dailyRate} / day`}</h3>
         {startDate && endDate && selectedAnswer ? (
@@ -220,9 +231,21 @@ const CarBookForm = ({ car }) => {
               </p>
             );
         })}
-        <div>
+
+        {sessionUser ? (
+          <div>
+            <button id="book-car-button">Book this car</button>
+          </div>
+        ) : (
+          <div>
+            <div id="cant-book-car-button">Book this car</div>
+            <p id="cant-book-car-mssg">Log in or sign up to book this car</p>
+          </div>
+        )}
+
+        {/* <div>
           <button id="book-car-button">Book this car</button>
-        </div>
+        </div> */}
         {errors.map((error) => {
           if (error.includes("Please log in or sign up"))
             return (
@@ -232,6 +255,15 @@ const CarBookForm = ({ car }) => {
             );
         })}
       </form>
+
+      {errors.map((error) => {
+        if (error.includes("Trip dates overlap"))
+          return (
+            <p className="booking-error-msg" key={error}>
+              {error}
+            </p>
+          );
+      })}
     </>
   );
 };

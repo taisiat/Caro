@@ -11,6 +11,12 @@ import { VscVerified } from "react-icons/vsc";
 import { VscUnverified } from "react-icons/vsc";
 import { IoRibbonSharp } from "react-icons/io5";
 import { MdCleanHands } from "react-icons/md";
+import Footer from "../Footer";
+import { AiTwotoneStar } from "react-icons/ai";
+import Spinner from "../Spinner";
+import { fetchReviews } from "../../store/reviews";
+import ReviewIndexItem from "../ReviewIndexItem";
+import CarReviewTile from "./CarReviewTile";
 
 function ProfilePage() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -18,6 +24,7 @@ function ProfilePage() {
   const user = useSelector((state) => state.users[userId]);
   //   const [user, setUser] = useState([]);
   const dispatch = useDispatch();
+  const reviews = useSelector((state) => Object.values(state.reviews));
 
   //   if (!sessionUser) return <Redirect to="/" />;
 
@@ -25,8 +32,12 @@ function ProfilePage() {
     dispatch(fetchUser(userId));
   }, [dispatch, userId]);
 
+  useEffect(() => {
+    dispatch(fetchReviews());
+  }, [dispatch]);
+
   if (!user) {
-    return null;
+    return <Spinner />;
   }
 
   const profileImg = () => {
@@ -46,6 +57,34 @@ function ProfilePage() {
     return dateObj.toLocaleDateString("en-US", options);
   };
 
+  const reviewsForCarsSection = () => {
+    if (
+      reviews &&
+      reviews.filter((review) => review.car.host.id === user.id).length > 0
+    ) {
+      return reviews.map((review, idx) => {
+        if (review.car.host.id === user.id)
+          return <CarReviewTile review={review} key={idx} />;
+      });
+    } else {
+      return <p>No reviews yet</p>;
+    }
+  };
+
+  const reviewsForTripsSection = () => {
+    if (
+      reviews &&
+      reviews.filter((review) => review.driver.id === user.id).length > 0
+    ) {
+      return reviews.map((review, idx) => {
+        if (review.driver.id === user.id)
+          return <CarReviewTile review={review} key={idx} />;
+      });
+    } else {
+      return <p>No reviews yet</p>;
+    }
+  };
+
   return (
     <>
       <SearchLine />
@@ -54,14 +93,23 @@ function ProfilePage() {
           <img src={headerImage} />
         </div>
         <div id="profile-content-container">
-          <div id="profile-img-container">{profileImg()}</div>
-
+          <div id="profile-and-user-star-container">
+            <div id="profile-img-container">
+              {profileImg()}
+              <div id="user-rating-container">
+                {parseInt(user.userRating).toFixed(1)}{" "}
+                <AiTwotoneStar id="user-rating-star" />
+              </div>
+            </div>
+          </div>
           <div id="profile-deets-reviews-container">
             <div id="profile-deets-container">
               <div id="profile-container-info">
                 <h3>{`${user.firstName} ${user.lastName[0]}.`}</h3>
                 <div id="profile-trips-joined">
-                  <p>X trips</p>
+                  <p>{`${user.tripsCount} ${
+                    user.tripsCount === 1 ? "trip" : "trips"
+                  }`}</p>
                   <p>{`Joined ${monthYear(user.createdAt)}`}</p>
                 </div>
               </div>
@@ -85,7 +133,7 @@ function ProfilePage() {
               )}
             </div>
             <div id="profile-verified-info">
-              <h2 classname="profile-mini-header">VERIFIED INFO</h2>
+              <h2 className="profile-mini-header">VERIFIED INFO</h2>
               <div className="profile-verifications">
                 <p>Approved to drive</p>
                 {user?.approvedToDrive ? (
@@ -113,11 +161,20 @@ function ProfilePage() {
             </div>
           </div>
           <div id="reviews-deets-container">
-            <h2 classname="profile-mini-header">{`REVIEWS FOR ${user.firstName.toUpperCase()}'S CARS`}</h2>
-            <h2 classname="profile-mini-header">{`${user.firstName.toUpperCase()}'S TRIP REVIEWS`}</h2>
+            <h2 className="profile-mini-header">{`REVIEWS FOR ${user.firstName.toUpperCase()}'S CARS`}</h2>
+            <div className="profile-review-index-container">
+              {reviewsForCarsSection()}
+            </div>
+            <h2 className="profile-mini-header">{`${user.firstName.toUpperCase()}'S TRIP REVIEWS`}</h2>
+            <div className="profile-review-index-container">
+              {reviewsForTripsSection()}
+            </div>
           </div>
         </div>
       </div>
+      {/* <footer>
+        <Footer />
+      </footer> */}
     </>
   );
 }

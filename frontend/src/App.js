@@ -8,6 +8,10 @@ import FavoritesPage from "./components/FavoritesPage";
 import CarsSearchIndex from "./components/CarsSearchIndex";
 import CarShowPage from "./components/CarShowPage";
 import TripShowPage from "./components/TripShowPage";
+import Spinner from "./components/Spinner";
+import ReviewCreateForm from "./components/ReviewCreateForm";
+import Footer from "./components/Footer";
+import ReviewUpdateForm from "./components/ReviewUpdateForm";
 
 function App() {
   return (
@@ -16,6 +20,12 @@ function App() {
       <Switch>
         <Route path={`/users/:userId`}>
           <ProfilePage />
+        </Route>
+        <Route path={`/cars/:carId/reviews`}>
+          <ReviewCreateForm />
+        </Route>
+        <Route path={`/reviews/:reviewId`}>
+          <ReviewUpdateForm />
         </Route>
         <Route path={`/cars/:carId`}>
           <CarShowPage />
@@ -31,6 +41,9 @@ function App() {
         </Route>
         <Route path={`/cars`}>
           <CarsSearchIndex />
+        </Route>
+        <Route path={`/spinner`}>
+          <Spinner />
         </Route>
         <Route path="/">
           <SplashPage />
