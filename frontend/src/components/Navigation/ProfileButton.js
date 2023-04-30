@@ -73,7 +73,7 @@ function ProfileButton({ user }) {
       {showMenu && (
         <ul className="profile-dropdown">
           <li id="favorites-drop" className="hamburger-options">
-            <a href="/:userID/favorites">
+            <a href="/favorites">
               <RiHeart3Line className="hamburger-icon" />
               Favorites
             </a>

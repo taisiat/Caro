@@ -36,7 +36,7 @@ function App() {
         <Route path={`/trips`}>
           <TripsPage />
         </Route>
-        <Route path={`/:userId/favorites`}>
+        <Route path={`/favorites`}>
           <FavoritesPage />
         </Route>
         <Route path={`/cars`}>
