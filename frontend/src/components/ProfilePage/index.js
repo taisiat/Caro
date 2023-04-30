@@ -58,7 +58,9 @@ function ProfilePage() {
   };
 
   const reviewsForCarsSection = () => {
-    if (
+    if (user && user.hostedCarsCount === 0) {
+      return <p>{`${user.firstName} isn't hosting any cars yet`}</p>;
+    } else if (
       reviews &&
       reviews.filter((review) => review.car.host.id === user.id).length > 0
     ) {

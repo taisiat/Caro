@@ -58,10 +58,13 @@ h1 {
   flex-direction: row;
   justify-content: space-around;
   align-items: top;
-  width: 70vw;
+  width: max(70vw, 900px);
   height: 300px;
   margin-bottom: 10px;
   margin-left: 15vw;
+  /* display: grid;
+  grid-template-columns: repeat(3, 300px);
+  grid-gap: 20px; */
 }
 
 .categories-box {
@@ -70,7 +73,7 @@ h1 {
   justify-content: center;
   align-items: center;
   width: 240px;
-  height: 270px;
+  height: 260px;
   border: 1px solid #e7e7e8;
   border-radius: 5px;
   /* margin: 10px; */

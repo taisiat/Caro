@@ -89,7 +89,7 @@ const FavoriteIndexItem = ({ carId }) => {
           id="fav-price-container"
           onClick={() => history.push(`/cars/${car.id}`)}
         >
-          <h3>{`$${car.dailyRate}/day`}</h3>
+          <h3>{`$${car.dailyRate} / day`}</h3>
         </div>
       </div>
     </div>

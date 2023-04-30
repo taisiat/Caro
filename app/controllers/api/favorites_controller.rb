@@ -9,8 +9,9 @@ class Api::FavoritesController < ApplicationController
         @favorite.driver_id = current_user.id;
 
         if @favorite.save
-            # render :show
-            head :no_content
+            render :show
+            # head :no_content
+            # render :index
         else
             render json: { errors: @favorite.errors.full_messages }, status: :unprocessable_entity
         end

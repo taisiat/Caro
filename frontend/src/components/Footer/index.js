@@ -1,9 +1,29 @@
 import "./Footer.css";
+import { GoMarkGithub } from "react-icons/go";
+import { BsLinkedin } from "react-icons/bs";
+import { useHistory } from "react-router-dom";
 
 const Footer = () => {
+  const history = useHistory();
   return (
     <div id="splash-footer">
-      <p>WIP - about TK</p>
+      <div id="footer-icons-container">
+        <p>TAISIA KARASEVA</p>
+        <a
+          className="footer-link"
+          href="https://github.com/taisiat/Caro.git"
+          target="_blank"
+        >
+          <GoMarkGithub />
+        </a>
+        <a
+          className="footer-link"
+          href="https://www.linkedin.com/in/taisiakaraseva/"
+          target="_blank"
+        >
+          <BsLinkedin />
+        </a>
+      </div>
     </div>
   );
 };

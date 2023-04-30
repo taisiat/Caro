@@ -9,6 +9,7 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,6 +36,22 @@ function LoginForm() {
       sessionActions.login({ email: "dom@toretto.com", password: "password1" })
     );
   };
+
+  // const handleDemo = (e) => {
+  //   e.preventDefault();
+  //   setErrors([]);
+  //   // return dispatch(
+  //   //   sessionActions.login({ email: "dom@toretto.com", password: "password1" })
+  //   // );
+  //   return dispatch(
+  //     sessionActions.login({ email: "dom@toretto.com", password: "password1" })
+  //   ).then(() => {
+  //     setSuccessMessage("Login successful!");
+  //     setTimeout(() => {
+  //       setSuccessMessage("");
+  //     }, 10000);
+  //   });
+  // };
 
   return (
     <div id="login-container">
@@ -80,6 +97,9 @@ function LoginForm() {
           </button>
         </div>
       </form>
+      {/* {successMessage && (
+        <div className="success-message">{successMessage}</div>
+      )} */}
 
       {/* <div id="other-option-container">
         <p>Don’t have an account?</p>

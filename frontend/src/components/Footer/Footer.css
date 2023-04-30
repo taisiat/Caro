@@ -8,3 +8,22 @@
   /* bottom: 0;
   position: fixed; */
 }
+
+#footer-icons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 190px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.footer-link {
+  color: #4a4a4a;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: #009f77;
+}

@@ -69,6 +69,10 @@ class User < ApplicationRecord
     total_trips
   end
 
+  def hosted_cars_count
+    cars.length
+  end
+
   def user_rating  
     return 0.00 if reviews_for_own_cars.length == 0
     return 1/5.00*(reviews_for_own_cars.average(:communication_rating).round(2) +
