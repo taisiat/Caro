@@ -11,6 +11,8 @@ import { Redirect } from "react-router-dom";
 import CarMap from "../CarMap";
 import { useHistory } from "react-router-dom";
 import { useMemo } from "react";
+import CarList from "./CarList";
+import FilterForm from "./FilterForm";
 
 function CarsSearchIndex() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -19,18 +21,32 @@ function CarsSearchIndex() {
   const [highlightedCar, setHighlightedCar] = useState(null);
   const history = useHistory();
   const [bounds, setBounds] = useState(null);
+  const [minPricing, setMinPricing] = useState(1);
+  const [maxPricing, setMaxPricing] = useState(100000);
+  const [superhostFilter, setSuperhostFilter] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchCars());
-  }, [dispatch]);
+    if (minPricing && maxPricing && bounds) {
+      dispatch(fetchCars({ minPricing, maxPricing, bounds, superhostFilter })); // add superhost and dates
+      //   dispatch(fetchCars({ bounds }));
+
+      console.log("map bounds", bounds, minPricing, maxPricing, "prices");
+    }
+  }, [minPricing, maxPricing, bounds, superhostFilter, dispatch]);
+
+  //   useEffect(() => {
+  //     dispatch(fetchCars());
+  //   }, [dispatch]);
 
   const mapEventHandlers = useMemo(
     () => ({
       click: (event) => {
         const search = new URLSearchParams(event.latLng.toJSON()).toString();
-        // history.push({ pathname: "/", search }); // no new car path yet
+        // history.push({ pathname: "/cars/new", search });
       },
-      idle: (map) => setBounds(map.getBounds().toUrlValue()),
+      idle: (map) => {
+        setBounds(map.getBounds().toUrlValue());
+      },
     }),
     [history]
   );
@@ -53,7 +69,15 @@ function CarsSearchIndex() {
     <div id="car-index-container">
       <SearchLine />
       <div id="search-buttons">
-        <button>
+        <FilterForm
+          minPricing={minPricing}
+          maxPricing={maxPricing}
+          superhostFilter={superhostFilter}
+          setMinPricing={setMinPricing}
+          setMaxPricing={setMaxPricing}
+          setSuperhostFilter={setSuperhostFilter}
+        />
+        {/* <button>
           <p>Sort by</p>
         </button>
         <button>
@@ -63,7 +87,7 @@ function CarsSearchIndex() {
           <p>
             <IoOptionsOutline /> More filters
           </p>
-        </button>
+        </button> */}
       </div>
       <div id="car-search-summary">
         <h2>{`${cars ? cars.length : 0} cars available`}</h2>
@@ -82,9 +106,14 @@ function CarsSearchIndex() {
         />
       </div>
       <div id="car-tile-container">
-        {cars.map((car, idx) => (
+        {/* {cars.map((car, idx) => (
           <CarSearchIndexItem key={idx} className="car-tile" car={car} />
-        ))}
+        ))} */}
+        <CarList
+          cars={cars}
+          highlightedCar={highlightedCar}
+          setHighlightedCar={setHighlightedCar}
+        />
       </div>
     </div>
   );

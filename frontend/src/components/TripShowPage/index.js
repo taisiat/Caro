@@ -91,10 +91,12 @@ const TripShowPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    // if (!sessionUser) {
-    //   history.push("/login");
-    //   return;
-    // }
+
+    if (new Date(startDate) <= new Date()) {
+      setErrors(["Start date must be in the future."]);
+      return;
+    }
+
     const tripData = {
       tripId: trip.id,
       carId: trip.car.id,

@@ -119,12 +119,15 @@ const TripIndexItem = ({ trip }) => {
         <h3 id="trip-stats-pp">{`Protection plan: ${trip.protectionPlan}`}</h3>
       </div>
       <div id="trip-buttons-container">
-        <button
-          className="trips-options-buttons"
-          onClick={() => history.push(`/trips/${trip.id}`)}
-        >
-          Update or delete trip
-        </button>
+        {trip.startDate >= new Date().toISOString() ? (
+          <button
+            className="trips-options-buttons"
+            onClick={() => history.push(`/trips/${trip.id}`)}
+          >
+            Update or delete trip
+          </button>
+        ) : null}
+
         {/* {trip.endDate < new Date().toISOString() &&
         trip.driver.id !== trip.car.host.id ? (
           <button

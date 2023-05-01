@@ -11,6 +11,10 @@
   align-items: center;
 }
 
+#trips-item-container.highlighted {
+  background-color: green;
+}
+
 #trip-car-image-container {
   height: 100px;
   width: 150px;

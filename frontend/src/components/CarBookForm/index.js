@@ -45,6 +45,11 @@ const CarBookForm = ({ car }) => {
       return;
       //   return <LoginForm />;
     }
+
+    if (new Date(startDate) <= new Date()) {
+      setErrors(["Start date must be in the future."]);
+      return;
+    }
     const tripData = {
       carId,
       //   driverId: sessionUser.id,
