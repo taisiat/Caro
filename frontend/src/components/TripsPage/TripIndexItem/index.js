@@ -4,10 +4,13 @@ import { useDispatch } from "react-redux";
 import { deleteTrip } from "../../../store/trips";
 import { fetchTrips } from "../../../store/trips";
 import { useEffect } from "react";
+import { fetchReviews } from "../../../store/reviews";
+import { useSelector } from "react-redux";
 
 const TripIndexItem = ({ trip }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const reviews = useSelector((state) => Object.values(state.reviews));
 
   //   const dateFormat = (dateStr) => {
   //     const date = new Date(dateStr);
@@ -45,6 +48,53 @@ const TripIndexItem = ({ trip }) => {
     dispatch(fetchTrips());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(fetchReviews());
+  }, [dispatch]);
+
+  let reviewId;
+
+  const reviewExists = () => {
+    if (reviews) {
+      for (let i = 0; i < reviews.length; i++) {
+        const review = reviews[i];
+        if (
+          review.driverId === trip.driver.id &&
+          review.carId === trip.car.id
+        ) {
+          reviewId = review.id;
+          return true;
+        }
+      }
+      return false;
+    }
+  };
+  //   const reviewExists = () => {
+  //     if (reviews) {
+  //       reviews.forEach((review) => {
+  //         if (
+  //           review.driverId === trip.driver.id &&
+  //           review.carId === trip.car.id
+  //         ) {
+  //           reviewId = review.id;
+  //           return true;
+  //         }
+  //       });
+  //       return false;
+  //     }
+  //   };
+
+  // useEffect(() => {
+  //   if (reviews) {
+  //     reviews.forEach((review) => {
+  //       if (review.driverId === trip.driver.id && review.carId === trip.car.id) {
+  //         reviewId = review.id;
+  //         return reviewId;
+  //       }
+  //     });
+  //   }
+  // },[reviews]);
+
   return (
     <div id="trips-item-container">
       <div
@@ -75,13 +125,33 @@ const TripIndexItem = ({ trip }) => {
         >
           Update or delete trip
         </button>
-        {trip.endDate < new Date().toISOString() &&
+        {/* {trip.endDate < new Date().toISOString() &&
         trip.driver.id !== trip.car.host.id ? (
           <button
             className="trips-options-buttons"
             onClick={() => history.push(`/cars/${trip.car.id}/reviews`)}
           >
             Review car
+          </button>
+        ) : null} */}
+        {trip.endDate < new Date().toISOString() &&
+        trip.driver.id !== trip.car.host.id &&
+        !reviewExists() ? (
+          <button
+            className="trips-options-buttons"
+            onClick={() => history.push(`/cars/${trip.car.id}/reviews`)}
+          >
+            Review car
+          </button>
+        ) : null}
+        {trip.endDate < new Date().toISOString() &&
+        trip.driver.id !== trip.car.host.id &&
+        reviewExists() ? (
+          <button
+            className="trips-options-buttons"
+            onClick={() => history.push(`/reviews/${reviewId}`)}
+          >
+            Update or delete review
           </button>
         ) : null}
         {/* <button

@@ -8,15 +8,32 @@ import SearchLine from "../SearchLine";
 import { IoOptionsOutline } from "react-icons/io5";
 import CarSearchIndexItem from "../CarSearchIndexItem";
 import { Redirect } from "react-router-dom";
+import CarMap from "../CarMap";
+import { useHistory } from "react-router-dom";
+import { useMemo } from "react";
 
 function CarsSearchIndex() {
   const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const cars = useSelector((state) => Object.values(state.cars));
+  const [highlightedCar, setHighlightedCar] = useState(null);
+  const history = useHistory();
+  const [bounds, setBounds] = useState(null);
 
   useEffect(() => {
     dispatch(fetchCars());
   }, [dispatch]);
+
+  const mapEventHandlers = useMemo(
+    () => ({
+      click: (event) => {
+        const search = new URLSearchParams(event.latLng.toJSON()).toString();
+        // history.push({ pathname: "/", search }); // no new car path yet
+      },
+      idle: (map) => setBounds(map.getBounds().toUrlValue()),
+    }),
+    [history]
+  );
 
   const monthYear = (dateString) => {
     const dateObj = new Date(dateString);
@@ -52,7 +69,18 @@ function CarsSearchIndex() {
         <h2>{`${cars ? cars.length : 0} cars available`}</h2>
         <p>These cars can be picked up in this city.</p>
       </div>
-      <div id="map-container"></div>
+      <div id="map-container">
+        <CarMap
+          cars={cars}
+          mapEventHandlers={mapEventHandlers}
+          markerEventHandlers={{
+            click: (car) => history.push(`/cars/${car.id}`),
+            mouseover: (car) => setHighlightedCar(car.id),
+            mouseout: () => setHighlightedCar(null),
+          }}
+          highlightedCar={highlightedCar}
+        />
+      </div>
       <div id="car-tile-container">
         {cars.map((car, idx) => (
           <CarSearchIndexItem key={idx} className="car-tile" car={car} />

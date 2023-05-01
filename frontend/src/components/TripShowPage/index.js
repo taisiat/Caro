@@ -101,7 +101,6 @@ const TripShowPage = () => {
       startDate: new Date(startDate.toLocaleString()).toISOString(),
       endDate: new Date(endDate.toLocaleString()).toISOString(),
       protectionPlan: selectedAnswer,
-      totalPrice: tripPrice(),
     };
 
     try {

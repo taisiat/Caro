@@ -31,7 +31,6 @@ const FavoriteIndexItem = ({ carId }) => {
         parseFloat(car.avgConvenienceRating) +
         parseFloat(car.avgAccuracyRating)) /
       5.0;
-    console.log(avg, "avg");
     if (avg) {
       return avg.toFixed(2);
     } else {

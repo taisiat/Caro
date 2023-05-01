@@ -3,7 +3,6 @@
 # Table name: trips
 #
 #  id              :bigint           not null, primary key
-#  total_price     :integer          not null
 #  start_date      :datetime         not null
 #  end_date        :datetime         not null
 #  protection_plan :string           not null
@@ -15,7 +14,6 @@
 class Trip < ApplicationRecord
   validates :start_date, :end_date, presence: true
   validates :protection_plan, inclusion: { in: ["Minimum", "Standard", "Premier", "None"] }
-  validates :total_price , numericality: { greater_than_or_equal_to: 0 }
   validate :end_date_after_start_date
   validate :no_overlapping_bookings
 

@@ -44,7 +44,6 @@ export const createFavorite = (favoriteFormData) => async (dispatch) => {
 };
 
 export const deleteFavorite = (favoriteId) => async (dispatch) => {
-  console.log("favoriteId in deletefav", favoriteId);
   const response = await csrfFetch(`/api/favorites/${favoriteId}`, {
     method: "DELETE",
   });

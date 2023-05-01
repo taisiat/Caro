@@ -1,6 +1,6 @@
 class Api::TripsController < ApplicationController
     before_action :require_logged_in, only: [:create, :index, :update, :destroy]
-      wrap_parameters include: Trip.attribute_names + ['carId'] + ['startDate'] + ['endDate'] + ['totalPrice']  + ['protectionPlan'] 
+      wrap_parameters include: Trip.attribute_names + ['carId'] + ['startDate'] + ['endDate']  + ['protectionPlan'] 
     
     def create
         @trip = Trip.new(trip_params);
@@ -46,6 +46,6 @@ class Api::TripsController < ApplicationController
     private
     
     def trip_params
-        params.require(:trip).permit(:total_price, :start_date, :end_date, :protection_plan, :car_id)
+        params.require(:trip).permit(:start_date, :end_date, :protection_plan, :car_id)
     end
 end

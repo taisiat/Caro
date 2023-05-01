@@ -53,7 +53,6 @@ const CarBookForm = ({ car }) => {
       startDate: handleDateChange(startDate),
       endDate: handleDateChange(endDate),
       protectionPlan: selectedAnswer,
-      totalPrice: tripPrice(),
     };
 
     try {

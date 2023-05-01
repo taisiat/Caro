@@ -102,7 +102,6 @@ const FavHeart = ({ car }) => {
     //   setHeartClick(true);
     // }
 
-    console.log(fav, "fav", heartClick, "heartClick");
     if (!heartClick) {
       try {
         dispatch(createFavorite({ carId: car.id }));

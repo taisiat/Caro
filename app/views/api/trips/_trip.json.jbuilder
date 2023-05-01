@@ -1,8 +1,5 @@
 json.extract! trip, 
     :id,      
-    :total_price,
-    # start_date: Time.parse(trip.start_date).in_time_zone('Pacific Time (US & Canada)'),
-    # end_date: Time.parse(trip.end_date).in_time_zone('Pacific Time (US & Canada)'),
     :end_date,
     :start_date,
     :protection_plan,
