@@ -23,6 +23,7 @@ import Spinner from "../Spinner";
 import ReviewIndexItem from "../ReviewIndexItem";
 import { VscAccount } from "react-icons/vsc";
 import CarMap from "../CarMap";
+import { fetchFavorites } from "../../store/favorites";
 
 function CarShowPage() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -33,6 +34,12 @@ function CarShowPage() {
   const [currentImg, setCurrentImg] = useState(0);
   const imageListLength = car?.photosUrl ? car.photosUrl.length : 0;
   const history = useHistory();
+  const favorites = useSelector((state) => Object.values(state.favorites)); //heartsedit add favs to car show
+
+  useEffect(() => {
+    //heartsedit add favs to car show
+    dispatch(fetchFavorites());
+  }, [dispatch, sessionUser]);
 
   const handleImgSlider = (direction) => {
     handleChangeImage();
@@ -111,8 +118,9 @@ function CarShowPage() {
     <div id="car-show-container">
       <SearchLine />
       <div id="car-show-heart-container">
-        <FavHeart className="heart-car-show" car={car} />
-      </div>
+        <FavHeart className="heart-car-show" car={car} favorites={favorites} />
+      </div>{" "}
+      // heartsedit
       <div id="car-show-imgs-container">
         {car.photosUrl && (
           <img

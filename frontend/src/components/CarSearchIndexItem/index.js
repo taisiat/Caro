@@ -7,7 +7,12 @@ import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
-const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
+const CarSearchIndexItem = ({
+  car,
+  isHighlighted,
+  setHighlightedCar,
+  favorites,
+}) => {
   const [heartClick, setHeartClick] = useState(false);
 
   const handleHeartClick = () => {
@@ -52,8 +57,9 @@ const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
     <div
       id="car-index-item-container"
       className={isHighlighted ? " highlighted" : ""}
-      onMouseEnter={() => setHighlightedCar(car.id)}
-      onMouseLeave={() => setHighlightedCar(null)}
+      onMouseEnter={() => isHighlighted && setHighlightedCar(car.id)}
+      onMouseLeave={() => isHighlighted && setHighlightedCar(null)}
+
       //   onClick={() => history.push(`/cars/${car.id}`)}
     >
       <div
@@ -107,6 +113,7 @@ const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
             handleHeartClick();
           }}
           car={car}
+          favorites={favorites} //carhearts add here
         />
 
         <div

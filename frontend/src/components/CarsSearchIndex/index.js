@@ -15,6 +15,7 @@ import CarList from "./CarList";
 import FilterForm from "./FilterForm";
 import Spinner from "../Spinner";
 import noCarsImage from "./no_car_found.png";
+import { fetchFavorites } from "../../store/favorites";
 
 function CarsSearchIndex() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -31,6 +32,10 @@ function CarsSearchIndex() {
   const [superhostFilter, setSuperhostFilter] = useState(false);
   const [experienceType, setExperienceType] = useState("");
   //   const mapOptions = {};
+  const favorites = useSelector((state) => Object.values(state.favorites)); //heartsedit add favs here
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch, sessionUser]); //heartsedit add favs here
 
   useEffect(() => {
     if (experience) {
@@ -172,6 +177,7 @@ function CarsSearchIndex() {
           cars={cars}
           highlightedCar={highlightedCar}
           setHighlightedCar={setHighlightedCar}
+          favorites={favorites} //heartsedit add favs here
         />
       </div>
     </div>

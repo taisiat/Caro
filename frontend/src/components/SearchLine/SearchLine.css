@@ -51,3 +51,27 @@
 .search-input-line:hover {
   cursor: pointer;
 }
+
+#search-button-container-line {
+  font-size: 25px;
+  text-align: center;
+  color: white;
+  background-color: #4a31da;
+  height: 40px;
+  width: 45px;
+  border-radius: 45px;
+  /* margin-right: 5px; */
+  /* margin-top: 5px; */
+  transition: 0.25s ease-in-out;
+}
+
+#search-button-container-line:hover {
+  background-color: #3a1daa;
+  cursor: pointer;
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
+}
+
+#search-icon.search-line-button {
+  margin-top: 8px;
+}

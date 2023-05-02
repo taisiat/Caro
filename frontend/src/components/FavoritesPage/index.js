@@ -8,15 +8,21 @@ import { useDispatch } from "react-redux";
 import { fetchFavorites } from "../../store/favorites";
 import Spinner from "../Spinner";
 import FavoriteIndexItem from "./FavoriteIndexItem";
+import { fetchCars } from "../../store/cars";
 
 function FavoritesPage() {
+  const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const favorites = useSelector((state) => Object.values(state.favorites));
-  const dispatch = useDispatch();
+  const cars = useSelector((state) => Object.values(state.cars));
+
+  useEffect(() => {
+    dispatch(fetchCars({}));
+  }, [dispatch, sessionUser]);
 
   useEffect(() => {
     dispatch(fetchFavorites());
-  }, [dispatch, sessionUser]);
+  }, [dispatch, sessionUser]); //heartsedit 1. added favorites
 
   if (!sessionUser) return <Redirect to="/" />;
 
@@ -32,7 +38,12 @@ function FavoritesPage() {
         <div id="favs-index-container">
           {favorites &&
             favorites.map((favorite, idx) => (
-              <FavoriteIndexItem carId={favorite.carId} key={idx} />
+              <FavoriteIndexItem
+                carId={favorite.carId}
+                cars={cars}
+                key={idx}
+                favorites={favorites}
+              /> //heartsedit 2. add favs
             ))}
         </div>
       </div>

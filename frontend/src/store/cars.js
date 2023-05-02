@@ -13,7 +13,7 @@ export const addCar = (car) => ({
   payload: car,
 });
 
-// export const fetchCars = () => async (dispatch) => {
+// export const fetchCarsNoFilter = () => async (dispatch) => {
 //   const response = await csrfFetch(`/api/cars`);
 //   const data = await response.json();
 //   dispatch(setCars(data.cars));

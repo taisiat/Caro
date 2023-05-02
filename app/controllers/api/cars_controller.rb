@@ -19,6 +19,8 @@ class Api::CarsController < ApplicationController
     if experience_filter === ''
       # debugger
       @cars
+    # elsif experience_filter === 'All'
+    #   @cars
     else
       @cars = @cars.where(category: experience_filter)
     end

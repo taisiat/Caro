@@ -25,6 +25,7 @@ function FilterForm({
             <Input
               // label="min $"
               id="min-price"
+              min="0"
               type="number"
               placeholder="$"
               value={minPricing}
@@ -41,6 +42,7 @@ function FilterForm({
               type="number"
               id="max-price"
               placeholder="$"
+              min="0"
               value={maxPricing}
               onChange={(e) => setMaxPricing(parseValue(e.target.value))}
             />

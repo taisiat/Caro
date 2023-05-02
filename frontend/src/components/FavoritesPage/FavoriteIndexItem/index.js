@@ -9,19 +9,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCar } from "../../../store/cars";
 import Spinner from "../../Spinner";
 
-const FavoriteIndexItem = ({ carId }) => {
+const FavoriteIndexItem = ({ carId, favorites, cars }) => {
+  //heartsedit 3. receive favs
   const [heartClick, setHeartClick] = useState(false);
   const car = useSelector((state) => state.cars[carId]);
   const dispatch = useDispatch();
+  const history = useHistory();
+  //   const car = cars.find((car) => car.id === carId);
+  //   let car;
+  //   useEffect(() => {
+  //     if (cars) {
+  //       car = cars.find((car) => car.id === carId);
+  //     }
+  //   }, [cars]);
 
   useEffect(() => {
     dispatch(fetchCar(carId));
   }, [dispatch, carId]);
 
-  const handleHeartClick = () => {
-    setHeartClick(!heartClick);
-  };
-  const history = useHistory();
+  //   const handleHeartClick = () => { //heartsedit 4. comment out handleHeartClick
+  //     setHeartClick(!heartClick);
+  //   };
 
   const avgCarRating = () => {
     const avg =
