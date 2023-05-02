@@ -91,17 +91,18 @@ const TripShowPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    // if (!sessionUser) {
-    //   history.push("/login");
-    //   return;
-    // }
+
+    if (new Date(startDate) <= new Date()) {
+      setErrors(["Start date must be in the future."]);
+      return;
+    }
+
     const tripData = {
       tripId: trip.id,
       carId: trip.car.id,
       startDate: new Date(startDate.toLocaleString()).toISOString(),
       endDate: new Date(endDate.toLocaleString()).toISOString(),
       protectionPlan: selectedAnswer,
-      totalPrice: tripPrice(),
     };
 
     try {
@@ -152,10 +153,10 @@ const TripShowPage = () => {
           )}
         </div>
         <div id="search-car-show-container">
-          <div id="where-container-car-show">
+          {/* <div id="where-container-car-show">
             <p>Pickup & return location</p>
             <h3>{trip.car.location}</h3>
-          </div>
+          </div> */}
         </div>
         <form onSubmit={handleSubmit}>
           <p className="form-field-title">Trip start</p>

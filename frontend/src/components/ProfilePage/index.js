@@ -24,8 +24,12 @@ function ProfilePage() {
   const user = useSelector((state) => state.users[userId]);
   //   const [user, setUser] = useState([]);
   const dispatch = useDispatch();
-  const reviews = useSelector((state) => Object.values(state.reviews));
-
+  //   const reviews = useSelector((state) => Object.values(state.reviews));
+  const reviews = useSelector((state) =>
+    Object.values(state.reviews).sort((a, b) => {
+      return new Date(b.updatedAt) - new Date(a.updatedAt);
+    })
+  );
   //   if (!sessionUser) return <Redirect to="/" />;
 
   useEffect(() => {

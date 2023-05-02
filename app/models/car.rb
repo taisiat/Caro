@@ -19,6 +19,7 @@
 #  host_id     :bigint           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  city        :string
 #
 class Car < ApplicationRecord
   validates :make, :model, :category, :description, :guidelines, presence: true
@@ -27,6 +28,7 @@ class Car < ApplicationRecord
   validates :daily_rate, numericality: { greater_than_or_equal_to: 0 }
   validates :location, length: { minimum: 2 }
   validates :year, length: { is: 4 }, numericality: { only_integer: true }
+  validates :city, presence: true
 
   has_many_attached :photos
 
@@ -44,24 +46,6 @@ class Car < ApplicationRecord
 
   has_many :favorites,
     dependent: :destroy
-
-
-
-  # def average_rating
-  #   average = reviews.average(:rating)
-  #   average && average.round(1)
-  # end
-
-  # def average_star_rating
-  #   average = (
-  #     reviews.average(:cleanliness_rating) +
-  #     reviews.average(:maintenance_rating) +
-  #     reviews.average(:communication_rating) +
-  #     reviews.average(:convenience_rating) +
-  #     reviews.average(:accuracy_rating)
-  #   ) / 5.0
-  #   average && average.round(1)
-  # end
 
   def avg_cleanliness_rating
     average = reviews.average(:cleanliness_rating)
@@ -95,6 +79,42 @@ class Car < ApplicationRecord
   def reviews_count
     reviews.length
   end
+
+  # def self.car_lat
+  #   :location[0]
+  # end
+
+  # def self.car_lng
+  #   :location[1]
+  # end
+
+  def self.in_bounds(bounds)
+    # debugger
+    lower_lat, lower_lng, upper_lat, upper_lng = bounds
+    # car_lat, car_lng = :location
+    # car_lat = :location[0]
+    # car_lng = :location[1]
+    # # where(car_lat: lower_lat..upper_lat, car_lng: lower_lng..upper_lng)
+    Car.where("location[1]::float BETWEEN ? AND ?", lower_lat, upper_lat)
+    .where("location[2]::float BETWEEN ? AND ?", lower_lng, upper_lng)
+    # where("cast(location[0] as float) BETWEEN ? AND ?", lower_lat, upper_lat)
+    # .where("cast(location[1] as float) BETWEEN ? AND ?", lower_lng, upper_lng)
+    # Car.where("ARRAY_FIRST(location) BETWEEN ? AND ?", lower_lat, upper_lat)
+    # .where("ARRAY_LAST(location) BETWEEN ? AND ?", lower_lng, upper_lng)
+    # Car.where("ARRAY[location[1]] = 37.808205" )
+        # Car.where(make: "Subaru" )
+
+    # Car.where("location @> ARRAY[?,?]", 37.808205, -122.415480)
+
+  end
+
+  # def self.filter_by_superhost(superhost_filter)
+  #   if superhost_filter == true
+  #     joins(:host).where(users: { is_superhost: true })
+  #   else
+  #     all
+  #   end
+  # end
 
 
 end

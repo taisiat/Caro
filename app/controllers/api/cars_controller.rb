@@ -4,7 +4,19 @@ class Api::CarsController < ApplicationController
     # wrap_parameters include: Car.attribute_names + [:photo], format: :multipart_form + ['doorsCount'] + ['seatsCount'] + ['dailyRate']
 
   def index
-    @cars = Car.includes(:host).all
+    @cars = Car.includes(:host)
+    @cars = @cars.in_bounds(bounds) if bounds
+    @cars = @cars.where(daily_rate: price_range) if price_range
+    # @cars = @cars.where(host_id.is_superhost: superhost_filter) if superhost_filter
+    # @cars = @cars.joins(:users).where(users: { is_superhost: superhost_filter }) if superhost_filter
+    # @cars = @cars.where(Car.host.is_superhost: superhost_filter) if superhost_filter
+    # @cars = @cars.filter_by_superhost(superhost_filter)
+    if superhost_filter === 'true'
+      @cars = @cars.where(host_id: User.where(is_superhost: true).pluck(:id))
+    else
+      @cars
+    end
+
   end
 
   def show
@@ -38,8 +50,24 @@ class Api::CarsController < ApplicationController
       :guidelines,
       :daily_rate,
       :location,
-      :active
+      :active,
+      :city
     )
+  end
+
+  def bounds
+    return nil unless params[:bounds]
+    params[:bounds]&.split(',').map(&:to_f)
+  end
+
+  def price_range
+    return nil unless params[:min_pricing] && params[:max_pricing]
+    params[:min_pricing]..params[:max_pricing]
+  end
+
+  def superhost_filter
+    return nil unless params[:superhost_filter]
+    params[:superhost_filter]
   end
 
 end

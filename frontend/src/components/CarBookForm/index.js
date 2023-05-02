@@ -45,6 +45,11 @@ const CarBookForm = ({ car }) => {
       return;
       //   return <LoginForm />;
     }
+
+    if (new Date(startDate) <= new Date()) {
+      setErrors(["Start date must be in the future."]);
+      return;
+    }
     const tripData = {
       carId,
       //   driverId: sessionUser.id,
@@ -53,7 +58,6 @@ const CarBookForm = ({ car }) => {
       startDate: handleDateChange(startDate),
       endDate: handleDateChange(endDate),
       protectionPlan: selectedAnswer,
-      totalPrice: tripPrice(),
     };
 
     try {
@@ -102,10 +106,10 @@ const CarBookForm = ({ car }) => {
         )}
       </div>
       <div id="search-car-show-container">
-        <div id="where-container-car-show">
+        {/* <div id="where-container-car-show">
           <p>Pickup & return location</p>
           <h3>{car.location}</h3>
-        </div>
+        </div> */}
       </div>
       <form onSubmit={handleSubmit}>
         <p className="form-field-title">Trip start</p>

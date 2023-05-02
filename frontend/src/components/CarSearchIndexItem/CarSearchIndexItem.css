@@ -18,6 +18,10 @@
   cursor: pointer;
 }
 
+#car-index-item-container.highlighted {
+  background-color: #f7f7f7;
+}
+
 #car-image-container {
   width: 45%;
   height: 100%;

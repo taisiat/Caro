@@ -22,6 +22,7 @@ import { fetchReviews } from "../../store/reviews";
 import Spinner from "../Spinner";
 import ReviewIndexItem from "../ReviewIndexItem";
 import { VscAccount } from "react-icons/vsc";
+import CarMap from "../CarMap";
 
 function CarShowPage() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -371,7 +372,17 @@ function CarShowPage() {
         </div>
       </div>
       <div id="car-show-map">
-        <div id="map"></div>
+        <div id="map">
+          <CarMap
+            cars={[car]}
+            mapOptions={{
+              center: {
+                lat: parseFloat(car.location[0]),
+                lng: parseFloat(car.location[1]),
+              },
+            }}
+          />
+        </div>
       </div>
       <Footer />
     </div>
