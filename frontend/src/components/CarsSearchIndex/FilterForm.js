@@ -5,9 +5,11 @@ function FilterForm({
   minPricing,
   maxPricing,
   superhostFilter,
+  experienceType,
   setMinPricing,
   setMaxPricing,
   setSuperhostFilter,
+  setExperienceType,
 }) {
   const parseValue = (val) => (val === "" ? val : parseInt(val));
 
@@ -56,6 +58,33 @@ function FilterForm({
             value={superhostFilter}
             onChange={(e) => setSuperhostFilter(e.target.checked)}
           />
+        </div>
+
+        {/* <div className="experience-search-component">
+          <label id="experience-input-label" htmlFor="experience-type">
+            Filter by experience
+          </label>
+          <Input
+            htmlFor="experience-type"
+            type="checkbox"
+            value={experienceType}
+            onChange={(e) => setExperienceType(e.target.value)}
+          />
+        </div> */}
+        <div className="experience-search-component">
+          <label id="experience-input-label" htmlFor="experience-type">
+            Filter by experience
+          </label>
+          <select
+            id="experience-type"
+            value={experienceType}
+            onChange={(e) => setExperienceType(e.target.value)}
+          >
+            <option value="">All</option>
+            <option value="Exotic">Deluxe + Super Deluxe</option>
+            <option value="Electric">Electric</option>
+            <option value="All-Wheel Drive">All-Wheel Drive</option>
+          </select>
         </div>
       </div>
     </div>

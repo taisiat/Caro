@@ -22,19 +22,56 @@ function CarsSearchIndex() {
   const cars = useSelector((state) => Object.values(state.cars));
   const [highlightedCar, setHighlightedCar] = useState(null);
   const history = useHistory();
+  //   const cityCoords = localStorage.getItem("cityCoords");
+  //   const cityZoom = localStorage.getItem("cityZoom");
+  const experience = localStorage.getItem("experience");
   const [bounds, setBounds] = useState(null);
   const [minPricing, setMinPricing] = useState(1);
-  const [maxPricing, setMaxPricing] = useState(100000);
+  const [maxPricing, setMaxPricing] = useState(4000);
   const [superhostFilter, setSuperhostFilter] = useState(false);
+  const [experienceType, setExperienceType] = useState("");
+  //   const mapOptions = {};
+
+  useEffect(() => {
+    if (experience) {
+      setExperienceType(experience);
+      console.log("experience!", experience, experienceType, "exp type");
+      // localStorage.removeItem("experience");
+      localStorage.clear();
+    }
+  }, [experience]);
+
+  //   useEffect(() => {
+  //     if (cityCoords) {
+  //       //   mapOptions.center = JSON.parse(cityCoords);
+  //       //   mapOptions.zoom = JSON.parse(cityZoom);
+  //       mapOptions.center = cityCoords;
+  //       mapOptions.zoom = cityZoom;
+  //       localStorage.clear();
+  //     }
+  //   }, [cityCoords]);
 
   useEffect(() => {
     if (minPricing && maxPricing && bounds) {
-      dispatch(fetchCars({ minPricing, maxPricing, bounds, superhostFilter })); // add superhost and dates
+      dispatch(
+        fetchCars({
+          minPricing,
+          maxPricing,
+          bounds,
+          superhostFilter,
+          experienceType,
+        })
+      ); // add superhost and dates
       //   dispatch(fetchCars({ bounds }));
-
-      console.log("map bounds", bounds, minPricing, maxPricing, "prices");
     }
-  }, [minPricing, maxPricing, bounds, superhostFilter, dispatch]);
+  }, [
+    minPricing,
+    maxPricing,
+    bounds,
+    superhostFilter,
+    experienceType,
+    dispatch,
+  ]);
 
   //   useEffect(() => {
   //     dispatch(fetchCars());
@@ -76,9 +113,11 @@ function CarsSearchIndex() {
           minPricing={minPricing}
           maxPricing={maxPricing}
           superhostFilter={superhostFilter}
+          experienceType={experienceType}
           setMinPricing={setMinPricing}
           setMaxPricing={setMaxPricing}
           setSuperhostFilter={setSuperhostFilter}
+          setExperienceType={setExperienceType}
         />
         {/* <button>
           <p>Sort by</p>
@@ -122,6 +161,7 @@ function CarsSearchIndex() {
             mouseout: () => setHighlightedCar(null),
           }}
           highlightedCar={highlightedCar}
+          //   mapOptions={mapOptions}
         />
       </div>
       <div id="car-tile-container">

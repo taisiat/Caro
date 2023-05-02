@@ -14,6 +14,25 @@ function CarMap({
   const mapRef = useRef(null);
   const markers = useRef({});
   const history = useHistory();
+  const cityCoords = JSON.parse(localStorage.getItem("cityCoords"));
+  const cityZoom = JSON.parse(localStorage.getItem("cityZoom"));
+
+  useEffect(() => {
+    if (cityCoords) {
+      //   mapOptions.center = JSON.parse(cityCoords);
+      //   mapOptions.zoom = JSON.parse(cityZoom);
+      mapOptions.center = cityCoords;
+      mapOptions.zoom = cityZoom;
+      localStorage.clear();
+    }
+  }, [cityCoords]);
+
+  useEffect(() => {
+    if (cityZoom) {
+      mapOptions.zoom = cityZoom;
+      localStorage.clear();
+    }
+  }, [cityZoom]);
 
   //   // Create the map
   useEffect(() => {
@@ -21,10 +40,10 @@ function CarMap({
       setMap(
         new window.google.maps.Map(mapRef.current, {
           center: {
-            lat: 37.773972,
-            lng: -122.431297,
-          }, // San Francisco coordinates
-          zoom: 13,
+            lat: 39.24140288621095,
+            lng: -119.42514550357927,
+          },
+          zoom: 5,
           clickableIcons: false,
           ...mapOptions,
         })

@@ -43,6 +43,11 @@ const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
   //       .catch((error) => console.error(error));
   //   };
 
+  const handleTileClick = () => {
+    localStorage.setItem("cityZoom", 14);
+    history.push(`/cars/${car.id}`);
+  };
+
   return (
     <div
       id="car-index-item-container"
@@ -53,7 +58,8 @@ const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
     >
       <div
         id="car-image-container"
-        onClick={() => history.push(`/cars/${car.id}`)}
+        // onClick={() => history.push(`/cars/${car.id}`)}
+        onClick={handleTileClick}
       >
         {car.photosUrl && (
           <img
@@ -63,7 +69,11 @@ const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
           />
         )}
       </div>
-      <div id="car-tile-info" onClick={() => history.push(`/cars/${car.id}`)}>
+      <div
+        id="car-tile-info"
+        // onClick={() => history.push(`/cars/${car.id}`)}
+        onClick={handleTileClick}
+      >
         <h2 id="car-name">{`${car.make} ${car.model} ${car.year}`}</h2>
         <div id="car-tile-trips-and-host-info">
           <p id="car-tile-rating-trips-container">
@@ -101,7 +111,8 @@ const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
 
         <div
           id="car-price-container"
-          onClick={() => history.push(`/cars/${car.id}`)}
+          //   onClick={() => history.push(`/cars/${car.id}`)}
+          onClick={handleTileClick}
         >
           <h3>{`$${car.dailyRate}/day`}</h3>
           <p>{`$${car.dailyRate} est. total`}</p>

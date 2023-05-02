@@ -16,6 +16,12 @@ class Api::CarsController < ApplicationController
     else
       @cars
     end
+    if experience_filter === ''
+      # debugger
+      @cars
+    else
+      @cars = @cars.where(category: experience_filter)
+    end
 
   end
 
@@ -68,6 +74,11 @@ class Api::CarsController < ApplicationController
   def superhost_filter
     return nil unless params[:superhost_filter]
     params[:superhost_filter]
+  end
+
+  def experience_filter 
+    return nil unless params[:experience_type]
+    params[:experience_type]
   end
 
 end
