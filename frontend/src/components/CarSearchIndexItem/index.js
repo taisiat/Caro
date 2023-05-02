@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
-const CarSearchIndexItem = ({ car }) => {
+const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
   const [heartClick, setHeartClick] = useState(false);
 
   const handleHeartClick = () => {
@@ -30,9 +30,25 @@ const CarSearchIndexItem = ({ car }) => {
     }
   };
 
+  //   const address = (lat, lng) => {
+  //     const apiKey = process.env.REACT_APP_MAPS_API_KEY;
+  //     fetch(
+  //       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
+  //     )
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         const address = data.results[0].address_components[6].long_name;
+  //         console.log(address, "address");
+  //       })
+  //       .catch((error) => console.error(error));
+  //   };
+
   return (
     <div
       id="car-index-item-container"
+      className={isHighlighted ? " highlighted" : ""}
+      onMouseEnter={() => setHighlightedCar(car.id)}
+      onMouseLeave={() => setHighlightedCar(null)}
       //   onClick={() => history.push(`/cars/${car.id}`)}
     >
       <div
@@ -62,9 +78,7 @@ const CarSearchIndexItem = ({ car }) => {
         </div>
         <div id="car-tile-location-info">
           <BiMapAlt />
-          <p>City</p>
-
-          <p>distance</p>
+          <p>{car.city}</p>
         </div>
       </div>
       <div id="car-heart-price-container">

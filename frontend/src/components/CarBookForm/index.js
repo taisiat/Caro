@@ -106,10 +106,10 @@ const CarBookForm = ({ car }) => {
         )}
       </div>
       <div id="search-car-show-container">
-        <div id="where-container-car-show">
+        {/* <div id="where-container-car-show">
           <p>Pickup & return location</p>
           <h3>{car.location}</h3>
-        </div>
+        </div> */}
       </div>
       <form onSubmit={handleSubmit}>
         <p className="form-field-title">Trip start</p>

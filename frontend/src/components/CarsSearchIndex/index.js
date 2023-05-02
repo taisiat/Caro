@@ -13,6 +13,8 @@ import { useHistory } from "react-router-dom";
 import { useMemo } from "react";
 import CarList from "./CarList";
 import FilterForm from "./FilterForm";
+import Spinner from "../Spinner";
+import noCarsImage from "./no_car_found.png";
 
 function CarsSearchIndex() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -60,7 +62,8 @@ function CarsSearchIndex() {
   if (!cars) {
     return (
       <>
-        <img src="./no_car_found.png" alt="no cars found"></img>
+        {/* <img src="./no_car_found.png" alt="no cars found"></img> */}
+        <Spinner />
       </>
     );
   }
@@ -89,9 +92,25 @@ function CarsSearchIndex() {
           </p>
         </button> */}
       </div>
+
       <div id="car-search-summary">
         <h2>{`${cars ? cars.length : 0} cars available`}</h2>
-        <p>These cars can be picked up in this city.</p>
+        {cars.length === 0 && (
+          <div id="no-results-container">
+            <img
+              src={noCarsImage}
+              alt="no cars found"
+              id="zero-search-result-img"
+            ></img>
+            <p id="no-results-msg">
+              Try changing your filters or exploring the map around Caro's
+              destination cities: Seattle, San Francisco, and Las Vegas
+            </p>
+          </div>
+        )}
+        {cars.length !== 0 && (
+          <p id="yes-results-msg">These cars can be picked up in this city.</p>
+        )}
       </div>
       <div id="map-container">
         <CarMap

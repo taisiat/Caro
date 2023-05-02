@@ -331,6 +331,7 @@ ApplicationRecord.transaction do
     seats_count: 5,
     category: "Electric",
     automatic: true,
+    city: "Las Vegas",
     description: "Hey there, car enthusiasts! I've got a sweet ride that's sure to turn heads and give you a smooth ride like no other. It's a Tesla Model S, and let me tell you, it's a game-changer in the world of electric cars. This sleek and stylish sedan boasts a luxurious interior with top-of-the-line technology, making it the perfect ride for those who want to travel in style and comfort.
 
 The Tesla Model S has a range of up to 400 miles on a single charge, which means you can go from LA to Vegas and back without needing to stop and recharge. With its smooth handling and quiet ride, you'll feel like you're floating on air as you cruise down the highway.
@@ -359,6 +360,7 @@ Overall, the Tesla Model S is a stunning and innovative car that's sure to impre
     guidelines: "Please return the car in the same condition as you received it. No smoking, no pets, no off-roading, and please be mindful of the car's performance capabilities.",
     daily_rate: 400,
     location: [36.0819,-115.1331],
+    city: "Las Vegas",
     active: true,
     host_id: 6,
     created_at: "2023-02-28T00:00:00.000Z"
@@ -377,6 +379,7 @@ Car.create!(
     guidelines: "Please return the car in the same condition as you received it. No smoking, no pets, and please be mindful of the car's performance capabilities. A security deposit may be required.",
     daily_rate: 2500,
     location: [36.1498,-115.145],
+    city: "Las Vegas",
     active: true,
     host_id: 13,
     created_at: "2022-07-10T00:00:00.000Z"
@@ -395,6 +398,7 @@ Car.create!(
     guidelines: "Please keep the car clean and return it with a full tank of gas. No smoking, no pets, no off-roading on extreme terrain. Please follow all traffic laws and drive safely.",
     daily_rate: 80,
     location: [36.1115,-115.2096],
+    city: "Las Vegas",
     active: true,
     host_id: 10,
     created_at: "2021-08-03T00:00:00.000Z"
@@ -413,6 +417,7 @@ Car.create!(
     guidelines: "Please charge the car before returning it. No smoking, no pets, no racing, and no off-roading. Please treat the car with care and respect.",
     daily_rate: 350,
     location: [36.1617,-115.1241],
+    city: "Las Vegas",
     active: true,
     host_id: 7,
     created_at: "2022-02-14T00:00:00.000Z"
@@ -431,6 +436,7 @@ Car.create!(
     guidelines: "Please return the car in the same condition as you received it. No smoking, no pets, no off-roading, and no racing. Please drive safely and responsibly.",
     daily_rate: 250,
     location: [37.780977, -122.463370],
+    city: "San Francisco",
     active: true,
     host_id: 1,
     created_at: "2021-09-21T00:00:00.000Z"
@@ -449,6 +455,7 @@ Car.create!(
     guidelines: "Please treat the car with care and respect. No racing, no smoking, and no pets allowed. Must return the car with a full tank of premium gasoline.",
     daily_rate: 2000,
     location: [37.802311, -122.411427],
+    city: "San Francisco",
     active: true,
     host_id: 14,
     created_at: "2022-03-20T00:00:00.000Z"
@@ -467,6 +474,7 @@ Car.create!(
     guidelines: "Please return the car with at least 50% battery charge. No smoking or pets allowed. Must follow all traffic laws and use autopilot responsibly.",
     daily_rate: 500,
     location: [37.786939, -122.459978],
+    city: "San Francisco",
     active: true,
     host_id: 3,
     created_at: "2022-04-15T00:00:00.000Z"
@@ -485,6 +493,7 @@ Car.create!(
     guidelines: "Please treat the car with care and respect. No smoking, no pets, and no racing allowed. Must return the car with a full tank of premium gasoline.",
     daily_rate: 1500,
     location: [37.773390, -122.421444],
+    city: "San Francisco",
     active: true,
     host_id: 1,
     created_at: "2021-08-20T00:00:00.000Z"
@@ -503,6 +512,7 @@ Car.create!(
     guidelines: "The renter is responsible for ensuring that the car is locked and secure when not in use. Any theft or vandalism will be the responsibility of the renter.",
     daily_rate: 300,
     location: [37.760649, -122.434264],
+    city: "San Francisco",
     active: true,
     host_id: 10,
     created_at: "2021-08-20T00:00:00.000Z"
@@ -521,6 +531,7 @@ Car.create!(
     guidelines: "Please return the car in the same condition as you received it. No smoking, no pets, no racing, no off-roading, no food or drink in the car. Premium gasoline only.",
     daily_rate: 3500,
     location: [37.792222, -122.405003],
+    city: "San Francisco",
     active: true,
     host_id: 14,
     created_at: "2021-07-12T00:00:00.000Z"
@@ -539,6 +550,7 @@ Car.create!(
     guidelines: "Please return the car in the same condition as you received it. No smoking, no pets, no off-roading, no racing. Must be charged before returning.",
     daily_rate: 300,
     location:  [37.748279, -122.487738],
+    city: "San Francisco",
     active: true,
     host_id: 7,
     created_at: "2022-01-18T00:00:00.000Z"
@@ -557,6 +569,7 @@ Car.create!(
     guidelines: "The car is not allowed to be used for commercial purposes, such as ride-sharing or delivery services, without prior permission from the owner.",
     daily_rate: 100,
     location: [37.808205, -122.415480],
+    city: "San Francisco",
     active: true,
     host_id: 9,
     created_at: "2021-12-01T00:00:00.000Z"
@@ -575,6 +588,7 @@ Car.create!(
     guidelines: "Please drive responsibly and do not take the car off-road. No smoking, pets, or racing allowed. Must return the car in the same condition as when you received it.",
     daily_rate: 200,
     location: [37.758856, -122.397758],
+    city: "San Francisco",
     active: true,
     host_id: 14,
     created_at: "2022-02-01T00:00:00.000Z"
@@ -593,6 +607,7 @@ Car.create!(
     guidelines: "Please keep the car in good condition and treat it with respect. No smoking, pets, or racing allowed. Must return the car in the same condition as when you received it.",
     daily_rate: 300,
     location: [37.802576, -122.408343],
+    city: "San Francisco",
     active: true,
     host_id: 8,
     created_at: "2022-01-01T00:00:00.000Z"
@@ -611,6 +626,7 @@ Car.create!(
     guidelines: "Please treat the car with respect and return it in the same condition as when you received it. No smoking, pets, or racing allowed. Must be kept in a secure location overnight.",
     daily_rate: 500,
     location: [47.5232,-122.2613],
+    city: "Seattle",
     active: true,
     host_id: 3,
     created_at: "2021-10-01T00:00:00.000Z"
@@ -629,6 +645,7 @@ Car.create!(
     guidelines: "Any damage to the interior or exterior of the car must be reported to the owner immediately. Failure to do so may result in additional charges.",
     daily_rate: 70,
     location: [47.6010,-122.3302],
+    city: "Seattle",
     active: true,
     host_id: 18,
     created_at: "2022-03-15T00:00:00.000Z"
@@ -647,6 +664,7 @@ Car.create!(
     guidelines: "Please return the car in the same condition as you received it. No smoking, no pets, no off-roading, no racing.",
     daily_rate: 80,
     location: [47.6183,-122.3444],
+    city: "Seattle",
     active: true,
     host_id: 5,
     created_at: "2022-04-05T00:00:00.000Z"
@@ -665,6 +683,7 @@ Car.create!(
     guidelines: "Please return the car in the same condition as you received it. No smoking, no pets, no off-roading, no racing.",
     daily_rate: 75,
     location: [47.6804,-122.3174],
+    city: "Seattle",
     active: true,
     host_id: 12,
     created_at: "2022-02-20T00:00:00.000Z"
@@ -683,6 +702,7 @@ Car.create!(
     guidelines: "The car is to be used only for normal and safe use, with no racing, stunts, or reckless driving allowed. Any damage or excessive wear and tear will be charged to the renter.",
     daily_rate: 70,
     location: [47.5848,-122.3014],
+    city: "Seattle",
     active: true,
     host_id: 8,
     created_at: "2022-01-15T00:00:00.000Z"
@@ -701,6 +721,7 @@ Car.create!(
     guidelines: "The car is not allowed to be driven outside of the state without prior permission from the owner. Any violation will result in a penalty fee.",
     daily_rate: 150,
     location: [47.7074,-122.3104],
+    city: "Seattle",
     active: true,
     host_id: 18,
     created_at: "2023-02-10T00:00:00.000Z"
@@ -719,6 +740,7 @@ Car.create!(
     guidelines: "Any traffic violations or parking tickets incurred during the rental period are the responsibility of the renter and must be paid promptly.",
     daily_rate: 80,
     location: [47.5467,-122.3218],
+    city: "Seattle",
     active: true,
     host_id: 9,
     created_at: "2021-08-22T00:00:00.000Z"
@@ -737,6 +759,7 @@ Car.create!(
     guidelines: "Please treat this vehicle with care and return it in the same condition as you received it. No smoking is allowed in the vehicle.",
     daily_rate: 90,
     location: [47.6679,-122.2840],
+    city: "Seattle",
     active: true,
     host_id: 4,
     created_at: "2021-11-18T00:00:00.000Z"
@@ -755,6 +778,7 @@ Car.create!(
     guidelines: "Please charge the car before returning it. No smoking or pets in the car, please. The car is NOT equipped with autopilot.",
     daily_rate: 150,
     location: [47.5615,-122.2891],
+    city: "Seattle",
     active: true,
     host_id: 1,
     created_at: "2022-01-15T00:00:00.000Z"
@@ -773,6 +797,7 @@ Car.create!(
     guidelines: "Please return the car with at least 50% charge. No smoking or pets in the car, please. You may charge the car at any EV charging station. If you need recommendations for charging locations, just ask!",
     daily_rate: 90,
     location: [47.6293,-122.3613],
+    city: "Seattle",
     active: true,
     host_id: 25,
     created_at: "2021-08-23T00:00:00.000Z"
@@ -781,27 +806,6 @@ Car.create!(
     puts "Car creation done!"
 
     puts "Creating trips and reviews"
-
-#     Trip.create!(
-#     start_date: "",
-#     end_date: "",
-#     protection_plan: "",
-#     driver_id: ,
-#     car_id: 
-#   )
-
-#     Review.create!(
-#         cleanliness_rating: ,
-#         maintenance_rating: ,
-#         communication_rating: ,
-#         convenience_rating: ,
-#         accuracy_rating: ,
-#         comment: "",
-#         driver_id: ,
-#         car_id: ,
-#         created_at: "",
-#         updated_at: ""
-#     )
 
 Trip.create!(
   start_date: "2022-03-12T00:00:00.000Z",
@@ -830,6 +834,14 @@ Trip.create!(
   protection_plan: "Premier",
   driver_id: 5,
   car_id: 1
+)
+
+Trip.create!(
+  start_date: "2023-04-23T00:00:00.000Z",
+  end_date: "2023-04-24T00:00:00.000Z",
+  protection_plan: "Standard",
+  driver_id: 1,
+  car_id: 15
 )
 
 Review.create!(

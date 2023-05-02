@@ -21,7 +21,8 @@ json.extract! car,
     :avg_convenience_rating,
     :avg_accuracy_rating,
     :trips_count,
-    :reviews_count
+    :reviews_count,
+    :city
   
 if car.photos.attached?
   photos = []

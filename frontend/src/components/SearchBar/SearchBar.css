@@ -15,6 +15,7 @@
   border-radius: 60px;
   padding-left: 25px;
   padding-right: 7px;
+  padding-bottom: 5px;
   /* margin: auto; */
   color: #1c1919;
   /* position: fixed; */
@@ -32,6 +33,7 @@
   font-size: 12px;
   font-size: 16px;
   margin-left: -10px;
+  padding-left: 5px;
 }
 
 .search-input:hover {

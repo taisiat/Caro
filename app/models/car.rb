@@ -19,6 +19,7 @@
 #  host_id     :bigint           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  city        :string
 #
 class Car < ApplicationRecord
   validates :make, :model, :category, :description, :guidelines, presence: true
@@ -27,6 +28,7 @@ class Car < ApplicationRecord
   validates :daily_rate, numericality: { greater_than_or_equal_to: 0 }
   validates :location, length: { minimum: 2 }
   validates :year, length: { is: 4 }, numericality: { only_integer: true }
+  validates :city, presence: true
 
   has_many_attached :photos
 

@@ -64,7 +64,7 @@
   color: #1c1919;
 }
 
-#car-search-summary p {
+#yes-results-msg {
   font-size: 16px;
   color: #aeacac;
 }
@@ -93,4 +93,91 @@
 .filter-price-container {
   display: flex;
   align-items: center;
+  font-family: "Mulish", sans-serif;
+  /* justify-content: space-between; */
+  margin-right: 20px;
+  /* width: 700px; */
+}
+
+.filter-price-container h2 {
+  padding-bottom: 2px;
+  margin-right: 10px;
+}
+
+#zero-search-result-img {
+  width: 300px;
+  height: 180px;
+}
+
+#no-results-container {
+  width: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#no-results-msg {
+  text-align: center;
+}
+
+#min-price,
+#max-price {
+  margin: 0;
+  /* margin-right: 10px; */
+  text-align: end;
+  width: 50px;
+  /* padding: 0; */
+  /* color: rgba(0, 0, 0, 0.2); */
+  border: none;
+  font-size: 16px;
+}
+
+.pricing-input-label {
+  margin: 0;
+  color: rgb(89, 60, 251);
+}
+
+.price-search-component,
+.superhost-search-component {
+  margin-left: 10px;
+  border-bottom: 1px solid rgb(228, 227, 227);
+  font-family: "Mulish", sans-serif;
+  color: rgb(89, 60, 251);
+  /* background-color: yellow; */
+}
+
+#superhost-input-label {
+  /* margin: 0; */
+  /* margin-bottom: 20px;
+  padding-bottom: 20px; */
+  margin-top: 5px;
+}
+
+.superhost-search-component {
+  display: flex;
+  align-items: center;
+  border: none;
+}
+
+/* .superhost-search-component input {
+  width: 20px;
+  fill: #1c1919;
+  margin-top: 15px;
+} */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 15px;
+  height: 15px;
+  background: white;
+  border: 1px solid rgb(89, 60, 251);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background-color: rgb(89, 60, 251);
+  border-color: rgb(89, 60, 251);
 }

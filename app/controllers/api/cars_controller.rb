@@ -50,7 +50,8 @@ class Api::CarsController < ApplicationController
       :guidelines,
       :daily_rate,
       :location,
-      :active
+      :active,
+      :city
     )
   end
 
