@@ -165,6 +165,7 @@ const TripShowPage = () => {
               type="date"
               className="search-input-car-show search-date"
               value={startDate}
+              min={new Date().toISOString().split("T")[0]}
               onChange={(e) => setStartDate(e.target.value)}
             ></input>
           </div>
@@ -181,9 +182,13 @@ const TripShowPage = () => {
           <div id="until-input-container-car-show">
             <input
               type="date"
-              className="search-input-car-show search-date"
+              // className="search-input-car-show search-date"
               value={endDate}
+              min={startDate}
               onChange={(e) => setEndDate(e.target.value)}
+              className={`search-input-car-show search-date${
+                endDate < startDate ? " date-input-error" : ""
+              }`}
             ></input>
           </div>
           {errors &&

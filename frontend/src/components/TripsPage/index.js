@@ -45,7 +45,7 @@ function TripsPage() {
       return (
         <div id="no-trips-container">
           <img src={noTripsImage} alt="no cars found" id="no-cars-image"></img>
-          <h2 id="no-trips-header">No booked trips</h2>
+          <h2 id="no-trips-yet-lead">No booked trips</h2>
           <p id="no-trips-sub">
             This is where you can access information about your trips
           </p>

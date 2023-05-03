@@ -116,6 +116,15 @@ const CarBookForm = ({ car }) => {
     return utcDate;
   };
 
+  const handleDateInput = (e) => {
+    setStartDate(e.target.value);
+    if (endDate === "") {
+      const nextDay = new Date(e.target.value);
+      nextDay.setDate(nextDay.getDate() + 1);
+      setEndDate(nextDay.toISOString().slice(0, 10));
+    }
+  };
+
   return (
     <>
       <div id="car-show-price-container">
@@ -137,9 +146,11 @@ const CarBookForm = ({ car }) => {
         <div id="from-input-container-car-show">
           <input
             type="date"
+            min={new Date().toISOString().split("T")[0]}
             className="search-input-car-show search-date"
             value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            // onChange={(e) => setStartDate(e.target.value)}
+            onChange={handleDateInput}
           ></input>
         </div>
         {errors.map((error) => {
@@ -154,8 +165,12 @@ const CarBookForm = ({ car }) => {
         <div id="until-input-container-car-show">
           <input
             type="date"
-            className="search-input-car-show search-date"
+            // className="search-input-car-show search-date"
             value={endDate}
+            min={startDate}
+            className={`search-input-car-show search-date${
+              endDate < startDate ? " date-input-error" : ""
+            }`}
             onChange={(e) => setEndDate(e.target.value)}
           ></input>
         </div>

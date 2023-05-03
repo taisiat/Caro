@@ -9,6 +9,7 @@ import { fetchFavorites } from "../../store/favorites";
 import Spinner from "../Spinner";
 import FavoriteIndexItem from "./FavoriteIndexItem";
 import { fetchCars } from "../../store/cars";
+import noFavImg from "./no_favs_yet.png";
 
 function FavoritesPage() {
   const dispatch = useDispatch();
@@ -27,14 +28,22 @@ function FavoritesPage() {
   if (!sessionUser) return <Redirect to="/" />;
 
   // if (!favorites) {
-  //   return <Spinner />;
+  //   return (
+  //     <>
+  //       <img id="no-fav-img" src={noFavImg} alt="no favs" />
+  //       <h2 id="no-favs-yet-lead">No favorites yet</h2>
+  //       <p>You’ll be able to access your favorited cars here.</p>
+  //     </>
+  //   );
   // }
 
   return (
     <>
       <SearchLine />
       <div id="favs-container">
-        <h2 id="favorites-header">{`${sessionUser.firstName}'s favorites`}</h2>
+        {favorites.length !== 0 && (
+          <h2 id="favorites-header">{`${sessionUser.firstName}'s favorites`}</h2>
+        )}
         <div id="favs-index-container">
           {favorites &&
             favorites.map((favorite, idx) => (
@@ -46,6 +55,13 @@ function FavoritesPage() {
               /> //heartsedit 2. add favs
             ))}
         </div>
+        {favorites.length === 0 && (
+          <>
+            <img id="no-fav-img" src={noFavImg} alt="no favs" />
+            <h2 id="no-favs-yet-lead">No favorites yet</h2>
+            <p>You’ll be able to access your favorited cars here.</p>
+          </>
+        )}
       </div>
     </>
   );

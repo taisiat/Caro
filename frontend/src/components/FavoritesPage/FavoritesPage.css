@@ -46,3 +46,19 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+#no-favs-yet-lead {
+  font-size: 30px;
+  margin-bottom: 25px;
+  /* text-align: left; */
+  font-family: "Mulish", sans-serif;
+  /* position: absolute; */
+  /* top: 0px; */
+  /* left: 0px; */
+  color: rgb(20, 20, 20);
+}
+
+#no-fav-img {
+  height: 60%;
+  width: 60%;
+}
