@@ -147,8 +147,8 @@ const SearchLine = ({
               <input
                 {...getInputProps({
                   placeholder: "City, airport, address or hotel",
-                  className: "search-input",
-                  id: "where-input-searchbar",
+                  className: "search-input-line",
+                  id: "where-input-searchline",
                 })}
               />
               <div className="suggestions-container">

@@ -75,7 +75,7 @@ const SearchBar = () => {
                   id: "where-input-searchbar",
                 })}
               />
-              <div className="suggestions-container">
+              <div className="suggestions-container-bar">
                 {loading && <div>Loading...</div>}
                 {suggestions.map((suggestion) => {
                   const style = {
@@ -101,7 +101,7 @@ const SearchBar = () => {
           <input
             type="date"
             min={new Date().toISOString().split("T")[0]}
-            className="search-input search-date"
+            className="search-input search-date-bar"
             value={from}
             onChange={handleDateInput}
           ></input>
@@ -115,7 +115,7 @@ const SearchBar = () => {
             type="date"
             min={from}
             // className="search-input search-date"
-            className={`search-input search-date${
+            className={`search-input search-date-bar${
               until < from ? " date-input-error" : ""
             }`}
             value={until}

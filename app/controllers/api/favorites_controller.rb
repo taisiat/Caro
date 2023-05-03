@@ -13,12 +13,17 @@ class Api::FavoritesController < ApplicationController
             # head :no_content
             # render :index
         else
-            render json: { errors: @favorite.errors.full_messages }, status: :unprocessable_entity
+            # render json: { errors: @favorite.errors.full_messages }, status: :unprocessable_entity
+            head :no_content
         end
     end
 
     def index
-        @favorites = Favorite.includes(:driver).includes(:car).where(driver_id: current_user.id).order(updated_at: :desc)
+        if current_user
+            @favorites = Favorite.includes(:driver).includes(:car).where(driver_id: current_user.id).order(updated_at: :desc)
+        else
+            head :no_content
+        end
     end
     
     def destroy
@@ -30,8 +35,8 @@ class Api::FavoritesController < ApplicationController
         else
             # render json: { message: 'Unauthorized' }, status: :unauthorized
             # render json: { errors: @favorite.errors.full_messages }, status: :unprocessable_entity
-            render json: { message: 'Unauthorized' }, status: :unauthorized
-
+            # render json: { message: 'Unauthorized' }, status: :unauthorized
+            head :no_content
         end
     end
 

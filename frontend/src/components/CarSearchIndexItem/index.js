@@ -61,9 +61,9 @@ const CarSearchIndexItem = ({
   return (
     <div
       id="car-index-item-container"
-      className={isHighlighted ? " highlighted" : ""}
-      onMouseEnter={() => isHighlighted && setHighlightedCar(car.id)}
-      onMouseLeave={() => isHighlighted && setHighlightedCar(null)}
+      className={isHighlighted ? "highlighted" : ""}
+      onMouseEnter={() => setHighlightedCar(car.id)}
+      onMouseLeave={() => setHighlightedCar(null)}
 
       //   onClick={() => history.push(`/cars/${car.id}`)}
     >

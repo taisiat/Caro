@@ -6,6 +6,7 @@ import { fetchTrips } from "../../../store/trips";
 import { useEffect } from "react";
 import { fetchReviews } from "../../../store/reviews";
 import { useSelector } from "react-redux";
+import Spinner from "../../Spinner";
 
 const TripIndexItem = ({ trip }) => {
   const history = useHistory();
@@ -102,7 +103,7 @@ const TripIndexItem = ({ trip }) => {
         onClick={() => history.push(`/cars/${trip.car.id}`)}
       >
         <img
-          src={trip.car.photosUrl[0]}
+          src={trip.car.photosUrl[0] ? trip.car.photosUrl[0] : <Spinner />}
           alt="car image"
           id="trip-car-img"
         ></img>

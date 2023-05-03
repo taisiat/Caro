@@ -146,7 +146,7 @@ const CarBookForm = ({ car }) => {
         <div id="from-input-container-car-show">
           <input
             type="date"
-            min={new Date().toISOString().split("T")[0]}
+            min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
             className="search-input-car-show search-date"
             value={startDate}
             // onChange={(e) => setStartDate(e.target.value)}
