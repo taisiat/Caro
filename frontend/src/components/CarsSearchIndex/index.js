@@ -29,6 +29,7 @@ function CarsSearchIndex() {
   const fromDate = localStorage.getItem("fromDate");
   const untilDate = localStorage.getItem("untilDate");
   const where = localStorage.getItem("where");
+  const coords = localStorage.getItem("coords");
   const [bounds, setBounds] = useState(null);
   const [minPricing, setMinPricing] = useState(1);
   const [maxPricing, setMaxPricing] = useState(4000);
@@ -37,6 +38,7 @@ function CarsSearchIndex() {
   const [searchPageFromDate, setSearchPageFromDate] = useState("");
   const [searchPageUntilDate, setSearchPageUntilDate] = useState("");
   const [searchPageWhere, setSearchPageWhere] = useState("");
+  const [searchPageCoords, setSearchPageCoords] = useState("");
   //   const mapOptions = {};
   const favorites = useSelector((state) => Object.values(state.favorites)); //heartsedit add favs here
   useEffect(() => {
@@ -65,6 +67,17 @@ function CarsSearchIndex() {
     }
   }, [experience]);
 
+  // useEffect(() => {
+  //   if (searchPageCoords) {
+  //     console.log(bounds, "bounds before");
+  //     setBounds(searchPageCoords);
+  //     console.log(bounds, "bounds after");
+  //     //   console.log("experience!", experience, experienceType, "exp type");
+  //     //  localStorage.removeItem("experience");
+  //     //   localStorage.clear();
+  //   }
+  // }, [searchPageCoords]);
+
   useEffect(() => {
     if (fromDate) {
       setSearchPageFromDate(fromDate);
@@ -91,6 +104,16 @@ function CarsSearchIndex() {
       //   localStorage.clear();
     }
   }, [where]);
+
+  // useEffect(() => {
+  //   if (coords) {
+  //     setSearchPageCoords(coords);
+  //     console.log("coords", coords);
+
+  //     localStorage.removeItem("coords");
+  //     //   localStorage.clear();
+  //   }
+  // }, [coords]);
 
   //   useEffect(() => {
   //     if (cityCoords) {
@@ -133,6 +156,7 @@ function CarsSearchIndex() {
     experienceType,
     searchPageFromDate,
     searchPageUntilDate,
+    // searchPageCoords,
     dispatch,
   ]);
 
@@ -177,6 +201,10 @@ function CarsSearchIndex() {
         setSearchPageUntilDate={setSearchPageUntilDate}
         searchPageWhere={searchPageWhere}
         setSearchPageWhere={setSearchPageWhere}
+        searchPageCoords={searchPageCoords}
+        setSearchPageCoords={setSearchPageCoords}
+        setBounds={setBounds}
+        bounds={bounds}
       />
       <div id="search-buttons">
         <FilterForm

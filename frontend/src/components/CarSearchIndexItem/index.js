@@ -6,6 +6,7 @@ import FavHeart from "../FavHeart";
 import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import Spinner from "../Spinner";
 
 const CarSearchIndexItem = ({
   car,
@@ -73,7 +74,7 @@ const CarSearchIndexItem = ({
       >
         {car.photosUrl && (
           <img
-            src={car.photosUrl[0]}
+            src={car.photosUrl[0] ? car.photosUrl[0] : <Spinner />}
             alt="Car picture"
             className="car-index-item-tile"
           />

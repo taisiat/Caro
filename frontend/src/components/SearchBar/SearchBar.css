@@ -85,6 +85,8 @@
   cursor: pointer;
   transition: 0.25s ease-in-out;
   cursor: pointer;
+  transform: translateY(2px);
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
 }
 
 #search-icon {
@@ -127,4 +129,30 @@
   margin-right: 5px;
   margin-top: 5px;
   transition: 0.25s ease-in-out;
+}
+
+.suggestions-container {
+  position: absolute;
+  top: 62px;
+  left: 20px;
+  width: 450px;
+  max-height: 200px;
+  overflow: auto;
+  background-color: #fff;
+  /* border: 1px solid #ddd; */
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-family: "Mulish", sans-serif;
+  font-size: 15px;
+}
+
+.suggestion-item {
+  padding: 15px;
+  line-height: 20px;
+}
+
+.suggestion-item:hover,
+.suggestion-item-active {
+  background-color: #eeddf7;
 }

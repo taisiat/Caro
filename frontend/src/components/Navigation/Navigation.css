@@ -12,11 +12,13 @@ nav {
 
 #nav-left {
   padding: 15px;
+  /* width: 900px; */
 }
 
 #nav-right {
   padding: 15px;
   display: flex;
+  /* max-width: calc(100vw - 200px); */
 }
 
 #nav-right button {
@@ -118,4 +120,8 @@ nav {
   border-radius: 50%;
   object-fit: cover;
   text-align: center;
+}
+
+#profile-button-container {
+  /* left: max(950px, 90vw); */
 }

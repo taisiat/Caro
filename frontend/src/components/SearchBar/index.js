@@ -75,11 +75,11 @@ const SearchBar = () => {
                   id: "where-input-searchbar",
                 })}
               />
-              <div>
+              <div className="suggestions-container">
                 {loading && <div>Loading...</div>}
                 {suggestions.map((suggestion) => {
                   const style = {
-                    backgroundColor: suggestion.active ? "#ebebeb" : "#fff",
+                    backgroundColor: suggestion.active ? "#eeddf7" : "#ffffff",
                   };
                   return (
                     <div
