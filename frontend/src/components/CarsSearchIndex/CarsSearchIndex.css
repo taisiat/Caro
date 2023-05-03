@@ -162,6 +162,10 @@
   border: none;
 }
 
+.superhost-search-component {
+  border-bottom: 1px solid rgb(228, 227, 227);
+}
+
 /* .superhost-search-component input {
   width: 20px;
   fill: #1c1919;

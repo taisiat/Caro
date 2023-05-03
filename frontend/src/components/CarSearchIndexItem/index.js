@@ -12,6 +12,8 @@ const CarSearchIndexItem = ({
   isHighlighted,
   setHighlightedCar,
   favorites,
+  searchPageUntilDate,
+  searchPageFromDate,
 }) => {
   const [heartClick, setHeartClick] = useState(false);
 
@@ -50,6 +52,8 @@ const CarSearchIndexItem = ({
 
   const handleTileClick = () => {
     localStorage.setItem("cityZoom", 14);
+    localStorage.setItem("fromDate", searchPageFromDate);
+    localStorage.setItem("untilDate", searchPageUntilDate);
     history.push(`/cars/${car.id}`);
   };
 

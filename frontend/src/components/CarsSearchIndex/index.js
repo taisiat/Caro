@@ -26,25 +26,71 @@ function CarsSearchIndex() {
   //   const cityCoords = localStorage.getItem("cityCoords");
   //   const cityZoom = localStorage.getItem("cityZoom");
   const experience = localStorage.getItem("experience");
+  const fromDate = localStorage.getItem("fromDate");
+  const untilDate = localStorage.getItem("untilDate");
+  const where = localStorage.getItem("where");
   const [bounds, setBounds] = useState(null);
   const [minPricing, setMinPricing] = useState(1);
   const [maxPricing, setMaxPricing] = useState(4000);
   const [superhostFilter, setSuperhostFilter] = useState(false);
   const [experienceType, setExperienceType] = useState("");
+  const [searchPageFromDate, setSearchPageFromDate] = useState("");
+  const [searchPageUntilDate, setSearchPageUntilDate] = useState("");
+  const [searchPageWhere, setSearchPageWhere] = useState("");
   //   const mapOptions = {};
   const favorites = useSelector((state) => Object.values(state.favorites)); //heartsedit add favs here
   useEffect(() => {
     dispatch(fetchFavorites());
   }, [dispatch, sessionUser]); //heartsedit add favs here
 
+  // useEffect(() => {
+  //   const handleStorageChange = (event) => {
+  //     setSearchPageFromDate(localStorage.getItem("fromDate"));
+  //     setSearchPageUntilDate(localStorage.getItem("untilDate"));
+  //   };
+
+  //   window.addEventListener("storage", handleStorageChange);
+
+  //   return () => {
+  //     window.removeEventListener("storage", handleStorageChange);
+  //   };
+  // }, []);
+
   useEffect(() => {
     if (experience) {
       setExperienceType(experience);
-      console.log("experience!", experience, experienceType, "exp type");
-      // localStorage.removeItem("experience");
-      localStorage.clear();
+      //   console.log("experience!", experience, experienceType, "exp type");
+      localStorage.removeItem("experience");
+      //   localStorage.clear();
     }
   }, [experience]);
+
+  useEffect(() => {
+    if (fromDate) {
+      setSearchPageFromDate(fromDate);
+      localStorage.removeItem("fromDate");
+      //   localStorage.clear();
+    }
+  }, [fromDate]);
+
+  useEffect(() => {
+    if (untilDate) {
+      setSearchPageUntilDate(untilDate);
+      console.log("untilDate", untilDate);
+      localStorage.removeItem("untilDate");
+      //   localStorage.clear();
+    }
+  }, [untilDate]);
+
+  useEffect(() => {
+    if (where) {
+      setSearchPageWhere(where);
+      console.log("where", where);
+
+      localStorage.removeItem("where");
+      //   localStorage.clear();
+    }
+  }, [where]);
 
   //   useEffect(() => {
   //     if (cityCoords) {
@@ -56,6 +102,14 @@ function CarsSearchIndex() {
   //     }
   //   }, [cityCoords]);
 
+  const handleDateChange = (userInputDate) => {
+    const dateObj = new Date(Date.parse(userInputDate));
+    const utcDate = new Date(
+      dateObj.getTime() + dateObj.getTimezoneOffset() * 60000
+    );
+    return utcDate;
+  };
+
   useEffect(() => {
     if (minPricing && maxPricing && bounds) {
       dispatch(
@@ -65,6 +119,8 @@ function CarsSearchIndex() {
           bounds,
           superhostFilter,
           experienceType,
+          tripStart: handleDateChange(searchPageFromDate),
+          tripEnd: handleDateChange(searchPageUntilDate),
         })
       ); // add superhost and dates
       //   dispatch(fetchCars({ bounds }));
@@ -75,6 +131,8 @@ function CarsSearchIndex() {
     bounds,
     superhostFilter,
     experienceType,
+    searchPageFromDate,
+    searchPageUntilDate,
     dispatch,
   ]);
 
@@ -112,7 +170,14 @@ function CarsSearchIndex() {
 
   return (
     <div id="car-index-container">
-      <SearchLine />
+      <SearchLine
+        searchPageFromDate={searchPageFromDate}
+        setSearchPageFromDate={setSearchPageFromDate}
+        searchPageUntilDate={searchPageUntilDate}
+        setSearchPageUntilDate={setSearchPageUntilDate}
+        searchPageWhere={searchPageWhere}
+        setSearchPageWhere={setSearchPageWhere}
+      />
       <div id="search-buttons">
         <FilterForm
           minPricing={minPricing}
@@ -178,6 +243,8 @@ function CarsSearchIndex() {
           highlightedCar={highlightedCar}
           setHighlightedCar={setHighlightedCar}
           favorites={favorites} //heartsedit add favs here
+          searchPageFromDate={searchPageFromDate}
+          searchPageUntilDate={searchPageUntilDate}
         />
       </div>
     </div>

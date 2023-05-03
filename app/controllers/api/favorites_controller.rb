@@ -5,7 +5,7 @@ class Api::FavoritesController < ApplicationController
       wrap_parameters include: Favorite.attribute_names + ['carId']
 
     def create
-        @favorite = Favorite.new(favorite_params);
+        @favorite = Favorite.includes(:driver).includes(:car).new(favorite_params);
         @favorite.driver_id = current_user.id;
 
         if @favorite.save

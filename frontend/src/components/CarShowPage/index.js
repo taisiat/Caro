@@ -30,6 +30,12 @@ function CarShowPage() {
   const { carId } = useParams();
   const car = useSelector((state) => state.cars[carId]);
   const reviews = useSelector((state) => Object.values(state.reviews));
+  // const reviews = car ? Object.values(car.reviews) : null;
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const fromDate = localStorage.getItem("fromDate");
+  const untilDate = localStorage.getItem("untilDate");
+
   const dispatch = useDispatch();
   const [currentImg, setCurrentImg] = useState(0);
   const imageListLength = car?.photosUrl ? car.photosUrl.length : 0;
@@ -56,6 +62,24 @@ function CarShowPage() {
   useEffect(() => {
     dispatch(fetchReviews());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (fromDate) {
+      setStartDate(fromDate);
+      // console.log("fromDate", fromDate, startDate, "startdate");
+      // localStorage.removeItem("fromDate");
+      //   localStorage.clear();
+    }
+  }, [fromDate]);
+
+  useEffect(() => {
+    if (untilDate) {
+      setEndDate(untilDate);
+      // console.log("untilDate", untilDate);
+      // localStorage.removeItem("untilDate");
+      //   localStorage.clear();
+    }
+  }, [untilDate]);
 
   //   if (!car) {
   //     return null;
@@ -96,7 +120,7 @@ function CarShowPage() {
   };
 
   const reviewsSection = () => {
-    if (reviews) {
+    if (reviews && reviews !== []) {
       return reviews.map((review, idx) => {
         if (review.car.id === car.id)
           return <ReviewIndexItem review={review} key={idx} />;
@@ -107,7 +131,7 @@ function CarShowPage() {
   };
 
   const profileImg = () => {
-    if (car.host.photoUrl) {
+    if (car.host && car.host.photoUrl) {
       return <img src={car.host.photoUrl} alt="profile picture" />;
     } else {
       return <VscAccount id="profile-page-placeholder-img" />;
@@ -116,7 +140,12 @@ function CarShowPage() {
 
   return (
     <div id="car-show-container">
-      <SearchLine />
+      <SearchLine
+        searchPageFromDate={startDate}
+        setSearchPageFromDate={setStartDate}
+        searchPageUntilDate={endDate}
+        setSearchPageUntilDate={setEndDate}
+      />
       <div id="car-show-heart-container">
         <FavHeart className="heart-car-show" car={car} favorites={favorites} />
       </div>{" "}
@@ -362,8 +391,10 @@ function CarShowPage() {
                 {!reviews && <p>No reviews yet</p>} */}
                 {/* {reviewsSection} */}
                 {reviews &&
+                reviews !== [] &&
                 reviews.filter((review) => review.car.id === car.id).length >
                   0 ? (
+                  // reviews.length > 0 ? (
                   reviews.map((review, idx) => {
                     if (review.car.id === car.id)
                       return <ReviewIndexItem review={review} key={idx} />;

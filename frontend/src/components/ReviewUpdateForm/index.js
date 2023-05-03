@@ -132,7 +132,8 @@ const ReviewUpdateForm = () => {
 
   const handleReviewDelete = () => {
     dispatch(deleteReview(review.id));
-    history.push(`/cars/${review.car.id}`);
+    history.push("/trips");
+    // history.push(`/cars/${review.car.id}`);
   };
 
   return (

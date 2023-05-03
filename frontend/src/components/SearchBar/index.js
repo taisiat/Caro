@@ -42,6 +42,7 @@ const SearchBar = () => {
         <div id="from-input-container">
           <input
             type="date"
+            min={new Date().toISOString().split("T")[0]}
             className="search-input search-date"
             value={from}
             onChange={handleDateInput}
@@ -54,16 +55,30 @@ const SearchBar = () => {
         <div id="until-input-container">
           <input
             type="date"
-            className="search-input search-date"
+            min={from}
+            // className="search-input search-date"
+            className={`search-input search-date${
+              until < from ? " date-input-error" : ""
+            }`}
             value={until}
             onChange={(e) => setUntil(e.target.value)}
           ></input>
           {/* <input type="time" className="search-input"></input> */}
         </div>
       </div>
-      <div id="search-button-container" onClick={handleSearchClick}>
+      {/* <div id="search-button-container" onClick={handleSearchClick}>
         <RiSearch2Line id="search-icon" />
-      </div>
+      </div> */}
+      {until < from && (
+        <div id="search-button-container-inactive">
+          <RiSearch2Line id="search-icon" />
+        </div>
+      )}
+      {until >= from && (
+        <div id="search-button-container" onClick={handleSearchClick}>
+          <RiSearch2Line id="search-icon" />
+        </div>
+      )}
     </div>
   );
 };

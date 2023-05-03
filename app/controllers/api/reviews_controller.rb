@@ -15,7 +15,7 @@ class Api::ReviewsController < ApplicationController
     end
 
     def show
-        @review = Review.find(params[:id])
+        @review = Review.includes(:driver).includes(:car).find(params[:id])
     end
 
     def index

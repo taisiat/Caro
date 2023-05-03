@@ -13,7 +13,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.includes(:cars).includes(:trips).includes(:reviews).includes(:favorites).includes(:reviews_for_own_cars).find(params[:id])
     
   end
 

@@ -25,6 +25,7 @@
   font-size: 16px;
   margin: 0;
   margin-left: 5px;
+  font-family: "Mulish", sans-serif;
 }
 
 #until-input-container-line,
@@ -74,4 +75,26 @@
 
 #search-icon.search-line-button {
   margin-top: 8px;
+}
+
+.date-input-error {
+  color: red;
+  /* font-size: 12px; */
+  /* margin-left: 5px; */
+  /* position: relative; */
+  /* top: 5px; */
+}
+
+#search-button-container-line-inactive {
+  font-size: 25px;
+  text-align: center;
+  color: white;
+  background-color: #e5e1f6;
+  height: 40px;
+  width: 45px;
+  border-radius: 45px;
+  /* margin-right: 5px; */
+  /* margin-top: 5px; */
+  transition: 0.25s ease-in-out;
+  cursor: not-allowed;
 }

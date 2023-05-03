@@ -35,3 +35,26 @@ end
 json.host do
     json.partial! 'api/users/user', user: car.host
 end
+
+json.reviews car.reviews do |review|
+  json.extract! review, :cleanliness_rating,
+    :maintenance_rating,
+    :communication_rating,
+    :convenience_rating,
+    :accuracy_rating,
+    :comment,
+    :driver_id,
+    :car_id,
+    :created_at,
+    :updated_at,
+    :average_rating
+end
+
+
+# json.reviews do
+#   car.reviews.each do |review|
+#     json.set! review.id do
+#       json.partial! 'api/reviews/review', review: review
+#     end
+#   end
+# end

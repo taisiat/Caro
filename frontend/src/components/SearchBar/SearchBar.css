@@ -34,6 +34,7 @@
   font-size: 16px;
   margin-left: -10px;
   padding-left: 5px;
+  font-family: "Mulish", sans-serif;
 }
 
 .search-input:hover {
@@ -108,4 +109,22 @@
 
 #where-container p {
   padding-top: 5px;
+}
+
+#search-button-container-inactive {
+  background-color: #e5e1f6;
+  /* margin-right: 5px; */
+  /* margin-top: 5px; */
+  /* transition: 0.25s ease-in-out; */
+  cursor: not-allowed;
+
+  font-size: 25px;
+  text-align: center;
+  color: white;
+  height: 45px;
+  width: 45px;
+  border-radius: 45px;
+  margin-right: 5px;
+  margin-top: 5px;
+  transition: 0.25s ease-in-out;
 }

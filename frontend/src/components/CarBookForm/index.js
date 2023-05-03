@@ -7,6 +7,7 @@ import { createTrip } from "../../store/trips";
 import { __esModule } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
 import LoginForm from "../LoginFormModal/LoginForm";
+import { useEffect } from "react";
 
 const CarBookForm = ({ car }) => {
   const sessionUser = useSelector((state) => state.session.user);
@@ -14,6 +15,8 @@ const CarBookForm = ({ car }) => {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const fromDate = localStorage.getItem("fromDate");
+  const untilDate = localStorage.getItem("untilDate");
   //   const [insurance, setInsurance] = useState("");
   const { carId } = useParams();
   const protectionPrices = {
@@ -24,6 +27,24 @@ const CarBookForm = ({ car }) => {
   };
   const [errors, setErrors] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+  useEffect(() => {
+    if (fromDate) {
+      setStartDate(fromDate);
+      // console.log("fromDate", fromDate, startDate, "startdate");
+      localStorage.removeItem("fromDate");
+      //   localStorage.clear();
+    }
+  }, [fromDate]);
+
+  useEffect(() => {
+    if (untilDate) {
+      setEndDate(untilDate);
+      // console.log("untilDate", untilDate);
+      localStorage.removeItem("untilDate");
+      //   localStorage.clear();
+    }
+  }, [untilDate]);
 
   const tripPrice = () => {
     const start = new Date(startDate);

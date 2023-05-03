@@ -2,12 +2,46 @@ import { RiSearch2Line } from "react-icons/ri";
 import "./SearchLine.css";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-const SearchLine = () => {
+const SearchLine = ({
+  searchPageFromDate,
+  setSearchPageFromDate,
+  searchPageUntilDate,
+  setSearchPageUntilDate,
+  searchPageWhere,
+  setSearchPageWhere,
+}) => {
   const [where, setWhere] = useState("");
   const [from, setFrom] = useState("");
   const [until, setUntil] = useState("");
   const history = useHistory();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (searchPageFromDate) {
+      setFrom(searchPageFromDate);
+      // localStorage.removeItem("fromDate");
+      //   localStorage.clear();
+    }
+  }, [searchPageFromDate]);
+
+  useEffect(() => {
+    if (searchPageUntilDate) {
+      setUntil(searchPageUntilDate);
+      // localStorage.removeItem("fromDate");
+      //   localStorage.clear();
+    }
+  }, [searchPageUntilDate]);
+
+  useEffect(() => {
+    if (searchPageWhere) {
+      setWhere(searchPageWhere);
+      // localStorage.removeItem("fromDate");
+      //   localStorage.clear();
+    }
+  }, [searchPageWhere]);
 
   // const handleSearchClick = () => {
   //   localStorage.setItem("fromDate", JSON.stringify(from));
@@ -36,10 +70,22 @@ const SearchLine = () => {
   //   handleSearchClick();
   // };
   const handleSearchClick = () => {
-    localStorage.setItem("fromDate", from);
-    localStorage.setItem("untilDate", until);
-    localStorage.setItem("where", where);
-    history.push("/cars/");
+    // console.log("hi from handleSearchClick start");
+
+    if (location.pathname === "/cars/") {
+      console.log("hi from handleSearchClick");
+      setSearchPageFromDate(from);
+      console.log("fromDate", searchPageFromDate);
+      setSearchPageUntilDate(until);
+      console.log("untilDate", searchPageUntilDate);
+      setSearchPageWhere(where);
+      console.log("where", searchPageWhere);
+    } else {
+      localStorage.setItem("fromDate", from);
+      localStorage.setItem("untilDate", until);
+      localStorage.setItem("where", where);
+      history.push("/cars/");
+    }
   };
 
   const handleDateInput = (e) => {
@@ -67,6 +113,7 @@ const SearchLine = () => {
         <div id="from-input-container-line">
           <input
             type="date"
+            min={new Date().toISOString().split("T")[0]}
             className="search-input-line search-date"
             value={from}
             onChange={handleDateInput}
@@ -74,21 +121,41 @@ const SearchLine = () => {
           {/* <input type="time" className="search-input-line"></input> */}
         </div>
       </div>
-      <div id="until-container-line">
-        <p>Until</p>
-        <div id="until-input-container-line">
-          <input
-            type="date"
-            className="search-input-line search-date"
-            value={until}
-            onChange={(e) => setUntil(e.target.value)}
-          ></input>
-          {/* <input type="time" className="search-input-line"></input> */}
+      <div>
+        <div id="until-container-line">
+          <p>Until</p>
+          <div id="until-input-container-line">
+            <input
+              type="date"
+              min={from}
+              // disabled={until < from}
+              // className="search-input-line search-date"
+              className={`search-input-line search-date${
+                until < from ? " date-input-error" : ""
+              }`}
+              value={until}
+              // value={until}
+              onChange={(e) => setUntil(e.target.value)}
+            ></input>
+            {/* <input type="time" className="search-input-line"></input> */}
+          </div>
         </div>
+        {/* {until < from && (
+          <p id="search-line-end-date-error">
+            Trip end date must be after start date
+          </p>
+        )} */}
       </div>
-      <div id="search-button-container-line" onClick={handleSearchClick}>
-        <RiSearch2Line id="search-icon" className="search-line-button" />
-      </div>
+      {until < from && (
+        <div id="search-button-container-line-inactive">
+          <RiSearch2Line id="search-icon" className="search-line-button" />
+        </div>
+      )}
+      {until >= from && (
+        <div id="search-button-container-line" onClick={handleSearchClick}>
+          <RiSearch2Line id="search-icon" className="search-line-button" />
+        </div>
+      )}
     </div>
   );
 };
