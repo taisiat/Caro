@@ -16,6 +16,7 @@ function CarMap({
   const history = useHistory();
   const cityCoords = JSON.parse(localStorage.getItem("cityCoords"));
   const cityZoom = JSON.parse(localStorage.getItem("cityZoom"));
+  const coords = JSON.parse(localStorage.getItem("coords"));
 
   useEffect(() => {
     if (cityCoords) {
@@ -33,6 +34,14 @@ function CarMap({
       localStorage.clear();
     }
   }, [cityZoom]);
+
+  useEffect(() => {
+    if (coords) {
+      mapOptions.center = coords;
+      mapOptions.zoom = 14;
+      localStorage.clear();
+    }
+  }, [coords]);
 
   //   // Create the map
   useEffect(() => {
@@ -96,8 +105,8 @@ function CarMap({
               `,
             fillOpacity: 1,
             fillColor: "white",
-            // strokeColor: "black",
-            // strokeWeight: 1,
+            strokeColor: "darkslateblue",
+            strokeWeight: 1,
             strokeWeight: 0,
             scale: 15,
             labelOrigin: new window.google.maps.Point(1.5, 1),

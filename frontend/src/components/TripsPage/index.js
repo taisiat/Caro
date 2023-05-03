@@ -58,7 +58,7 @@ function TripsPage() {
 
           {trips.map((trip) => (
             <>
-              <TripIndexItem trip={trip} key={trip.id}></TripIndexItem>
+              <TripIndexItem trip={trip} key={trip}></TripIndexItem>
             </>
           ))}
         </>

@@ -2,9 +2,15 @@ import { RiSearch2Line } from "react-icons/ri";
 import "./SearchBar.css";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+// import Autocomplete from "react-places-autocomplete";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
 
 const SearchBar = () => {
   const [where, setWhere] = useState("");
+  const [coords, setCoords] = useState("");
   const [from, setFrom] = useState("");
   const [until, setUntil] = useState("");
   const history = useHistory();
@@ -13,6 +19,7 @@ const SearchBar = () => {
     localStorage.setItem("fromDate", from);
     localStorage.setItem("untilDate", until);
     localStorage.setItem("where", where);
+    localStorage.setItem("coords", JSON.stringify(coords));
     history.push("/cars/");
   };
 
@@ -25,17 +32,68 @@ const SearchBar = () => {
     }
   };
 
+  const handleSelect = (address) => {
+    setWhere(address);
+    geocodeByAddress(address)
+      .then((results) => getLatLng(results[0]))
+      .then((latLng) => {
+        console.log("Success", latLng);
+        setCoords(latLng);
+        // update center state
+        // setMapCenter(latLng);
+      })
+      .catch((error) => console.error("Error", error));
+  };
+
   return (
     <div id="search-bar-container">
       <div id="where-container">
         <p>Where</p>
-        <input
+        {/* <input
           placeholder="City, airport, address or hotel"
           className="search-input"
           id="where-input-searchbar"
           value={where}
           onChange={(e) => setWhere(e.target.value)}
-        ></input>
+        ></input> */}
+        <PlacesAutocomplete
+          value={where}
+          onChange={(newValue) => setWhere(newValue)}
+          onSelect={(address) => handleSelect(address)}
+        >
+          {({
+            getInputProps,
+            suggestions,
+            getSuggestionItemProps,
+            loading,
+          }) => (
+            <div>
+              <input
+                {...getInputProps({
+                  placeholder: "City, airport, address or hotel",
+                  className: "search-input",
+                  id: "where-input-searchbar",
+                })}
+              />
+              <div>
+                {loading && <div>Loading...</div>}
+                {suggestions.map((suggestion) => {
+                  const style = {
+                    backgroundColor: suggestion.active ? "#ebebeb" : "#fff",
+                  };
+                  return (
+                    <div
+                      {...getSuggestionItemProps(suggestion, { style })}
+                      key={suggestion.placeId}
+                    >
+                      {suggestion.description}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </PlacesAutocomplete>
       </div>
       <div id="from-container">
         <p>From</p>
