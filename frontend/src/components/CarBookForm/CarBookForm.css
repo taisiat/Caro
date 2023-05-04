@@ -132,9 +132,11 @@ input[type="radio"] {
 }
 
 .booking-protection-button {
-  display: inline-block;
+  display: flex;
+  align-items: center;
   padding: 8px 16px;
   width: 100%;
+  min-height: 50px;
   background-color: #e0e0e0;
   color: #333;
   border-radius: 10px;
