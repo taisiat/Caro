@@ -3,11 +3,19 @@ import { AiTwotoneStar } from "react-icons/ai";
 import { IoRibbonSharp } from "react-icons/io5";
 import { BiMapAlt } from "react-icons/bi";
 import FavHeart from "../FavHeart";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import Spinner from "../Spinner";
 
-const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
+const CarSearchIndexItem = ({
+  car,
+  isHighlighted,
+  setHighlightedCar,
+  favorites,
+  searchPageUntilDate,
+  searchPageFromDate,
+}) => {
   const [heartClick, setHeartClick] = useState(false);
 
   const handleHeartClick = () => {
@@ -43,27 +51,40 @@ const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
   //       .catch((error) => console.error(error));
   //   };
 
+  const handleTileClick = () => {
+    localStorage.setItem("cityZoom", 14);
+    localStorage.setItem("fromDate", searchPageFromDate);
+    localStorage.setItem("untilDate", searchPageUntilDate);
+    history.push(`/cars/${car.id}`);
+  };
+
   return (
     <div
       id="car-index-item-container"
-      className={isHighlighted ? " highlighted" : ""}
-      onMouseEnter={() => setHighlightedCar(car.id)}
-      onMouseLeave={() => setHighlightedCar(null)}
+      className={isHighlighted ? "highlighted" : ""}
+      onMouseEnter={() => setHighlightedCar && setHighlightedCar(car.id)}
+      onMouseLeave={() => setHighlightedCar && setHighlightedCar(null)}
+
       //   onClick={() => history.push(`/cars/${car.id}`)}
     >
       <div
         id="car-image-container"
-        onClick={() => history.push(`/cars/${car.id}`)}
+        // onClick={() => history.push(`/cars/${car.id}`)}
+        onClick={handleTileClick}
       >
         {car.photosUrl && (
           <img
-            src={car.photosUrl[0]}
+            src={car.photosUrl[0] ? car.photosUrl[0] : <Spinner />}
             alt="Car picture"
             className="car-index-item-tile"
           />
         )}
       </div>
-      <div id="car-tile-info" onClick={() => history.push(`/cars/${car.id}`)}>
+      <div
+        id="car-tile-info"
+        // onClick={() => history.push(`/cars/${car.id}`)}
+        onClick={handleTileClick}
+      >
         <h2 id="car-name">{`${car.make} ${car.model} ${car.year}`}</h2>
         <div id="car-tile-trips-and-host-info">
           <p id="car-tile-rating-trips-container">
@@ -97,11 +118,13 @@ const CarSearchIndexItem = ({ car, isHighlighted, setHighlightedCar }) => {
             handleHeartClick();
           }}
           car={car}
+          favorites={favorites} //carhearts add here
         />
 
         <div
           id="car-price-container"
-          onClick={() => history.push(`/cars/${car.id}`)}
+          //   onClick={() => history.push(`/cars/${car.id}`)}
+          onClick={handleTileClick}
         >
           <h3>{`$${car.dailyRate}/day`}</h3>
           <p>{`$${car.dailyRate} est. total`}</p>

@@ -1,7 +1,14 @@
 import React from "react";
 import CarSearchIndexItem from "../CarSearchIndexItem";
 
-function CarList({ cars, highlightedCar, setHighlightedCar }) {
+function CarList({
+  cars,
+  highlightedCar,
+  setHighlightedCar,
+  favorites,
+  searchPageFromDate,
+  searchPageUntilDate,
+}) {
   return (
     <div className="car-list">
       {cars.map((car) => (
@@ -11,6 +18,9 @@ function CarList({ cars, highlightedCar, setHighlightedCar }) {
           car={car}
           isHighlighted={highlightedCar === car.id}
           setHighlightedCar={setHighlightedCar}
+          favorites={favorites} //heartsedit add favs here
+          searchPageFromDate={searchPageFromDate}
+          searchPageUntilDate={searchPageUntilDate}
         />
       ))}
     </div>

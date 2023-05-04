@@ -1,12 +1,13 @@
 import "./CarBookForm.css";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { createTrip } from "../../store/trips";
 import { __esModule } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
-import LoginForm from "../LoginFormModal/LoginForm";
+// import LoginForm from "../LoginFormModal/LoginForm";
+import { useEffect } from "react";
 
 const CarBookForm = ({ car }) => {
   const sessionUser = useSelector((state) => state.session.user);
@@ -14,6 +15,8 @@ const CarBookForm = ({ car }) => {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const fromDate = localStorage.getItem("fromDate");
+  const untilDate = localStorage.getItem("untilDate");
   //   const [insurance, setInsurance] = useState("");
   const { carId } = useParams();
   const protectionPrices = {
@@ -24,6 +27,24 @@ const CarBookForm = ({ car }) => {
   };
   const [errors, setErrors] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+  useEffect(() => {
+    if (fromDate) {
+      setStartDate(fromDate);
+      // console.log("fromDate", fromDate, startDate, "startdate");
+      localStorage.removeItem("fromDate");
+      //   localStorage.clear();
+    }
+  }, [fromDate]);
+
+  useEffect(() => {
+    if (untilDate) {
+      setEndDate(untilDate);
+      // console.log("untilDate", untilDate);
+      localStorage.removeItem("untilDate");
+      //   localStorage.clear();
+    }
+  }, [untilDate]);
 
   const tripPrice = () => {
     const start = new Date(startDate);
@@ -95,6 +116,15 @@ const CarBookForm = ({ car }) => {
     return utcDate;
   };
 
+  const handleDateInput = (e) => {
+    setStartDate(e.target.value);
+    if (endDate === "") {
+      const nextDay = new Date(e.target.value);
+      nextDay.setDate(nextDay.getDate() + 1);
+      setEndDate(nextDay.toISOString().slice(0, 10));
+    }
+  };
+
   return (
     <>
       <div id="car-show-price-container">
@@ -116,9 +146,11 @@ const CarBookForm = ({ car }) => {
         <div id="from-input-container-car-show">
           <input
             type="date"
+            min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
             className="search-input-car-show search-date"
             value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
+            // onChange={(e) => setStartDate(e.target.value)}
+            onChange={handleDateInput}
           ></input>
         </div>
         {errors.map((error) => {
@@ -133,8 +165,12 @@ const CarBookForm = ({ car }) => {
         <div id="until-input-container-car-show">
           <input
             type="date"
-            className="search-input-car-show search-date"
+            // className="search-input-car-show search-date"
             value={endDate}
+            min={startDate}
+            className={`search-input-car-show search-date${
+              endDate < startDate ? " date-input-error" : ""
+            }`}
             onChange={(e) => setEndDate(e.target.value)}
           ></input>
         </div>

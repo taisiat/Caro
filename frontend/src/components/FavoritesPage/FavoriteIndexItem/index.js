@@ -1,27 +1,36 @@
 import "./FavoriteIndexItem.css";
 import { AiTwotoneStar } from "react-icons/ai";
 import { IoRibbonSharp } from "react-icons/io5";
-import { BiMapAlt } from "react-icons/bi";
-import FavHeart from "../../FavHeart";
+// import { BiMapAlt } from "react-icons/bi";
+// import FavHeart from "../../FavHeart";
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchCar } from "../../../store/cars";
+// import { useEffect, useState } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+// import { fetchCar } from "../../../store/cars";
 import Spinner from "../../Spinner";
 
-const FavoriteIndexItem = ({ carId }) => {
-  const [heartClick, setHeartClick] = useState(false);
-  const car = useSelector((state) => state.cars[carId]);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchCar(carId));
-  }, [dispatch, carId]);
-
-  const handleHeartClick = () => {
-    setHeartClick(!heartClick);
-  };
+const FavoriteIndexItem = ({ favorite }) => {
+  //heartsedit 3. receive favs
+  // const [heartClick, setHeartClick] = useState(false);
+  // const car = useSelector((state) => state.cars[carId]);
+  const car = favorite.car;
+  // const dispatch = useDispatch();
   const history = useHistory();
+  //   const car = cars.find((car) => car.id === carId);
+  //   let car;
+  //   useEffect(() => {
+  //     if (cars) {
+  //       car = cars.find((car) => car.id === carId);
+  //     }
+  //   }, [cars]);
+
+  // useEffect(() => {
+  //   dispatch(fetchCar(carId));
+  // }, [dispatch, carId]);
+
+  //   const handleHeartClick = () => { //heartsedit 4. comment out handleHeartClick
+  //     setHeartClick(!heartClick);
+  //   };
 
   const avgCarRating = () => {
     const avg =

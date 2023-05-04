@@ -7,7 +7,7 @@ import { RiHeart3Line } from "react-icons/ri";
 import { GiRoad } from "react-icons/gi";
 import { VscAccount } from "react-icons/vsc";
 import { SlMenu } from "react-icons/sl";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+// import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector } from "react-redux";
 import { fetchUser } from "../../store/user";
 

@@ -95,3 +95,7 @@
   background-color: rgb(171, 92, 250);
   color: white;
 }
+
+#review-tile-info {
+  width: 100%;
+}

@@ -21,10 +21,11 @@
 
 .search-input-line {
   border: 0;
-  width: 100%;
+  /* width: 170px; */
   font-size: 16px;
   margin: 0;
   margin-left: 5px;
+  font-family: "Mulish", sans-serif;
 }
 
 #until-input-container-line,
@@ -38,7 +39,7 @@
 #from-container-line,
 #until-container-line {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   border-bottom: 1px solid #e2e0e0;
   margin-right: 20px;
@@ -50,4 +51,82 @@
 
 .search-input-line:hover {
   cursor: pointer;
+}
+
+#search-button-container-line {
+  font-size: 25px;
+  text-align: center;
+  color: white;
+  background-color: #4a31da;
+  /* height: 40px; */
+  width: 45px;
+  border-radius: 45px;
+  /* margin-right: 5px; */
+  /* margin-top: 5px; */
+  transition: 0.25s ease-in-out;
+}
+
+#search-button-container-line:hover {
+  background-color: #3a1daa;
+  cursor: pointer;
+  transition: 0.25s ease-in-out;
+  cursor: pointer;
+  transform: translateY(2px);
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
+}
+
+#search-icon.search-line-button {
+  margin-top: 5px;
+}
+
+.date-input-error {
+  color: red;
+  /* font-size: 12px; */
+  /* margin-left: 5px; */
+  /* position: relative; */
+  /* top: 5px; */
+}
+
+#search-button-container-line-inactive {
+  font-size: 25px;
+  text-align: center;
+  color: white;
+  background-color: #e5e1f6;
+  height: 40px;
+  width: 45px;
+  border-radius: 45px;
+  /* margin-right: 5px; */
+  /* margin-top: 5px; */
+  transition: 0.25s ease-in-out;
+  cursor: not-allowed;
+}
+
+#where-input-searchline {
+  width: 250px;
+}
+
+.suggestions-container {
+  position: absolute;
+  top: 62px;
+  left: 90px;
+  width: 450px;
+  max-height: 200px;
+  overflow: auto;
+  background-color: #fff;
+  /* border: 1px solid #ddd; */
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-family: "Mulish", sans-serif;
+  font-size: 15px;
+}
+
+.suggestion-item {
+  padding: 15px;
+  line-height: 20px;
+}
+
+.suggestion-item:hover,
+.suggestion-item-active {
+  background-color: #eeddf7;
 }

@@ -15,7 +15,7 @@ import { IoRibbonSharp } from "react-icons/io5";
 import { MdCleanHands } from "react-icons/md";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { FaChevronCircleRight } from "react-icons/fa";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+// import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useHistory } from "react-router-dom";
 import CarBookForm from "../CarBookForm";
 import { fetchReviews } from "../../store/reviews";
@@ -23,16 +23,31 @@ import Spinner from "../Spinner";
 import ReviewIndexItem from "../ReviewIndexItem";
 import { VscAccount } from "react-icons/vsc";
 import CarMap from "../CarMap";
+import { fetchFavorites } from "../../store/favorites";
 
 function CarShowPage() {
   const sessionUser = useSelector((state) => state.session.user);
   const { carId } = useParams();
   const car = useSelector((state) => state.cars[carId]);
-  const reviews = useSelector((state) => Object.values(state.reviews));
+  // const reviews = useSelector((state) => Object.values(state.reviews));
+  const reviews = car ? Object.values(car.reviews) : null;
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [searchPageWhere, setSearchPageWhere] = useState("");
+  const fromDate = localStorage.getItem("fromDate");
+  const untilDate = localStorage.getItem("untilDate");
+  const where = localStorage.getItem("where");
+
   const dispatch = useDispatch();
   const [currentImg, setCurrentImg] = useState(0);
   const imageListLength = car?.photosUrl ? car.photosUrl.length : 0;
   const history = useHistory();
+  const favorites = useSelector((state) => Object.values(state.favorites)); //heartsedit add favs to car show
+
+  useEffect(() => {
+    //heartsedit add favs to car show
+    dispatch(fetchFavorites());
+  }, [dispatch, sessionUser]);
 
   const handleImgSlider = (direction) => {
     handleChangeImage();
@@ -46,9 +61,36 @@ function CarShowPage() {
     dispatch(fetchCar(carId));
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   dispatch(fetchReviews());
+  // }, [dispatch]);
+
   useEffect(() => {
-    dispatch(fetchReviews());
-  }, [dispatch]);
+    if (fromDate) {
+      setStartDate(fromDate);
+      // console.log("fromDate", fromDate, startDate, "startdate");
+      // localStorage.removeItem("fromDate");
+      //   localStorage.clear();
+    }
+  }, [fromDate]);
+
+  useEffect(() => {
+    if (untilDate) {
+      setEndDate(untilDate);
+      // console.log("untilDate", untilDate);
+      // localStorage.removeItem("untilDate");
+      //   localStorage.clear();
+    }
+  }, [untilDate]);
+
+  useEffect(() => {
+    if (where) {
+      setSearchPageWhere(where);
+      // console.log("untilDate", untilDate);
+      // localStorage.removeItem("untilDate");
+      //   localStorage.clear();
+    }
+  }, [where]);
 
   //   if (!car) {
   //     return null;
@@ -88,19 +130,19 @@ function CarShowPage() {
     }
   };
 
-  const reviewsSection = () => {
-    if (reviews) {
-      return reviews.map((review, idx) => {
-        if (review.car.id === car.id)
-          return <ReviewIndexItem review={review} key={idx} />;
-      });
-    } else {
-      return <p>No reviews yet</p>;
-    }
-  };
+  // const reviewsSection = () => {
+  //   if (reviews && reviews !== []) {
+  //     return reviews.map((review, idx) => {
+  //       if (review.car.id === car.id)
+  //         return <ReviewIndexItem review={review} key={idx} />;
+  //     });
+  //   } else {
+  //     return <p>No reviews yet</p>;
+  //   }
+  // };
 
   const profileImg = () => {
-    if (car.host.photoUrl) {
+    if (car.host && car.host.photoUrl) {
       return <img src={car.host.photoUrl} alt="profile picture" />;
     } else {
       return <VscAccount id="profile-page-placeholder-img" />;
@@ -109,10 +151,18 @@ function CarShowPage() {
 
   return (
     <div id="car-show-container">
-      <SearchLine />
+      <SearchLine
+        searchPageFromDate={startDate}
+        setSearchPageFromDate={setStartDate}
+        searchPageUntilDate={endDate}
+        setSearchPageUntilDate={setEndDate}
+        searchPageWhere={searchPageWhere}
+        setSearchPageWhere={setSearchPageWhere}
+      />
       <div id="car-show-heart-container">
-        <FavHeart className="heart-car-show" car={car} />
-      </div>
+        <FavHeart className="heart-car-show" car={car} favorites={favorites} />
+      </div>{" "}
+      // heartsedit
       <div id="car-show-imgs-container">
         {car.photosUrl && (
           <img
@@ -354,11 +404,13 @@ function CarShowPage() {
                 {!reviews && <p>No reviews yet</p>} */}
                 {/* {reviewsSection} */}
                 {reviews &&
-                reviews.filter((review) => review.car.id === car.id).length >
-                  0 ? (
+                reviews !== [] &&
+                // reviews.filter((review) => review.carId === car.id).length >
+                reviews.length > 0 ? (
+                  // reviews.length > 0 ? (
                   reviews.map((review, idx) => {
-                    if (review.car.id === car.id)
-                      return <ReviewIndexItem review={review} key={idx} />;
+                    // if (review.carId === car.id)
+                    return <ReviewIndexItem review={review} key={idx} />;
                   })
                 ) : (
                   <p>No reviews yet</p>

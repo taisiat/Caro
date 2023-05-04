@@ -4,9 +4,23 @@ class Api::CarsController < ApplicationController
     # wrap_parameters include: Car.attribute_names + [:photo], format: :multipart_form + ['doorsCount'] + ['seatsCount'] + ['dailyRate']
 
   def index
-    @cars = Car.includes(:host)
+    @cars = Car.includes(:host).includes(:reviews).includes(:trips)
+    # debugger
     @cars = @cars.in_bounds(bounds) if bounds
     @cars = @cars.where(daily_rate: price_range) if price_range
+    # @cars = @cars.no_overlapping_trips(date_range) if date_range
+    # debugger
+    if !date_range
+      @cars
+    elsif date_range === ["",""] || date_range === ["Invalid Date", "Invalid Date"]
+      @cars
+    else
+      # debugger
+      # @cars = @cars.no_overlapping_trips(date_range)
+      # debugger
+      @cars = @cars.where.not(id: Trip.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?) OR (start_date >= ? AND end_date <= ?)", Date.parse(date_range[0]),Date.parse(date_range[0]) , Date.parse(date_range[1]), Date.parse(date_range[1]), Date.parse(date_range[0]), Date.parse(date_range[1]))
+      .select(:car_id)) 
+    end
     # @cars = @cars.where(host_id.is_superhost: superhost_filter) if superhost_filter
     # @cars = @cars.joins(:users).where(users: { is_superhost: superhost_filter }) if superhost_filter
     # @cars = @cars.where(Car.host.is_superhost: superhost_filter) if superhost_filter
@@ -16,11 +30,19 @@ class Api::CarsController < ApplicationController
     else
       @cars
     end
+    if experience_filter === ''
+      # debugger
+      @cars
+    # elsif experience_filter === 'All'
+    #   @cars
+    else
+      @cars = @cars.where(category: experience_filter)
+    end
 
   end
 
   def show
-    @car = Car.includes(:host).find(params[:id])
+    @car = Car.includes(:host).includes(:reviews).includes(:trips).find(params[:id])
   end
 
   def create
@@ -65,9 +87,19 @@ class Api::CarsController < ApplicationController
     params[:min_pricing]..params[:max_pricing]
   end
 
+  def date_range
+    return nil unless params[:trip_start] && params[:trip_end]
+    # [Date.parse(params[:trip_start]),Date.parse(params[:trip_end])]
+    [params[:trip_start],params[:trip_end]]
+  end
+
   def superhost_filter
     return nil unless params[:superhost_filter]
     params[:superhost_filter]
   end
 
+  def experience_filter 
+    return nil unless params[:experience_type]
+    params[:experience_type]
+  end
 end

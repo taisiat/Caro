@@ -17,7 +17,7 @@
 #
 class User < ApplicationRecord
   has_secure_password
-
+  validates :phone_number, allow_blank: true, format: { with: /\A\d{3}-\d{3}-\d{4}\z/, message: "should be in the format xxx-xxx-xxxx" }
   validates :first_name, :last_name, presence: true #password_digest is validated by has_secure_password
   validates :session_token, uniqueness: true, presence: true
   validates :email, presence:true, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { in: 3..255 }, uniqueness: true
@@ -25,16 +25,19 @@ class User < ApplicationRecord
 
   before_validation :ensure_session_token
   has_one_attached :photo
+
   has_many :cars,
     foreign_key: :host_id,
     class_name: :Car,
     dependent: :destroy,
     inverse_of: :host
+
   has_many :trips,
     foreign_key: :driver_id,
     class_name: :Trip,
     dependent: :destroy,
     inverse_of: :driver
+
   has_many :reviews,
     foreign_key: :driver_id,
     class_name: :Review,
@@ -81,9 +84,6 @@ class User < ApplicationRecord
     reviews_for_own_cars.average(:accuracy_rating).round(2) +
     reviews_for_own_cars.average(:maintenance_rating).round(2))
   end
-
-
-
   
   private
 
@@ -97,5 +97,4 @@ class User < ApplicationRecord
   def ensure_session_token
     self.session_token ||= generate_unique_session_token
   end
-
 end

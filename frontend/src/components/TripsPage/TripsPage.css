@@ -20,8 +20,8 @@
 }
 
 #no-cars-image {
-  height: 220px;
-  width: 375px;
+  height: 50%;
+  width: 50%;
 }
 
 #no-trips-container {
@@ -39,4 +39,15 @@
 
 #no-trips-sub {
   margin-top: 10px;
+}
+
+#no-trips-yet-lead {
+  font-size: 30px;
+  margin-bottom: 25px;
+  /* text-align: left; */
+  font-family: "Mulish", sans-serif;
+  /* position: absolute; */
+  /* top: 0px; */
+  /* left: 0px; */
+  color: rgb(20, 20, 20);
 }

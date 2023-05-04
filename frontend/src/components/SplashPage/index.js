@@ -1,10 +1,21 @@
 import Footer from "../Footer";
 import SearchBar from "../SearchBar";
+import Spinner from "../Spinner";
 import BrowseByDestinationComponent from "./BrowseByDestinationComponent";
 import BrowseByExperienceComponent from "./BrowseByExperienceComponent";
 import "./SplashPage.css";
+import { useEffect, useState } from "react";
 
 const SplashPage = () => {
+  // const [isLoading, setIsLoading] = useState(true);
+
+  // useEffect(() => {
+  //   window.addEventListener("load", () => {
+  //     setIsLoading(false);
+  //   });
+  // }, []);
+
+  // if (isLoading) return <Spinner />;
   return (
     <>
       <div className="splash-img-container"></div>

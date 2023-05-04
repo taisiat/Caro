@@ -138,7 +138,8 @@
 }
 
 .price-search-component,
-.superhost-search-component {
+.superhost-search-component,
+.experience-search-component {
   margin-left: 10px;
   border-bottom: 1px solid rgb(228, 227, 227);
   font-family: "Mulish", sans-serif;
@@ -146,17 +147,23 @@
   /* background-color: yellow; */
 }
 
-#superhost-input-label {
+#superhost-input-label,
+#experience-input-label {
   /* margin: 0; */
   /* margin-bottom: 20px;
   padding-bottom: 20px; */
   margin-top: 5px;
 }
 
-.superhost-search-component {
+.superhost-search-component,
+.experience-search-component {
   display: flex;
   align-items: center;
   border: none;
+}
+
+.superhost-search-component {
+  border-bottom: 1px solid rgb(228, 227, 227);
 }
 
 /* .superhost-search-component input {
@@ -180,4 +187,19 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
   background-color: rgb(89, 60, 251);
   border-color: rgb(89, 60, 251);
+}
+
+.experience-search-component {
+  margin-left: 30px;
+  border-bottom: 1px solid rgb(228, 227, 227);
+  padding-bottom: 5px;
+  margin-top: 5px;
+}
+
+#experience-type {
+  margin-left: 8px;
+  font-family: "Mulish", sans-serif;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
 }

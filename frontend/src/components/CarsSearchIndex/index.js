@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./CarsSearchIndex.css";
-import { useParams } from "react-router-dom";
-import { fetchUser } from "../../store/user";
+// import { useParams } from "react-router-dom";
+// import { fetchUser } from "../../store/user";
 import { fetchCars } from "../../store/cars";
 import SearchLine from "../SearchLine";
-import { IoOptionsOutline } from "react-icons/io5";
-import CarSearchIndexItem from "../CarSearchIndexItem";
-import { Redirect } from "react-router-dom";
+// import { IoOptionsOutline } from "react-icons/io5";
+// import CarSearchIndexItem from "../CarSearchIndexItem";
+// import { Redirect } from "react-router-dom";
 import CarMap from "../CarMap";
 import { useHistory } from "react-router-dom";
 import { useMemo } from "react";
@@ -15,6 +15,7 @@ import CarList from "./CarList";
 import FilterForm from "./FilterForm";
 import Spinner from "../Spinner";
 import noCarsImage from "./no_car_found.png";
+import { fetchFavorites } from "../../store/favorites";
 
 function CarsSearchIndex() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -22,19 +23,142 @@ function CarsSearchIndex() {
   const cars = useSelector((state) => Object.values(state.cars));
   const [highlightedCar, setHighlightedCar] = useState(null);
   const history = useHistory();
+  //   const cityCoords = localStorage.getItem("cityCoords");
+  //   const cityZoom = localStorage.getItem("cityZoom");
+  const experience = localStorage.getItem("experience");
+  const fromDate = localStorage.getItem("fromDate");
+  const untilDate = localStorage.getItem("untilDate");
+  const where = localStorage.getItem("where");
+  // const coords = localStorage.getItem("coords");
   const [bounds, setBounds] = useState(null);
   const [minPricing, setMinPricing] = useState(1);
-  const [maxPricing, setMaxPricing] = useState(100000);
+  const [maxPricing, setMaxPricing] = useState(4000);
   const [superhostFilter, setSuperhostFilter] = useState(false);
+  const [experienceType, setExperienceType] = useState("");
+  const [searchPageFromDate, setSearchPageFromDate] = useState("");
+  const [searchPageUntilDate, setSearchPageUntilDate] = useState("");
+  const [searchPageWhere, setSearchPageWhere] = useState("");
+  const [searchPageCoords, setSearchPageCoords] = useState("");
+  //   const mapOptions = {};
+  const favorites = useSelector((state) => Object.values(state.favorites)); //heartsedit add favs here
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch, sessionUser]); //heartsedit add favs here
+
+  // useEffect(() => {
+  //   const handleStorageChange = (event) => {
+  //     setSearchPageFromDate(localStorage.getItem("fromDate"));
+  //     setSearchPageUntilDate(localStorage.getItem("untilDate"));
+  //   };
+
+  //   window.addEventListener("storage", handleStorageChange);
+
+  //   return () => {
+  //     window.removeEventListener("storage", handleStorageChange);
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    if (experience) {
+      setExperienceType(experience);
+      //   console.log("experience!", experience, experienceType, "exp type");
+      localStorage.removeItem("experience");
+      //   localStorage.clear();
+    }
+  }, [experience]);
+
+  // useEffect(() => {
+  //   if (searchPageCoords) {
+  //     console.log(bounds, "bounds before");
+  //     setBounds(searchPageCoords);
+  //     console.log(bounds, "bounds after");
+  //     //   console.log("experience!", experience, experienceType, "exp type");
+  //     //  localStorage.removeItem("experience");
+  //     //   localStorage.clear();
+  //   }
+  // }, [searchPageCoords]);
+
+  useEffect(() => {
+    if (fromDate) {
+      setSearchPageFromDate(fromDate);
+      localStorage.removeItem("fromDate");
+      //   localStorage.clear();
+    }
+  }, [fromDate]);
+
+  useEffect(() => {
+    if (untilDate) {
+      setSearchPageUntilDate(untilDate);
+      // console.log("untilDate", untilDate);
+      localStorage.removeItem("untilDate");
+      //   localStorage.clear();
+    }
+  }, [untilDate]);
+
+  useEffect(() => {
+    if (where) {
+      setSearchPageWhere(where);
+      // console.log("where", where);
+
+      localStorage.removeItem("where");
+      //   localStorage.clear();
+    }
+  }, [where]);
+
+  // useEffect(() => {
+  //   if (coords) {
+  //     setSearchPageCoords(coords);
+  //     console.log("coords", coords);
+
+  //     localStorage.removeItem("coords");
+  //     //   localStorage.clear();
+  //   }
+  // }, [coords]);
+
+  //   useEffect(() => {
+  //     if (cityCoords) {
+  //       //   mapOptions.center = JSON.parse(cityCoords);
+  //       //   mapOptions.zoom = JSON.parse(cityZoom);
+  //       mapOptions.center = cityCoords;
+  //       mapOptions.zoom = cityZoom;
+  //       localStorage.clear();
+  //     }
+  //   }, [cityCoords]);
+
+  const handleDateChange = (userInputDate) => {
+    const dateObj = new Date(Date.parse(userInputDate));
+    const utcDate = new Date(
+      dateObj.getTime() + dateObj.getTimezoneOffset() * 60000
+    );
+    return utcDate;
+  };
 
   useEffect(() => {
     if (minPricing && maxPricing && bounds) {
-      dispatch(fetchCars({ minPricing, maxPricing, bounds, superhostFilter })); // add superhost and dates
+      dispatch(
+        fetchCars({
+          minPricing,
+          maxPricing,
+          bounds,
+          superhostFilter,
+          experienceType,
+          tripStart: handleDateChange(searchPageFromDate),
+          tripEnd: handleDateChange(searchPageUntilDate),
+        })
+      ); // add superhost and dates
       //   dispatch(fetchCars({ bounds }));
-
-      console.log("map bounds", bounds, minPricing, maxPricing, "prices");
     }
-  }, [minPricing, maxPricing, bounds, superhostFilter, dispatch]);
+  }, [
+    minPricing,
+    maxPricing,
+    bounds,
+    superhostFilter,
+    experienceType,
+    searchPageFromDate,
+    searchPageUntilDate,
+    // searchPageCoords,
+    dispatch,
+  ]);
 
   //   useEffect(() => {
   //     dispatch(fetchCars());
@@ -53,11 +177,11 @@ function CarsSearchIndex() {
     [history]
   );
 
-  const monthYear = (dateString) => {
-    const dateObj = new Date(dateString);
-    const options = { year: "numeric", month: "long" };
-    return dateObj.toLocaleDateString("en-US", options);
-  };
+  // const monthYear = (dateString) => {
+  //   const dateObj = new Date(dateString);
+  //   const options = { year: "numeric", month: "long" };
+  //   return dateObj.toLocaleDateString("en-US", options);
+  // };
 
   if (!cars) {
     return (
@@ -70,15 +194,28 @@ function CarsSearchIndex() {
 
   return (
     <div id="car-index-container">
-      <SearchLine />
+      <SearchLine
+        searchPageFromDate={searchPageFromDate}
+        setSearchPageFromDate={setSearchPageFromDate}
+        searchPageUntilDate={searchPageUntilDate}
+        setSearchPageUntilDate={setSearchPageUntilDate}
+        searchPageWhere={searchPageWhere}
+        setSearchPageWhere={setSearchPageWhere}
+        searchPageCoords={searchPageCoords}
+        setSearchPageCoords={setSearchPageCoords}
+        setBounds={setBounds}
+        bounds={bounds}
+      />
       <div id="search-buttons">
         <FilterForm
           minPricing={minPricing}
           maxPricing={maxPricing}
           superhostFilter={superhostFilter}
+          experienceType={experienceType}
           setMinPricing={setMinPricing}
           setMaxPricing={setMaxPricing}
           setSuperhostFilter={setSuperhostFilter}
+          setExperienceType={setExperienceType}
         />
         {/* <button>
           <p>Sort by</p>
@@ -109,7 +246,7 @@ function CarsSearchIndex() {
           </div>
         )}
         {cars.length !== 0 && (
-          <p id="yes-results-msg">These cars can be picked up in this city.</p>
+          <p id="yes-results-msg">These cars can be picked up in this area.</p>
         )}
       </div>
       <div id="map-container">
@@ -122,6 +259,7 @@ function CarsSearchIndex() {
             mouseout: () => setHighlightedCar(null),
           }}
           highlightedCar={highlightedCar}
+          //   mapOptions={mapOptions}
         />
       </div>
       <div id="car-tile-container">
@@ -132,6 +270,9 @@ function CarsSearchIndex() {
           cars={cars}
           highlightedCar={highlightedCar}
           setHighlightedCar={setHighlightedCar}
+          favorites={favorites} //heartsedit add favs here
+          searchPageFromDate={searchPageFromDate}
+          searchPageUntilDate={searchPageUntilDate}
         />
       </div>
     </div>

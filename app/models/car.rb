@@ -105,7 +105,6 @@ class Car < ApplicationRecord
         # Car.where(make: "Subaru" )
 
     # Car.where("location @> ARRAY[?,?]", 37.808205, -122.415480)
-
   end
 
   # def self.filter_by_superhost(superhost_filter)
@@ -116,5 +115,13 @@ class Car < ApplicationRecord
   #   end
   # end
 
-
+  # def self.no_overlapping_trips(date_range)
+  #   # trip_start, trip_end = date_range
+  #   # trip_start, trip_end = dateRange.map { |d| Date.parse(d) }
+  #   trip_start = Date.parse(date_range[0]).iso8601
+  #   trip_end = Date.parse(date_range[1]).iso8601
+  #   Car
+  #   .where.not(id: Trip.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)", trip_start, trip_start, trip_end, trip_end)
+  #   .select(:car_id))    
+  # end
 end

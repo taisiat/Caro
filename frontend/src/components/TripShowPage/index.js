@@ -1,6 +1,6 @@
 import "./TripShowPage.css";
 import { useParams } from "react-router-dom";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { deleteTrip } from "../../store/trips";
@@ -8,12 +8,29 @@ import { updateTrip } from "../../store/trips";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchTrip } from "../../store/trips";
-import { fetchUser } from "../../store/user";
+// import { fetchUser } from "../../store/user";
 import SearchLine from "../SearchLine";
-import Footer from "../Footer";
+// import Footer from "../Footer";
 import Spinner from "../Spinner";
 
 const TripShowPage = () => {
+  const { tripId } = useParams();
+  const trip = useSelector((state) => state.trips[tripId]);
+  const sessionUser = useSelector((state) => state.session.user);
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [errors, setErrors] = useState([]);
+  // const [overlapError, setOverlapError] = useState([]);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const protectionPrices = {
+    Premier: 50,
+    Standard: 30,
+    Minimum: 10,
+    None: 0,
+  };
+
   const formattedDate = (rawDate) => {
     const date = new Date(rawDate);
     return new Date(date.getTime()).toISOString().substr(0, 10);
@@ -24,23 +41,6 @@ const TripShowPage = () => {
   //     .toISOString()
   //     .substr(0, 10);
   // };
-
-  const { tripId } = useParams();
-  const trip = useSelector((state) => state.trips[tripId]);
-  const sessionUser = useSelector((state) => state.session.user);
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [errors, setErrors] = useState([]);
-  const [overlapError, setOverlapError] = useState([]);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const protectionPrices = {
-    Premier: 50,
-    Standard: 30,
-    Minimum: 10,
-    None: 0,
-  };
 
   useEffect(() => {
     if (trip) {
@@ -77,7 +77,7 @@ const TripShowPage = () => {
 
   if (sessionUser && trip.driverId !== sessionUser.id) {
     history.push("/");
-    return null;
+    // return null;
   }
 
   const tripPrice = () => {
@@ -165,6 +165,7 @@ const TripShowPage = () => {
               type="date"
               className="search-input-car-show search-date"
               value={startDate}
+              min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
               onChange={(e) => setStartDate(e.target.value)}
             ></input>
           </div>
@@ -181,9 +182,13 @@ const TripShowPage = () => {
           <div id="until-input-container-car-show">
             <input
               type="date"
-              className="search-input-car-show search-date"
+              // className="search-input-car-show search-date"
               value={endDate}
+              min={startDate}
               onChange={(e) => setEndDate(e.target.value)}
+              className={`search-input-car-show search-date${
+                endDate < startDate ? " date-input-error" : ""
+              }`}
             ></input>
           </div>
           {errors &&
