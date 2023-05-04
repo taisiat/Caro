@@ -42,3 +42,7 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+.daily-rate-pricing {
+  font-weight: 900;
+}

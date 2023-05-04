@@ -105,6 +105,7 @@ const SearchLine = ({
                 {suggestions.map((suggestion) => {
                   const style = {
                     backgroundColor: suggestion.active ? "#eeddf7" : "#ffffff",
+                    padding: "10px",
                   };
                   return (
                     <div

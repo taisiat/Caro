@@ -6,6 +6,19 @@ class Api::CarsController < ApplicationController
     @cars = Car.includes(:host).includes(:reviews).includes(:trips)
     @cars = @cars.in_bounds(bounds) if bounds
     @cars = @cars.where(daily_rate: price_range) if price_range
+    
+    if superhost_filter === 'true'
+      @cars = @cars.where(host_id: User.where(is_superhost: true).pluck(:id))
+    else
+      @cars
+    end
+    
+    if experience_filter === ''
+      @cars
+    else
+      @cars = @cars.where(category: experience_filter)
+    end
+    
     if !date_range
       @cars
     elsif date_range === ["",""] || date_range === ["Invalid Date", "Invalid Date"]
@@ -14,17 +27,6 @@ class Api::CarsController < ApplicationController
       @cars = @cars.where.not(id: Trip.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?) OR (start_date >= ? AND end_date <= ?)", Date.parse(date_range[0]),Date.parse(date_range[0]) , Date.parse(date_range[1]), Date.parse(date_range[1]), Date.parse(date_range[0]), Date.parse(date_range[1]))
       .select(:car_id)) 
     end
-    if superhost_filter === 'true'
-      @cars = @cars.where(host_id: User.where(is_superhost: true).pluck(:id))
-    else
-      @cars
-    end
-    if experience_filter === ''
-      @cars
-    else
-      @cars = @cars.where(category: experience_filter)
-    end
-
   end
 
   def show

@@ -135,9 +135,9 @@
   font-size: 15px;
 }
 
-.suggestion-item {
-  padding: 15px;
-  line-height: 20px;
+.pac-item {
+  color: red;
+  font-size: 24px;
 }
 
 .suggestion-item:hover,

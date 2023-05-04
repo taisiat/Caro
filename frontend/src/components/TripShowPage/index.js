@@ -114,8 +114,8 @@ const TripShowPage = () => {
     <>
       <SearchLine />
       <div id="trip-edit-form-container">
-        <div id="car-show-price-container">
-          <h3>{`$${trip.car.dailyRate} / day`}</h3>
+        <div className="car-show-price-container">
+          <h3 id="daily-rate-pricing">{`$${trip.car.dailyRate} / day`}</h3>
           {startDate && endDate && selectedAnswer ? (
             <p>{`$${tripPrice()}  total`}</p>
           ) : (

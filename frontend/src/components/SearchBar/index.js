@@ -46,6 +46,7 @@ const SearchBar = () => {
       <div id="where-container">
         <p>Where</p>
         <PlacesAutocomplete
+          // styles={{ backgroundColor: `orange` }}
           value={where}
           onChange={(newValue) => setWhere(newValue)}
           onSelect={(address) => handleSelect(address)}
@@ -69,6 +70,7 @@ const SearchBar = () => {
                 {suggestions.map((suggestion) => {
                   const style = {
                     backgroundColor: suggestion.active ? "#eeddf7" : "#ffffff",
+                    padding: "10px",
                   };
                   return (
                     <div

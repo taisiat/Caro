@@ -4,7 +4,6 @@ json.extract! favorite,
     :car_id,
     :created_at
 
-
  json.car do
   json.extract! favorite.car, :id,      
     :make,

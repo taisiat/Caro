@@ -163,6 +163,7 @@
 .car-show-section-header {
   font-size: 13px;
   margin-bottom: 10px;
+  font-weight: 900;
 }
 
 #car-show-host-container-info {
@@ -175,7 +176,7 @@
 #car-show-host-container-info h3 {
   font-size: 20px;
   font-family: "Mulish", sans-serif;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 #car-show-superhost-clean {

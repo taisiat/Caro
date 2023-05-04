@@ -95,8 +95,7 @@ const CarSearchIndexItem = ({
           favorites={favorites}
         />
         <div id="car-price-container" onClick={handleTileClick}>
-          <h3>{`$${car.dailyRate}/day`}</h3>
-          <p>{`$${car.dailyRate} est. total`}</p>
+          <h3 className="car-index-item-daily-rate">{`$${car.dailyRate} / day`}</h3>
         </div>
       </div>
     </div>

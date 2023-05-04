@@ -13,6 +13,17 @@ function SignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
+  const handleDemo = (e) => {
+    e.preventDefault();
+    setErrors([]);
+    return dispatch(
+      sessionActions.login({
+        email: "dom@toretto.com",
+        password: "password1",
+      })
+    );
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -46,7 +57,7 @@ function SignupForm() {
       <form onSubmit={handleSubmit}>
         <div id="name-inputs">
           <div id="first-name-container">
-            <label htmlFor="first-name"> First Name </label>
+            <label htmlFor="first-name"> First name </label>
             <input
               type="text"
               id="first-name"
@@ -66,7 +77,7 @@ function SignupForm() {
             })}
           </div>
           <div id="last-name-container">
-            <label htmlFor="last-name"> Last Name </label>
+            <label htmlFor="last-name"> Last name </label>
             <input
               type="text"
               id="last-name"
@@ -116,7 +127,7 @@ function SignupForm() {
           <input
             id="phone-number"
             type="text"
-            placeholder="optional"
+            placeholder="XXX-XXXX-XXXX (optional)"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
@@ -173,6 +184,9 @@ function SignupForm() {
         </div>
         <button type="submit" id="signup-button">
           Sign up
+        </button>
+        <button id="demo-button" type="submit" onClick={handleDemo}>
+          Log in as Dom Torreto
         </button>
       </form>
     </div>

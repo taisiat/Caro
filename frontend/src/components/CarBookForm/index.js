@@ -112,7 +112,7 @@ const CarBookForm = ({ car }) => {
   return (
     <>
       <div id="car-show-price-container">
-        <h3>{`$${car.dailyRate} / day`}</h3>
+        <h3 className="daily-rate-pricing">{`$${car.dailyRate} / day`}</h3>
         {startDate && endDate && selectedAnswer ? (
           <p>{`$${tripPrice()}  total`}</p>
         ) : (

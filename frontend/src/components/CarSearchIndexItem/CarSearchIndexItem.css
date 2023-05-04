@@ -86,7 +86,7 @@
 #car-price-container h3 {
   font-size: 20px;
   font-family: Mulish, sans-serif;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 #car-price-container p {
@@ -104,4 +104,8 @@
 
 #rating-star {
   margin-right: 5px;
+}
+
+.car-index-item-daily-rate {
+  font-weight: 900;
 }
