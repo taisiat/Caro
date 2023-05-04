@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { fetchCar } from "../../store/cars";
 import SearchLine from "../SearchLine";
 import FavHeart from "../FavHeart";
-import Footer from "../Footer";
 import { AiTwotoneStar } from "react-icons/ai";
 import { BiGasPump } from "react-icons/bi";
 import { GiCarDoor } from "react-icons/gi";
@@ -15,10 +14,8 @@ import { IoRibbonSharp } from "react-icons/io5";
 import { MdCleanHands } from "react-icons/md";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { FaChevronCircleRight } from "react-icons/fa";
-// import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useHistory } from "react-router-dom";
 import CarBookForm from "../CarBookForm";
-// import { fetchReviews } from "../../store/reviews";
 import Spinner from "../Spinner";
 import ReviewIndexItem from "../ReviewIndexItem";
 import { VscAccount } from "react-icons/vsc";
@@ -29,7 +26,6 @@ function CarShowPage() {
   const sessionUser = useSelector((state) => state.session.user);
   const { carId } = useParams();
   const car = useSelector((state) => state.cars[carId]);
-  // const reviews = useSelector((state) => Object.values(state.reviews));
   const reviews = car ? Object.values(car.reviews) : null;
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -42,10 +38,9 @@ function CarShowPage() {
   const [currentImg, setCurrentImg] = useState(0);
   const imageListLength = car?.photosUrl ? car.photosUrl.length : 0;
   const history = useHistory();
-  const favorites = useSelector((state) => Object.values(state.favorites)); //heartsedit add favs to car show
+  const favorites = useSelector((state) => Object.values(state.favorites));
 
   useEffect(() => {
-    //heartsedit add favs to car show
     dispatch(fetchFavorites());
   }, [dispatch, sessionUser]);
 
@@ -61,40 +56,23 @@ function CarShowPage() {
     dispatch(fetchCar(carId));
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(fetchReviews());
-  // }, [dispatch]);
-
   useEffect(() => {
     if (fromDate) {
       setStartDate(fromDate);
-      // console.log("fromDate", fromDate, startDate, "startdate");
-      // localStorage.removeItem("fromDate");
-      //   localStorage.clear();
     }
   }, [fromDate]);
 
   useEffect(() => {
     if (untilDate) {
       setEndDate(untilDate);
-      // console.log("untilDate", untilDate);
-      // localStorage.removeItem("untilDate");
-      //   localStorage.clear();
     }
   }, [untilDate]);
 
   useEffect(() => {
     if (where) {
       setSearchPageWhere(where);
-      // console.log("untilDate", untilDate);
-      // localStorage.removeItem("untilDate");
-      //   localStorage.clear();
     }
   }, [where]);
-
-  //   if (!car) {
-  //     return null;
-  //   }
 
   if (!car) {
     return <Spinner />;
@@ -130,17 +108,6 @@ function CarShowPage() {
     }
   };
 
-  // const reviewsSection = () => {
-  //   if (reviews && reviews !== []) {
-  //     return reviews.map((review, idx) => {
-  //       if (review.car.id === car.id)
-  //         return <ReviewIndexItem review={review} key={idx} />;
-  //     });
-  //   } else {
-  //     return <p>No reviews yet</p>;
-  //   }
-  // };
-
   const profileImg = () => {
     if (car.host && car.host.photoUrl) {
       return <img src={car.host.photoUrl} alt="profile picture" />;
@@ -172,25 +139,6 @@ function CarShowPage() {
             id="car-show-main-img"
           />
         )}
-
-        {/* {car.photosUrl &&
-          car.photosUrl.map((photoUrl, idx) => {
-            return (
-              <div
-                className={
-                  idx === currentImg
-                    ? "car-show-slide active"
-                    : "car-show-slide"
-                }
-                key={idx}
-                alt="car image"
-              >
-                {idx === currentImg && (
-                  <img src={photoUrl} className="car-show-image"></img>
-                )}
-              </div>
-            );
-          })} */}
       </div>
       <div id="img-sliders-container">
         <FaChevronCircleLeft
@@ -239,11 +187,6 @@ function CarShowPage() {
                 id="car-show-host-container-profile"
                 onClick={() => history.push(`/users/${car.host.id}`)}
               >
-                {/* <img src={car.host.photoUrl} alt="Host profile picture" />
-                <div id="user-rating-container">
-                  {parseInt(car.host.userRating).toFixed(1)}
-                  <AiTwotoneStar id="user-rating-star" />
-                </div> */}
                 <div id="profile-and-user-star-container-car-show">
                   <div id="profile-img-container">
                     {profileImg()}
@@ -396,20 +339,8 @@ function CarShowPage() {
             <div className="car-show-section">
               <h2 className="car-show-section-header">REVIEWS</h2>
               <div id="reviews-index-container">
-                {/* {reviews &&
+                {reviews && reviews !== [] && reviews.length > 0 ? (
                   reviews.map((review, idx) => {
-                    if (review.car.id === car.id)
-                      return <ReviewIndexItem review={review} key={idx} />;
-                  })}
-                {!reviews && <p>No reviews yet</p>} */}
-                {/* {reviewsSection} */}
-                {reviews &&
-                reviews !== [] &&
-                // reviews.filter((review) => review.carId === car.id).length >
-                reviews.length > 0 ? (
-                  // reviews.length > 0 ? (
-                  reviews.map((review, idx) => {
-                    // if (review.carId === car.id)
                     return <ReviewIndexItem review={review} key={idx} />;
                   })
                 ) : (
@@ -437,7 +368,6 @@ function CarShowPage() {
           />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

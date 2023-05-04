@@ -7,7 +7,6 @@ import { RiHeart3Line } from "react-icons/ri";
 import { GiRoad } from "react-icons/gi";
 import { VscAccount } from "react-icons/vsc";
 import { SlMenu } from "react-icons/sl";
-// import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector } from "react-redux";
 import { fetchUser } from "../../store/user";
 
@@ -48,9 +47,6 @@ function ProfileButton({ user }) {
 
   const profileImg = () => {
     if (sessionUser.photoUrl) {
-      // let profilePicNoCache =
-      //   sessionUser.photoUrl + "?cache_buster=" + Date.now();
-      // console.log(profilePicNoCache);
       return (
         <img
           src={sessionUser.photoUrl}
@@ -67,7 +63,6 @@ function ProfileButton({ user }) {
     <div id="profile-button-container">
       <button id="profile-button" className="nav-button" onClick={openMenu}>
         <SlMenu />
-        {/* <VscAccount /> */}
         {profileImg()}
       </button>
       {showMenu && (
@@ -85,11 +80,7 @@ function ProfileButton({ user }) {
             </a>
           </li>
           <li className="division-line"></li>
-          <li
-            id="profile-drop"
-            className="hamburger-options"
-            // onClick={() => <Redirect to="/profile" />}
-          >
+          <li id="profile-drop" className="hamburger-options">
             <a href={`/users/${sessionUser.id}`}>
               <VscAccount className="hamburger-icon" />
               Profile

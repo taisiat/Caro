@@ -10,18 +10,12 @@ import CarShowPage from "./components/CarShowPage";
 import TripShowPage from "./components/TripShowPage";
 import Spinner from "./components/Spinner";
 import ReviewCreateForm from "./components/ReviewCreateForm";
-import Footer from "./components/Footer";
 import ReviewUpdateForm from "./components/ReviewUpdateForm";
-// import SearchLine from "./components/SearchLine";
-// import { useLocation } from "react-router-dom";
 
 function App() {
-  // const location = useLocation();
-
   return (
     <>
       <Navigation />
-      {/* {location.pathname !== "/" && <SearchLine />} */}
       <Switch>
         <Route path={`/users/:userId`}>
           <ProfilePage />

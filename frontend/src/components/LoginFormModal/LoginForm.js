@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import "./LoginForm.css";
-// import SignupFormModal from "../SignupFormPage";
 
 function LoginForm() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
-  // const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,22 +35,6 @@ function LoginForm() {
     );
   };
 
-  // const handleDemo = (e) => {
-  //   e.preventDefault();
-  //   setErrors([]);
-  //   // return dispatch(
-  //   //   sessionActions.login({ email: "dom@toretto.com", password: "password1" })
-  //   // );
-  //   return dispatch(
-  //     sessionActions.login({ email: "dom@toretto.com", password: "password1" })
-  //   ).then(() => {
-  //     setSuccessMessage("Login successful!");
-  //     setTimeout(() => {
-  //       setSuccessMessage("");
-  //     }, 10000);
-  //   });
-  // };
-
   return (
     <div id="login-container">
       <h1 id="welcome-header">Welcome back</h1>
@@ -68,7 +50,6 @@ function LoginForm() {
             type="text"
             id="email"
             className="login-input"
-            // className={`inputs ${errors == ![] ? "red-input" : ""}`}
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -81,7 +62,6 @@ function LoginForm() {
             type="password"
             id="password"
             className="login-input"
-            // className={`inputs ${errors == ![] ? "red-input" : ""}`}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -97,14 +77,6 @@ function LoginForm() {
           </button>
         </div>
       </form>
-      {/* {successMessage && (
-        <div className="success-message">{successMessage}</div>
-      )} */}
-
-      {/* <div id="other-option-container">
-        <p>Don’t have an account?</p>
-        <SignupFormModal />
-      </div> */}
     </div>
   );
 }

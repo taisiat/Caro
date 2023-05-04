@@ -4,13 +4,9 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { updateReview } from "../../store/reviews";
-import {
-  // Redirect,
-  __esModule,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { __esModule } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
 import CarSearchIndexItem from "../CarSearchIndexItem";
-// import { fetchUser } from "../../store/user";
 import { fetchReview } from "../../store/reviews";
 import { useEffect } from "react";
 import SearchLine from "../SearchLine";
@@ -35,7 +31,6 @@ const ReviewUpdateForm = () => {
 
   useEffect(() => {
     dispatch(fetchReview(reviewId));
-    // dispatch(fetchUser(sessionUser.id));
   }, [dispatch, reviewId]);
 
   useEffect(() => {
@@ -71,7 +66,6 @@ const ReviewUpdateForm = () => {
     setErrors([]);
 
     const reviewData = {
-      //   carId: car.id,
       reviewId: review.id,
       starRating,
       cleanlinessRating,
@@ -98,10 +92,6 @@ const ReviewUpdateForm = () => {
     }
   };
 
-  //   const onChangeOverallRating = (number) => {
-  //     setStarRating(parseInt(number));
-  //   };
-
   const onChangeCleanlinessRating = (number) => {
     setCleanlinessRating(parseInt(number));
   };
@@ -122,18 +112,9 @@ const ReviewUpdateForm = () => {
     setAccuracyRating(parseInt(number));
   };
 
-  //   if (!car) return <Spinner />;
-
-  //   if (car && sessionUser)
-  //     if (car.hostId === sessionUser.id) {
-  //       history.push(`/cars/${car.id}`);
-  //       return;
-  //     }
-
   const handleReviewDelete = () => {
     dispatch(deleteReview(review.id));
     history.push("/trips");
-    // history.push(`/cars/${review.car.id}`);
   };
 
   return (

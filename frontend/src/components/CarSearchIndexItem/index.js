@@ -3,7 +3,6 @@ import { AiTwotoneStar } from "react-icons/ai";
 import { IoRibbonSharp } from "react-icons/io5";
 import { BiMapAlt } from "react-icons/bi";
 import FavHeart from "../FavHeart";
-// import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import Spinner from "../Spinner";
@@ -38,19 +37,6 @@ const CarSearchIndexItem = ({
     }
   };
 
-  //   const address = (lat, lng) => {
-  //     const apiKey = process.env.REACT_APP_MAPS_API_KEY;
-  //     fetch(
-  //       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
-  //     )
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         const address = data.results[0].address_components[6].long_name;
-  //         console.log(address, "address");
-  //       })
-  //       .catch((error) => console.error(error));
-  //   };
-
   const handleTileClick = () => {
     localStorage.setItem("cityZoom", 14);
     localStorage.setItem("fromDate", searchPageFromDate);
@@ -64,14 +50,8 @@ const CarSearchIndexItem = ({
       className={isHighlighted ? "highlighted" : ""}
       onMouseEnter={() => setHighlightedCar && setHighlightedCar(car.id)}
       onMouseLeave={() => setHighlightedCar && setHighlightedCar(null)}
-
-      //   onClick={() => history.push(`/cars/${car.id}`)}
     >
-      <div
-        id="car-image-container"
-        // onClick={() => history.push(`/cars/${car.id}`)}
-        onClick={handleTileClick}
-      >
+      <div id="car-image-container" onClick={handleTileClick}>
         {car.photosUrl && (
           <img
             src={car.photosUrl[0] ? car.photosUrl[0] : <Spinner />}
@@ -80,11 +60,7 @@ const CarSearchIndexItem = ({
           />
         )}
       </div>
-      <div
-        id="car-tile-info"
-        // onClick={() => history.push(`/cars/${car.id}`)}
-        onClick={handleTileClick}
-      >
+      <div id="car-tile-info" onClick={handleTileClick}>
         <h2 id="car-name">{`${car.make} ${car.model} ${car.year}`}</h2>
         <div id="car-tile-trips-and-host-info">
           <p id="car-tile-rating-trips-container">
@@ -103,13 +79,6 @@ const CarSearchIndexItem = ({
         </div>
       </div>
       <div id="car-heart-price-container">
-        {/* <div>
-          <FaHeart
-            id="car-heart"
-            className={heartClick ? "heart-clicked" : ""}
-            onClick={handleHeartClick}
-          />
-        </div> */}
         <FavHeart
           id="car-heart"
           className={heartClick ? "heart-clicked" : ""}
@@ -118,14 +87,9 @@ const CarSearchIndexItem = ({
             handleHeartClick();
           }}
           car={car}
-          favorites={favorites} //carhearts add here
+          favorites={favorites}
         />
-
-        <div
-          id="car-price-container"
-          //   onClick={() => history.push(`/cars/${car.id}`)}
-          onClick={handleTileClick}
-        >
+        <div id="car-price-container" onClick={handleTileClick}>
           <h3>{`$${car.dailyRate}/day`}</h3>
           <p>{`$${car.dailyRate} est. total`}</p>
         </div>

@@ -1,10 +1,8 @@
 import "./Footer.css";
 import { GoMarkGithub } from "react-icons/go";
 import { BsLinkedin } from "react-icons/bs";
-// import { useHistory } from "react-router-dom";
 
 const Footer = () => {
-  // const history = useHistory();
   return (
     <div id="splash-footer">
       <div id="footer-icons-container">

@@ -2,9 +2,6 @@
   width: 500px;
   display: flex;
   flex-direction: column;
-  /* height: 400px; */
-  /* background-color: white; */
-  /* padding: 35px; */
   z-index: 10000;
 }
 
@@ -24,11 +21,9 @@
   background-color: #4a31da;
   border: #4a31da 1px solid;
   color: white;
-  /* border: 0; */
   height: 50px;
   font-size: 17px;
   margin-top: 20px;
-  /* margin-bottom: 35px; */
   width: 100%;
   padding: 10px;
   margin-left: 0;
@@ -64,7 +59,6 @@
 .login-input {
   padding: 7px;
   border: 1px solid rgb(214, 213, 213);
-  /* width: 400px; */
 }
 
 #errors {

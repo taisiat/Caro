@@ -13,13 +13,11 @@ nav {
 
 #nav-left {
   padding: 15px;
-  /* width: 900px; */
 }
 
 #nav-right {
   padding: 15px;
   display: flex;
-  /* max-width: calc(100vw - 200px); */
 }
 
 #nav-right button {
@@ -82,7 +80,6 @@ nav {
 
 .hamburger-options {
   border-radius: 7px;
-  /* padding: 12px; */
   display: flex;
 }
 

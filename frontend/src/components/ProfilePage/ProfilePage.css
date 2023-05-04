@@ -105,11 +105,6 @@
   color: gray;
 }
 
-/* .profile-verified-info h2 {
-  font-size: 13px;
-  margin-top: 40px;
-} */
-
 .profile-verifications {
   display: flex;
   flex-direction: row;
@@ -149,7 +144,6 @@
 
 #profile-and-user-star-container {
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
 }
 

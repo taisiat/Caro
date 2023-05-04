@@ -1,34 +1,10 @@
 import "./TripIndexItem.css";
 import { useHistory } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { deleteTrip } from "../../../store/trips";
-// import { fetchTrips } from "../../../store/trips";
-// import { useEffect } from "react";
-// import { fetchReviews } from "../../../store/reviews";
-// import { useSelector } from "react-redux";
-// import Spinner from "../../Spinner";
 
 const TripIndexItem = ({ trip, reviews }) => {
   const history = useHistory();
-  // const dispatch = useDispatch();
-  // const reviews = useSelector((state) => Object.values(state.reviews));
-
-  //   const dateFormat = (dateStr) => {
-  //     const date = new Date(dateStr);
-  //     const options = { month: "long", day: "numeric" };
-  //     return date.toLocaleString("en-US", options);
-  //     // const date = new Date(dateStr);
-  //     // const day = date.getDate(dateStr);
-  //     // const month = date.toLocaleString("default", { month: "long" });
-  //     // return `${month} ${day}`;
-  // };
   const dateFormat = (utcDateString) => {
-    // const utcDate = new Date(dateStr);
-    // const localDate = new Date(
-    //   utcDate.getTime() - utcDate.getTimezoneOffset() * 60000
-    // );
     const options = { month: "long", day: "numeric" };
-    // return localDate.toLocaleString("en-US", options);
     const utcDate = new Date(utcDateString);
     const localDate = new Date(
       utcDate.getTime() + utcDate.getTimezoneOffset() * 60000
@@ -36,22 +12,6 @@ const TripIndexItem = ({ trip, reviews }) => {
     const localDateString = localDate.toLocaleString("en-US", options);
     return localDateString;
   };
-
-  //   const dateFormat = (dateStr) => {
-  //     const date = new Date(dateStr);
-  //     const utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-  //     utcDate.setUTCHours(0, 0, 0, 0);
-  //     const options = { month: "long", day: "numeric" };
-  //     return utcDate.toLocaleDateString("en-US", options);
-  //   };
-
-  // useEffect(() => {
-  //   dispatch(fetchTrips());
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(fetchReviews());
-  // }, [dispatch]);
 
   let reviewId;
 
@@ -70,31 +30,6 @@ const TripIndexItem = ({ trip, reviews }) => {
       return false;
     }
   };
-  //   const reviewExists = () => {
-  //     if (reviews) {
-  //       reviews.forEach((review) => {
-  //         if (
-  //           review.driverId === trip.driver.id &&
-  //           review.carId === trip.car.id
-  //         ) {
-  //           reviewId = review.id;
-  //           return true;
-  //         }
-  //       });
-  //       return false;
-  //     }
-  //   };
-
-  // useEffect(() => {
-  //   if (reviews) {
-  //     reviews.forEach((review) => {
-  //       if (review.driverId === trip.driver.id && review.carId === trip.car.id) {
-  //         reviewId = review.id;
-  //         return reviewId;
-  //       }
-  //     });
-  //   }
-  // },[reviews]);
 
   return (
     <div id="trips-item-container">
@@ -128,16 +63,6 @@ const TripIndexItem = ({ trip, reviews }) => {
             Update or delete trip
           </button>
         ) : null}
-
-        {/* {trip.endDate < new Date().toISOString() &&
-        trip.driver.id !== trip.car.host.id ? (
-          <button
-            className="trips-options-buttons"
-            onClick={() => history.push(`/cars/${trip.car.id}/reviews`)}
-          >
-            Review car
-          </button>
-        ) : null} */}
         {trip.endDate < new Date().toISOString() &&
         trip.driver.id !== trip.car.host.id &&
         !reviewExists() ? (
@@ -158,19 +83,6 @@ const TripIndexItem = ({ trip, reviews }) => {
             Update or delete review
           </button>
         ) : null}
-        {/* <button
-          className="trips-options-buttons"
-          onClick={() => history.push(`/cars/${trip.car.id}/reviews`)}
-        >
-          Review car
-        </button> */}
-        {/* <button
-        //   className="trips-options-buttons"
-          //   onClick={() => dispatch(deleteTrip(trip.id))}
-        //   onClick={() => handleTripDelete(trip.id)}
-        >
-          Cancel trip
-        </button> */}
       </div>
     </div>
   );

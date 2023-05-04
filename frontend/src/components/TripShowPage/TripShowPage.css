@@ -11,10 +11,6 @@
 }
 
 #delete-trip-button {
-  /* position: absolute; */
-  /* top: 0; */
-  /* right: 0; */
-  /* margin: 10px; */
   background-color: #ff5a5f;
   color: white;
   border: none;
@@ -30,7 +26,6 @@
 
 #delete-trip-button:hover {
   background-color: #ff3b3f;
-  /* transition: 0.25s ease-in-out; */
   transition: 0.2s;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.3);
   transform: translateY(2px);

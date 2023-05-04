@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import { createTrip } from "../../store/trips";
 import { __esModule } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
-// import LoginForm from "../LoginFormModal/LoginForm";
 import { useEffect } from "react";
 
 const CarBookForm = ({ car }) => {
@@ -17,7 +16,6 @@ const CarBookForm = ({ car }) => {
   const [endDate, setEndDate] = useState("");
   const fromDate = localStorage.getItem("fromDate");
   const untilDate = localStorage.getItem("untilDate");
-  //   const [insurance, setInsurance] = useState("");
   const { carId } = useParams();
   const protectionPrices = {
     Premier: 50,
@@ -31,18 +29,14 @@ const CarBookForm = ({ car }) => {
   useEffect(() => {
     if (fromDate) {
       setStartDate(fromDate);
-      // console.log("fromDate", fromDate, startDate, "startdate");
       localStorage.removeItem("fromDate");
-      //   localStorage.clear();
     }
   }, [fromDate]);
 
   useEffect(() => {
     if (untilDate) {
       setEndDate(untilDate);
-      // console.log("untilDate", untilDate);
       localStorage.removeItem("untilDate");
-      //   localStorage.clear();
     }
   }, [untilDate]);
 
@@ -57,14 +51,10 @@ const CarBookForm = ({ car }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    // if (!sessionUser) {
-    //   history.push("/login");
-    //   return;
-    // }
+
     if (!sessionUser) {
       setErrors(["Please log in or sign up to book a trip."]);
       return;
-      //   return <LoginForm />;
     }
 
     if (new Date(startDate) <= new Date()) {
@@ -73,9 +63,6 @@ const CarBookForm = ({ car }) => {
     }
     const tripData = {
       carId,
-      //   driverId: sessionUser.id,
-      //   startDate: new Date(startDate.toLocaleString()).toISOString(),
-      //   endDate: new Date(endDate.toLocaleString()).toISOString(),
       startDate: handleDateChange(startDate),
       endDate: handleDateChange(endDate),
       protectionPlan: selectedAnswer,
@@ -86,11 +73,8 @@ const CarBookForm = ({ car }) => {
       history.push("/trips");
     } catch (error) {
       let data;
-      // dispatch(createTrip(tripData)).catch(async (res) => {
-      //   let data;
       try {
         data = await error.clone().json();
-        // if (data.ok) history.push("/trips");
       } catch {
         data = await error.text();
       }
@@ -105,10 +89,6 @@ const CarBookForm = ({ car }) => {
   };
 
   const handleDateChange = (userInputDate) => {
-    // const localDate = new Date(dateVal).toLocaleDateString();
-    // return new Date(dateVal).toLocaleDateString();
-    // if (type === "start") setStartDate(localDate);
-    // else setEndDate(localDate);
     const dateObj = new Date(Date.parse(userInputDate));
     const utcDate = new Date(
       dateObj.getTime() + dateObj.getTimezoneOffset() * 60000
@@ -135,12 +115,7 @@ const CarBookForm = ({ car }) => {
           <p>Add trip dates and protection plan to see final price</p>
         )}
       </div>
-      <div id="search-car-show-container">
-        {/* <div id="where-container-car-show">
-          <p>Pickup & return location</p>
-          <h3>{car.location}</h3>
-        </div> */}
-      </div>
+      <div id="search-car-show-container"></div>
       <form onSubmit={handleSubmit}>
         <p className="form-field-title">Trip start</p>
         <div id="from-input-container-car-show">
@@ -149,7 +124,6 @@ const CarBookForm = ({ car }) => {
             min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
             className="search-input-car-show search-date"
             value={startDate}
-            // onChange={(e) => setStartDate(e.target.value)}
             onChange={handleDateInput}
           ></input>
         </div>
@@ -165,7 +139,6 @@ const CarBookForm = ({ car }) => {
         <div id="until-input-container-car-show">
           <input
             type="date"
-            // className="search-input-car-show search-date"
             value={endDate}
             min={startDate}
             className={`search-input-car-show search-date${
@@ -182,30 +155,6 @@ const CarBookForm = ({ car }) => {
               </p>
             );
         })}
-        {/* <p className="form-field-title">Please select a protection plan</p>
-        <div id="trip-insurance-input-container-car-show">
-          <select
-            className="search-input-car-show"
-            value={insurance}
-            onChange={(e) => setInsurance(e.target.value)}
-          >
-            <option disabled value="">
-              Plans:
-            </option>
-            <option value="Premier">
-              Premier: Chill out and drive happy with the maximum coverage plan.
-              Price: $150
-            </option>
-            <option value="Standard">
-              Standard: Hit the road confidently with solid protection. Price:
-              $80
-            </option>
-            <option value="Minimum">
-              Minimum: Stay covered while pinching some pennies. Price: $30
-            </option>
-          </select>
-        </div> */}
-
         <h2 className="form-field-title">Please select a protection plan</h2>
         <div id="protection-plan-options-container">
           <label
@@ -282,10 +231,6 @@ const CarBookForm = ({ car }) => {
             <p id="cant-book-car-mssg">Log in or sign up to book this car</p>
           </div>
         )}
-
-        {/* <div>
-          <button id="book-car-button">Book this car</button>
-        </div> */}
         {errors.map((error) => {
           if (error.includes("Please log in or sign up"))
             return (

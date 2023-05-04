@@ -2,57 +2,23 @@ import { FaHeart } from "react-icons/fa";
 import "./FavHeart.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  // fetchFavorites,
-  deleteFavorite,
-  createFavorite,
-} from "../../store/favorites";
+import { deleteFavorite, createFavorite } from "../../store/favorites";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-// import { fetchUser } from "../../store/user";
 
 const FavHeart = ({ car, favorites }) => {
-  //heartsedit receive favs here
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [heartClick, setHeartClick] = useState(false);
-  // const favorites = useSelector((state) => Object.values(state.favorites)); //heartsedit remove favs here
-
-  // useEffect(() => {
-  //   dispatch(fetchFavorites());
-  // }, [dispatch, sessionUser]); //heartsedit remove favs here
-
-  // const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   dispatch(fetchUser(sessionUser.id));
-  // }, [dispatch, sessionUser]);
 
   let fav;
   if (favorites) {
     favorites.forEach((favorite) => {
       if (favorite.carId === car.id) {
-        // setHeartClick(true);
         fav = favorite;
       }
     });
   }
-
-  // useEffect(() => {
-  //   if (favorites) {
-  //     favorites.forEach((favorite) => {
-  //       if (favorite.carId === car.id) {
-  //         fav = favorite;
-  //         // setHeartClick(true);
-  //       }
-  //     });
-  //   }
-  // }, [dispatch, car.id]);
-
-  // if (fav) {
-  //   setHeartClick(true);
-  // }
-
-  // if (!sessionUser) return null;
 
   useEffect(() => {
     if (fav) {
@@ -62,47 +28,12 @@ const FavHeart = ({ car, favorites }) => {
 
   if (!sessionUser)
     return (
-      // <>
-      //   <FaHeart id="car-heart" className="car-heart-unauth" />
-      // </>
       <div>
-        <FaHeart
-          id="car-heart"
-          className="car-heart-unauth"
-          // className={
-          //   heartClick ? "heart-clicked car-heart-unauth" : "car-heart-unauth"
-          // }
-          // onClick={handleHeartClick}
-        />
+        <FaHeart id="car-heart" className="car-heart-unauth" />
       </div>
     );
 
-  // const handleHeartClick = async () => {
-  //   if (loading) return;
-  //   setLoading(true);
-  //   setHeartClick(!heartClick);
-  //   try {
-  //     if (heartClick) {
-  //       await dispatch(createFavorite({ carId: car.id }));
-  //     } else if (fav) {
-  //       await dispatch(deleteFavorite(fav.id));
-  //       // setHeartClick(false);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  //   setLoading(false);
-  // };
-
   const handleHeartClick = async () => {
-    // if (loading) return;
-    // setLoading(true);
-    // if (heartClick) {
-    //   setHeartClick(false);
-    // } else {
-    //   setHeartClick(true);
-    // }
-
     if (!heartClick) {
       try {
         dispatch(createFavorite({ carId: car.id }));
@@ -118,7 +49,6 @@ const FavHeart = ({ car, favorites }) => {
         console.error(error);
       }
     }
-    // setLoading(false);
   };
 
   return (

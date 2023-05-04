@@ -18,7 +18,7 @@ function CarList({
           car={car}
           isHighlighted={highlightedCar === car.id}
           setHighlightedCar={setHighlightedCar}
-          favorites={favorites} //heartsedit add favs here
+          favorites={favorites}
           searchPageFromDate={searchPageFromDate}
           searchPageUntilDate={searchPageUntilDate}
         />

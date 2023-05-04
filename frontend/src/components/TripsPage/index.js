@@ -2,29 +2,21 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./TripsPage.css";
 import { Redirect } from "react-router-dom";
-// import { useParams } from "react-router-dom";
 import { fetchTrips } from "../../store/trips";
 import SearchLine from "../SearchLine";
 import noTripsImage from "./image_no_trips.png";
 import TripIndexItem from "./TripIndexItem";
-// import Footer from "../Footer";
-// import { deleteTrip } from "../../store/trips";
-// import { useHistory } from "react-router-dom";
 import { fetchReviews } from "../../store/reviews";
 
 function TripsPage() {
-  // const history = useHistory();
   const dispatch = useDispatch();
   const reviews = useSelector((state) => Object.values(state.reviews));
   const sessionUser = useSelector((state) => state.session.user);
-  // const trips = useSelector((state) => Object.values(state.trips));
   const trips = useSelector((state) =>
     Object.values(state.trips).sort(
       (a, b) => new Date(b.startDate) - new Date(a.startDate)
     )
   );
-
-  // const [tripsList, setTripsList] = useState([]);
 
   useEffect(() => {
     dispatch(fetchTrips());
@@ -34,16 +26,6 @@ function TripsPage() {
     dispatch(fetchReviews());
   }, [dispatch]);
 
-  // const handleTripDelete = (tripId) => {
-  //   dispatch(deleteTrip(tripId));
-  //   setTripsList(tripsList.filter((trip) => trip.id !== tripId));
-  // };
-
-  // const monthYear = (dateString) => {
-  //   const dateObj = new Date(dateString);
-  //   const options = { year: "numeric", month: "long" };
-  //   return dateObj.toLocaleDateString("en-US", options);
-  // };
   if (!sessionUser) return <Redirect to="/" />;
 
   const pageContent = () => {
@@ -80,9 +62,6 @@ function TripsPage() {
     <>
       <SearchLine />
       <div id="trips-page-container">{pageContent()}</div>
-      {/* <footer>
-        <Footer />
-      </footer> */}
     </>
   );
 }

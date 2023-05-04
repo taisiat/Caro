@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Wrapper } from "@googlemaps/react-wrapper";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
 import "./CarMap.css";
 
 function CarMap({
@@ -20,56 +19,20 @@ function CarMap({
   const cityZoom = JSON.parse(localStorage.getItem("cityZoom"));
   const coords = JSON.parse(localStorage.getItem("coords"));
   const location = useLocation();
-  // const [searchQuery, setSearchQuery] = useState("");
-
-  // useEffect(() => {
-  //   const handleUrlChange = () => {
-  //     const urlParams = new URLSearchParams(window.location.search);
-  //     const coords = urlParams.get("coords");
-  //     console.log("Coords:", coords);
-  //     mapOptions.center = coords;
-  //     console.log("Map Options:", mapOptions.center);
-  //   };
-
-  //   window.addEventListener("hashchange", handleUrlChange);
-
-  //   return () => {
-  //     window.removeEventListener("hashchange", handleUrlChange);
-  //   };
-  // }, []);
 
   useEffect(() => {
     if (map) {
-      // console.log(mapOptions.center, "center before");
       const urlParams = new URLSearchParams(location.search);
-      // const coords = urlParams.get("coords");
       if (urlParams.get("coords")) {
         const coords = urlParams
           .get("coords")
           .split(",")
           .map((coord) => parseFloat(coord));
-        // console.log("Coords:", coords);
-        // mapOptions.center = coords;
-        // mapOptions.center = {
-        //   lat: coords[0],
-        //   lng: coords[1],
-        // };
         const newLatLng = new window.google.maps.LatLng(coords[0], coords[1]);
-
-        // const distance =
-        //   window.google.maps.geometry.spherical.computeDistanceBetween(
-        //     newLatLng,
-        //     window.google.maps.viewport.getCenter()
-        //   );
-        // const zoomLevel = Math.round(14 - Math.log2(distance / 1000));
-
         map.setCenter(newLatLng);
         map.setZoom(14);
-        // mapOptions.zoom = 14;
       }
     }
-
-    // console.log("Map Options:", mapOptions);
   }, [location]);
 
   useEffect(() => {
@@ -84,8 +47,6 @@ function CarMap({
 
   useEffect(() => {
     if (cityCoords) {
-      //   mapOptions.center = JSON.parse(cityCoords);
-      //   mapOptions.zoom = JSON.parse(cityZoom);
       mapOptions.center = cityCoords;
       mapOptions.zoom = cityZoom;
       localStorage.clear();
@@ -107,7 +68,6 @@ function CarMap({
     }
   }, [coords]);
 
-  //   // Create the map
   useEffect(() => {
     if (!map) {
       setMap(
@@ -124,7 +84,6 @@ function CarMap({
     }
   }, [mapRef, map, mapOptions]);
 
-  //   // Add event handlers to map
   useEffect(() => {
     if (map) {
       const listeners = Object.entries(mapEventHandlers).map(
@@ -138,13 +97,10 @@ function CarMap({
     }
   }, [map, mapEventHandlers]);
 
-  // Update map markers whenever `cars` changes
   useEffect(() => {
     if (map) {
-      // Add markers for new cars
       cars.forEach((car) => {
         if (markers.current[car.id]) return;
-
         const marker = new window.google.maps.Marker({
           map,
           position: new window.google.maps.LatLng(
@@ -183,7 +139,6 @@ function CarMap({
         markers.current[car.id] = marker;
       });
 
-      // Remove markers for old cars
       Object.entries(markers.current).forEach(([carId, marker]) => {
         if (cars.some((car) => car.id.toString() === carId)) return;
 
@@ -193,7 +148,6 @@ function CarMap({
     }
   }, [cars, history, map, markerEventHandlers, location]);
 
-  // Change the style for car marker on hover
   useEffect(() => {
     Object.entries(markers.current).forEach(([carId, marker]) => {
       const label = marker.getLabel();

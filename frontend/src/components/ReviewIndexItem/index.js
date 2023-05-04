@@ -1,20 +1,12 @@
 import "./ReviewIndexItem.css";
 import { useHistory } from "react-router-dom";
-// import { useState } from "react";
 import { VscAccount } from "react-icons/vsc";
 import { AiFillStar } from "react-icons/ai";
-// import { fetchUser } from "../../store/user";
-import { useDispatch, useSelector } from "react-redux";
-// import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const ReviewIndexItem = ({ review }) => {
   const history = useHistory();
-  // const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-
-  // useEffect(() => {
-  //   dispatch(fetchUser(sessionUser.id));
-  // }, [dispatch, sessionUser]);
 
   const dateFormat = (utcDateString) => {
     const options = { month: "long", day: "numeric", year: "numeric" };
@@ -36,14 +28,7 @@ const ReviewIndexItem = ({ review }) => {
         />
       );
     } else {
-      return (
-        // <img
-        //   src="https://i.imgur.com/2WZtvr7.png"
-        //   alt="Reviewer picture"
-        //   id="reviewer-profile-pic"
-        <VscAccount id="reviewer-profile-pic" />
-        // />
-      );
+      return <VscAccount id="reviewer-profile-pic" />;
     }
   };
 

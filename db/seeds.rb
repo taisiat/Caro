@@ -1623,7 +1623,6 @@ Trip.create!(
   car_id: 17
 )
 
-# Reviews
 Review.create!(
   cleanliness_rating: 5,
   maintenance_rating: 4,

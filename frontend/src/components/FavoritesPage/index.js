@@ -1,12 +1,10 @@
 import "./FavoritesPage.css";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { useParams } from "react-router-dom";
 import SearchLine from "../SearchLine";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchFavorites } from "../../store/favorites";
-// import Spinner from "../Spinner";
 import FavoriteIndexItem from "./FavoriteIndexItem";
 import { fetchCars } from "../../store/cars";
 import noFavImg from "./no_favs_yet.png";
@@ -23,19 +21,9 @@ function FavoritesPage() {
 
   useEffect(() => {
     dispatch(fetchFavorites());
-  }, [dispatch, sessionUser]); //heartsedit 1. added favorites
+  }, [dispatch, sessionUser]);
 
   if (!sessionUser) return <Redirect to="/" />;
-
-  // if (!favorites) {
-  //   return (
-  //     <>
-  //       <img id="no-fav-img" src={noFavImg} alt="no favs" />
-  //       <h2 id="no-favs-yet-lead">No favorites yet</h2>
-  //       <p>You’ll be able to access your favorited cars here.</p>
-  //     </>
-  //   );
-  // }
 
   return (
     <>
@@ -47,12 +35,6 @@ function FavoritesPage() {
         <div id="favs-index-container">
           {favorites &&
             favorites.map((favorite, idx) => (
-              // <FavoriteIndexItem
-              //   carId={favorite.carId}
-              //   cars={cars}
-              //   key={idx}
-              //   favorites={favorites}
-              // /> //heartsedit 2. add favs
               <FavoriteIndexItem key={idx} favorite={favorite} />
             ))}
         </div>

@@ -7,7 +7,6 @@ const BrowseByDestinationComponent = () => {
   const history = useHistory();
 
   const handleSFClick = () => {
-    // localStorage.setItem("cityCoords", [37.773972, -122.431297])
     localStorage.setItem(
       "cityCoords",
       JSON.stringify({
@@ -20,7 +19,6 @@ const BrowseByDestinationComponent = () => {
   };
 
   const handleSeattleClick = () => {
-    // localStorage.setItem("cityCoords", [47.6062, -122.3321]);
     localStorage.setItem(
       "cityCoords",
       JSON.stringify({
@@ -33,7 +31,6 @@ const BrowseByDestinationComponent = () => {
   };
 
   const handleLVClick = () => {
-    // localStorage.setItem("cityCoords", [36.1369025286101, -115.13567472862186]);
     localStorage.setItem(
       "cityCoords",
       JSON.stringify({

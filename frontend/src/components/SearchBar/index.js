@@ -2,7 +2,6 @@ import { RiSearch2Line } from "react-icons/ri";
 import "./SearchBar.css";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-// import Autocomplete from "react-places-autocomplete";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -37,10 +36,7 @@ const SearchBar = () => {
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
-        // console.log("Success", latLng);
         setCoords(latLng);
-        // update center state
-        // setMapCenter(latLng);
       })
       .catch((error) => console.error("Error", error));
   };
@@ -49,13 +45,6 @@ const SearchBar = () => {
     <div id="search-bar-container">
       <div id="where-container">
         <p>Where</p>
-        {/* <input
-          placeholder="City, airport, address or hotel"
-          className="search-input"
-          id="where-input-searchbar"
-          value={where}
-          onChange={(e) => setWhere(e.target.value)}
-        ></input> */}
         <PlacesAutocomplete
           value={where}
           onChange={(newValue) => setWhere(newValue)}
@@ -105,7 +94,6 @@ const SearchBar = () => {
             value={from}
             onChange={handleDateInput}
           ></input>
-          {/* <input type="time" className="search-input"></input> */}
         </div>
       </div>
       <div id="until-container">
@@ -114,19 +102,14 @@ const SearchBar = () => {
           <input
             type="date"
             min={from}
-            // className="search-input search-date"
             className={`search-input search-date-bar${
               until < from ? " date-input-error" : ""
             }`}
             value={until}
             onChange={(e) => setUntil(e.target.value)}
           ></input>
-          {/* <input type="time" className="search-input"></input> */}
         </div>
       </div>
-      {/* <div id="search-button-container" onClick={handleSearchClick}>
-        <RiSearch2Line id="search-icon" />
-      </div> */}
       {until < from && (
         <div id="search-button-container-inactive">
           <RiSearch2Line id="search-icon" />

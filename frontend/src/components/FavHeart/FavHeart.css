@@ -17,26 +17,7 @@
 
 #car-heart.car-heart-unauth {
   font-size: 30px;
-  /* text-align: right; */
   color: rgb(190, 188, 188);
   left: 0;
   cursor: not-allowed;
-  /* position: relative; */
 }
-
-/* #car-heart.car-heart-unauth::before {
-  content: "You must be logged in to favorite a car.";
-  position: absolute;
-  bottom: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 5px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  font-size: 14px;
-  color: #333;
-  text-align: center;
-  white-space: nowrap;
-  z-index: 1;
-} */

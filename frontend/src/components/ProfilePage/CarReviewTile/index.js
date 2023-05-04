@@ -1,6 +1,5 @@
 import "./CarReviewTile.css";
 import { useHistory } from "react-router-dom";
-// import { VscAccount } from "react-icons/vsc";
 import { AiFillStar } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { AiFillCar } from "react-icons/ai";

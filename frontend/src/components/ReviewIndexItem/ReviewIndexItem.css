@@ -24,7 +24,6 @@
 
 #reviewer-name-joined-info {
   display: flex;
-  /* justify-content: space-between; */
   width: 100%;
   margin-bottom: 10px;
   align-items: center;
@@ -48,23 +47,19 @@
 
 .review-star-filled {
   color: rgb(89, 60, 251);
-  /* font-size: 30px; */
 }
 
 .review-star-empty {
   color: #e2e0e0;
-  /* font-size: 30px; */
 }
 
 #review-star {
-  /* border: 1px solid rgb(89, 60, 251); */
   font-size: 30px;
 }
 
 #review-star-rating-show {
   display: flex;
   align-items: center;
-  /* margin-bottom: 10px; */
 }
 
 #star-and-delete-container {
@@ -85,7 +80,6 @@
   padding-top: 5px;
   color: #383737;
   font-size: 12px;
-  /* margin-right: 10px; */
   cursor: pointer;
   margin: 0;
 }

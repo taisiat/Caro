@@ -11,10 +11,6 @@
   align-items: center;
 }
 
-/* #trips-item-container.highlighted {
-  background-color: green;
-} */
-
 #trip-car-image-container {
   height: 100px;
   width: 150px;
@@ -94,7 +90,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: space-between; */
   height: 75px;
   width: 200px;
 }

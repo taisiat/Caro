@@ -23,7 +23,6 @@ function FilterForm({
               min $
             </label>
             <Input
-              // label="min $"
               id="min-price"
               min="0"
               type="number"
@@ -38,7 +37,6 @@ function FilterForm({
               max $
             </label>
             <Input
-              // label="max $"
               type="number"
               id="max-price"
               placeholder="$"
@@ -54,25 +52,12 @@ function FilterForm({
             Superhosts only
           </label>
           <Input
-            //   label="Superhosts only:"
             htmlFor="superhosts-only"
             type="checkbox"
             value={superhostFilter}
             onChange={(e) => setSuperhostFilter(e.target.checked)}
           />
         </div>
-
-        {/* <div className="experience-search-component">
-          <label id="experience-input-label" htmlFor="experience-type">
-            Filter by experience
-          </label>
-          <Input
-            htmlFor="experience-type"
-            type="checkbox"
-            value={experienceType}
-            onChange={(e) => setExperienceType(e.target.value)}
-          />
-        </div> */}
         <div className="experience-search-component">
           <label id="experience-input-label" htmlFor="experience-type">
             Filter by experience

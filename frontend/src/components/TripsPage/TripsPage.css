@@ -8,13 +8,10 @@
   width: 1000px;
   left: 50%;
   transform: translate(-50%);
-  /* margin-bottom: 20px; */
-  /* min-height: calc(100vh - 100px); */
 }
 
 #trips-header {
   font-size: 24px;
-  /* margin-bottom: 25px; */
   text-align: left;
   font-family: "Mulish", sans-serif;
 }
@@ -44,10 +41,6 @@
 #no-trips-yet-lead {
   font-size: 30px;
   margin-bottom: 25px;
-  /* text-align: left; */
   font-family: "Mulish", sans-serif;
-  /* position: absolute; */
-  /* top: 0px; */
-  /* left: 0px; */
   color: rgb(20, 20, 20);
 }

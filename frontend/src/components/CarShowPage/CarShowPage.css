@@ -24,7 +24,6 @@
   position: absolute;
   top: 70px;
   margin-bottom: 20px;
-  /* display: block; */
 }
 
 #car-show-imgs-container img {
@@ -36,7 +35,6 @@
 #map {
   width: 100vw;
   height: 100vh;
-  /* bottom: 0; */
   background-color: aquamarine;
 }
 
@@ -50,7 +48,6 @@
 #car-show-info {
   width: 66%;
   background-color: white;
-  /* padding: 20px; */
   display: flex;
   flex-direction: column;
   margin-right: 20px;
@@ -81,7 +78,6 @@
 #car-show-mini-rating {
   display: flex;
   align-items: center;
-  /* margin-top: 10px; */
 }
 
 #car-show-mini-rating {
@@ -180,7 +176,6 @@
   font-size: 20px;
   font-family: "Mulish", sans-serif;
   font-weight: 500;
-  /* margin-bottom: 10px; */
 }
 
 #car-show-superhost-clean {
@@ -197,10 +192,6 @@
   font-size: 30px;
   color: #593cfb;
 }
-
-/* #car-show-host-badges {
-  margin-top: 20px;
-} */
 
 .car-show-section {
   margin-top: 40px;
@@ -223,17 +214,6 @@
   z-index: 3;
   color: white;
 }
-
-/* .car-show-slide {
-  opacity: 0;
-  transition-duration: 1s ease;
-}
-
-.car-show-slide.active {
-  opacity: 1;
-  transition-duration: 1s;
-  transform: scale(1.1);
-} */
 
 .car-image-rotate-button:hover {
   cursor: pointer;
@@ -259,29 +239,21 @@
 
 #ratings-bars-container {
   margin-top: 30px;
-  /* width: 100px; */
 }
 
 .rating-bar-gray {
   background-color: #e0e0e0;
   height: 10px;
   width: 100%;
-  /* width: calc(var(--cleanliness-rating) / 5 * 100%); */
-
   border-radius: 5px;
-  /* margin-left: 15px; */
-  /* margin-right: 15px; */
 }
 
 #rating-bar--cleanliness {
   background-color: #593cfb;
   height: 10px;
-  /* width: 100%; */
   width: calc(var(--cleanliness-rating) / 5 * 100%);
 
   border-radius: 5px;
-  /* margin-left: 15px; */
-  /* margin-right: 15px; */
   position: relative;
   top: -10px;
 }
@@ -289,11 +261,8 @@
 #rating-bar--maintenance {
   background-color: #593cfb;
   height: 10px;
-  /* width: 100%; */
   width: calc(var(--maintenance-rating) / 5 * 100%);
   border-radius: 5px;
-  /* margin-left: 15px; */
-  /* margin-right: 15px; */
   position: relative;
   top: -10px;
 }

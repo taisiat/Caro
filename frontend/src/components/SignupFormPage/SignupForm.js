@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
 import "./SignupForm.css";
-// import LoginFormModal from "../LoginFormModal";
 
 function SignupForm() {
   const dispatch = useDispatch();
-  // const sessionUser = useSelector((state) => state.session.user);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -15,8 +12,6 @@ function SignupForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
-
-  // if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,11 +44,6 @@ function SignupForm() {
     <div id="signup-modal-container">
       <h1>{"Let’s get started"}</h1>
       <form onSubmit={handleSubmit}>
-        {/* <ul>
-          {errors.map((error) => (
-            <li key={error}>{error}</li>
-          ))}
-        </ul> */}
         <div id="name-inputs">
           <div id="first-name-container">
             <label htmlFor="first-name"> First Name </label>

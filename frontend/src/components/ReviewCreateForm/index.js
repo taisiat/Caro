@@ -4,13 +4,9 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { createReview } from "../../store/reviews";
-import {
-  // Redirect,
-  __esModule,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { __esModule } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
 import CarSearchIndexItem from "../CarSearchIndexItem";
-// import { fetchUser } from "../../store/user";
 import { useEffect } from "react";
 import SearchLine from "../SearchLine";
 import StarRatingInput from "./stars";
@@ -35,10 +31,6 @@ const ReviewCreateForm = () => {
   useEffect(() => {
     dispatch(fetchCar(carId));
   }, [dispatch, carId]);
-
-  //   useEffect(() => {
-  //     dispatch(fetchUser(sessionUser.id));
-  //   }, [dispatch]);
 
   if (!sessionUser) {
     history.push("/");
@@ -75,20 +67,6 @@ const ReviewCreateForm = () => {
       else setErrors([error.statusText]);
     }
   };
-
-  //   const onChange = (number,type) => {
-  //     if (type === "overall") {
-  //         setStarRating(parseInt(number))}
-  //     else if (type === "cleanliness") {setCleanlinessRating(parseInt(number))}
-  //     else if (type === "maintenance") {setMaintenanceRating(parseInt(number))}
-  //     else if (type === "communication") {setCommunicationRating(parseInt(number))}
-  //     else if (type === "convenience") {setConvenienceRating(parseInt(number))}
-  //     else if (type === "accuracy") {setAccuracyRating(parseInt(number))}
-  //   };
-
-  // const onChangeOverallRating = (number) => {
-  //   setStarRating(parseInt(number));
-  // };
 
   const onChangeCleanlinessRating = (number) => {
     setCleanlinessRating(parseInt(number));
@@ -133,17 +111,6 @@ const ReviewCreateForm = () => {
         <form onSubmit={handleSubmit} id="create-review-form">
           <div id="review-inputs">
             <div id="star-inputs-container">
-              {/* <div className="star-and-title-container">
-                <p className="form-field-title-stars">Overall rating</p>
-                <div id="form-input-overall-rating">
-                  <StarRatingInput
-                    disabled={false}
-                    onChange={onChangeOverallRating}
-                    rating={starRating}
-                  />
-                </div>
-              </div> */}
-
               <div className="star-and-title-container">
                 <p className="form-field-title-stars">Cleanliness</p>
                 <div id="form-input-cleanliness">
