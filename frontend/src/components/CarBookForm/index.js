@@ -40,6 +40,10 @@ const CarBookForm = ({ car }) => {
     }
   }, [untilDate]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const tripPrice = () => {
     const start = new Date(startDate);
     const end = new Date(endDate);

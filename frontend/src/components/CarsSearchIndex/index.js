@@ -145,7 +145,9 @@ function CarsSearchIndex() {
       </div>
 
       <div id="car-search-summary">
-        <h2>{`${cars ? cars.length : 0} cars available`}</h2>
+        <h2>{`${cars ? cars.length : 0} ${
+          cars.length === 1 ? "car" : "cars"
+        } available`}</h2>
         {cars.length === 0 && (
           <div id="no-results-container">
             <img

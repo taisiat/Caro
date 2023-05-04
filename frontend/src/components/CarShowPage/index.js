@@ -44,6 +44,10 @@ function CarShowPage() {
     dispatch(fetchFavorites());
   }, [dispatch, sessionUser]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleImgSlider = (direction) => {
     handleChangeImage();
     setCurrentImg((prev) => {

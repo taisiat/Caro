@@ -134,13 +134,14 @@ input[type="radio"] {
 .booking-protection-button {
   display: inline-block;
   padding: 8px 16px;
-  width: Calc(100%-4px);
+  width: 100%;
   background-color: #e0e0e0;
   color: #333;
   border-radius: 10px;
   cursor: pointer;
   margin-bottom: 5px;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .booking-protection-button:hover {
