@@ -6,6 +6,7 @@ import FavHeart from "../FavHeart";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import Spinner from "../Spinner";
+import { useEffect } from "react";
 
 const CarSearchIndexItem = ({
   car,
@@ -43,6 +44,10 @@ const CarSearchIndexItem = ({
     localStorage.setItem("untilDate", searchPageUntilDate);
     history.push(`/cars/${car.id}`);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div
