@@ -25,16 +25,19 @@ class User < ApplicationRecord
 
   before_validation :ensure_session_token
   has_one_attached :photo
+
   has_many :cars,
     foreign_key: :host_id,
     class_name: :Car,
     dependent: :destroy,
     inverse_of: :host
+
   has_many :trips,
     foreign_key: :driver_id,
     class_name: :Trip,
     dependent: :destroy,
     inverse_of: :driver
+
   has_many :reviews,
     foreign_key: :driver_id,
     class_name: :Review,
@@ -81,9 +84,6 @@ class User < ApplicationRecord
     reviews_for_own_cars.average(:accuracy_rating).round(2) +
     reviews_for_own_cars.average(:maintenance_rating).round(2))
   end
-
-
-
   
   private
 
@@ -97,5 +97,4 @@ class User < ApplicationRecord
   def ensure_session_token
     self.session_token ||= generate_unique_session_token
   end
-
 end

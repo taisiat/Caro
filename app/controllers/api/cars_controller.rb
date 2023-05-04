@@ -102,5 +102,4 @@ class Api::CarsController < ApplicationController
     return nil unless params[:experience_type]
     params[:experience_type]
   end
-
 end

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./CarsSearchIndex.css";
-import { useParams } from "react-router-dom";
-import { fetchUser } from "../../store/user";
+// import { useParams } from "react-router-dom";
+// import { fetchUser } from "../../store/user";
 import { fetchCars } from "../../store/cars";
 import SearchLine from "../SearchLine";
-import { IoOptionsOutline } from "react-icons/io5";
-import CarSearchIndexItem from "../CarSearchIndexItem";
-import { Redirect } from "react-router-dom";
+// import { IoOptionsOutline } from "react-icons/io5";
+// import CarSearchIndexItem from "../CarSearchIndexItem";
+// import { Redirect } from "react-router-dom";
 import CarMap from "../CarMap";
 import { useHistory } from "react-router-dom";
 import { useMemo } from "react";
@@ -29,7 +29,7 @@ function CarsSearchIndex() {
   const fromDate = localStorage.getItem("fromDate");
   const untilDate = localStorage.getItem("untilDate");
   const where = localStorage.getItem("where");
-  const coords = localStorage.getItem("coords");
+  // const coords = localStorage.getItem("coords");
   const [bounds, setBounds] = useState(null);
   const [minPricing, setMinPricing] = useState(1);
   const [maxPricing, setMaxPricing] = useState(4000);
@@ -89,7 +89,7 @@ function CarsSearchIndex() {
   useEffect(() => {
     if (untilDate) {
       setSearchPageUntilDate(untilDate);
-      console.log("untilDate", untilDate);
+      // console.log("untilDate", untilDate);
       localStorage.removeItem("untilDate");
       //   localStorage.clear();
     }
@@ -98,7 +98,7 @@ function CarsSearchIndex() {
   useEffect(() => {
     if (where) {
       setSearchPageWhere(where);
-      console.log("where", where);
+      // console.log("where", where);
 
       localStorage.removeItem("where");
       //   localStorage.clear();
@@ -177,11 +177,11 @@ function CarsSearchIndex() {
     [history]
   );
 
-  const monthYear = (dateString) => {
-    const dateObj = new Date(dateString);
-    const options = { year: "numeric", month: "long" };
-    return dateObj.toLocaleDateString("en-US", options);
-  };
+  // const monthYear = (dateString) => {
+  //   const dateObj = new Date(dateString);
+  //   const options = { year: "numeric", month: "long" };
+  //   return dateObj.toLocaleDateString("en-US", options);
+  // };
 
   if (!cars) {
     return (
@@ -246,7 +246,7 @@ function CarsSearchIndex() {
           </div>
         )}
         {cars.length !== 0 && (
-          <p id="yes-results-msg">These cars can be picked up in this city.</p>
+          <p id="yes-results-msg">These cars can be picked up in this area.</p>
         )}
       </div>
       <div id="map-container">

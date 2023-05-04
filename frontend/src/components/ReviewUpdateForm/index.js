@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { updateReview } from "../../store/reviews";
 import {
-  Redirect,
+  // Redirect,
   __esModule,
 } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
 import CarSearchIndexItem from "../CarSearchIndexItem";
-import { fetchUser } from "../../store/user";
+// import { fetchUser } from "../../store/user";
 import { fetchReview } from "../../store/reviews";
 import { useEffect } from "react";
 import SearchLine from "../SearchLine";

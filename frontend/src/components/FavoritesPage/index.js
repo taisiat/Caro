@@ -1,12 +1,12 @@
 import "./FavoritesPage.css";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import SearchLine from "../SearchLine";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchFavorites } from "../../store/favorites";
-import Spinner from "../Spinner";
+// import Spinner from "../Spinner";
 import FavoriteIndexItem from "./FavoriteIndexItem";
 import { fetchCars } from "../../store/cars";
 import noFavImg from "./no_favs_yet.png";
@@ -47,12 +47,13 @@ function FavoritesPage() {
         <div id="favs-index-container">
           {favorites &&
             favorites.map((favorite, idx) => (
-              <FavoriteIndexItem
-                carId={favorite.carId}
-                cars={cars}
-                key={idx}
-                favorites={favorites}
-              /> //heartsedit 2. add favs
+              // <FavoriteIndexItem
+              //   carId={favorite.carId}
+              //   cars={cars}
+              //   key={idx}
+              //   favorites={favorites}
+              // /> //heartsedit 2. add favs
+              <FavoriteIndexItem key={idx} favorite={favorite} />
             ))}
         </div>
         {favorites.length === 0 && (

@@ -30,6 +30,7 @@ class Review < ApplicationRecord
   end
 
   private
+
   def cannot_review_own_car
     if driver_id == car.host_id
       errors.add(:driver, "cannot review their own car")
@@ -41,5 +42,4 @@ class Review < ApplicationRecord
       errors.add(:driver, "cannot review a car where they haven't yet completed a trip")
     end
   end
-
 end

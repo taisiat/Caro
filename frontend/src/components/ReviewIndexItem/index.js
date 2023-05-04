@@ -1,15 +1,15 @@
 import "./ReviewIndexItem.css";
 import { useHistory } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 import { VscAccount } from "react-icons/vsc";
 import { AiFillStar } from "react-icons/ai";
-import { fetchUser } from "../../store/user";
+// import { fetchUser } from "../../store/user";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 const ReviewIndexItem = ({ review }) => {
   const history = useHistory();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
 
   // useEffect(() => {

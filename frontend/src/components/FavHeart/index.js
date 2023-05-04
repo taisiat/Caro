@@ -1,15 +1,15 @@
-import { FaHeart, FaLessThanEqual } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import "./FavHeart.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  fetchFavorites,
+  // fetchFavorites,
   deleteFavorite,
   createFavorite,
 } from "../../store/favorites";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { fetchUser } from "../../store/user";
+// import { fetchUser } from "../../store/user";
 
 const FavHeart = ({ car, favorites }) => {
   //heartsedit receive favs here

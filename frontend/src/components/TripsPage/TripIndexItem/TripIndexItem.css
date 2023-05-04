@@ -19,6 +19,7 @@
   height: 100px;
   width: 150px;
   border-radius: 5px;
+  background-color: black;
 }
 
 #trip-car-image-container:hover {
@@ -92,7 +93,6 @@
 #trip-buttons-container {
   display: flex;
   flex-direction: column;
-
   justify-content: space-between;
   /* align-items: space-between; */
   height: 75px;

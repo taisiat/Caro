@@ -1,8 +1,6 @@
 class Api::FavoritesController < ApplicationController
-
-
     before_action :require_logged_in, only: [:create, :index, :destroy]
-      wrap_parameters include: Favorite.attribute_names + ['carId']
+    wrap_parameters include: Favorite.attribute_names + ['carId']
 
     def create
         @favorite = Favorite.includes(:driver).includes(:car).new(favorite_params);
@@ -31,7 +29,6 @@ class Api::FavoritesController < ApplicationController
         if @favorite&.destroy
             # render :index
             head :no_content
-
         else
             # render json: { message: 'Unauthorized' }, status: :unauthorized
             # render json: { errors: @favorite.errors.full_messages }, status: :unprocessable_entity
@@ -45,5 +42,4 @@ class Api::FavoritesController < ApplicationController
     def favorite_params
         params.require(:favorite).permit(:car_id)
     end
-
 end

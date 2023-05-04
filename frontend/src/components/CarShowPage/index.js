@@ -15,7 +15,7 @@ import { IoRibbonSharp } from "react-icons/io5";
 import { MdCleanHands } from "react-icons/md";
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { FaChevronCircleRight } from "react-icons/fa";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+// import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useHistory } from "react-router-dom";
 import CarBookForm from "../CarBookForm";
 import { fetchReviews } from "../../store/reviews";
@@ -29,12 +29,14 @@ function CarShowPage() {
   const sessionUser = useSelector((state) => state.session.user);
   const { carId } = useParams();
   const car = useSelector((state) => state.cars[carId]);
-  const reviews = useSelector((state) => Object.values(state.reviews));
-  // const reviews = car ? Object.values(car.reviews) : null;
+  // const reviews = useSelector((state) => Object.values(state.reviews));
+  const reviews = car ? Object.values(car.reviews) : null;
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [searchPageWhere, setSearchPageWhere] = useState("");
   const fromDate = localStorage.getItem("fromDate");
   const untilDate = localStorage.getItem("untilDate");
+  const where = localStorage.getItem("where");
 
   const dispatch = useDispatch();
   const [currentImg, setCurrentImg] = useState(0);
@@ -59,9 +61,9 @@ function CarShowPage() {
     dispatch(fetchCar(carId));
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchReviews());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchReviews());
+  // }, [dispatch]);
 
   useEffect(() => {
     if (fromDate) {
@@ -80,6 +82,15 @@ function CarShowPage() {
       //   localStorage.clear();
     }
   }, [untilDate]);
+
+  useEffect(() => {
+    if (where) {
+      setSearchPageWhere(where);
+      // console.log("untilDate", untilDate);
+      // localStorage.removeItem("untilDate");
+      //   localStorage.clear();
+    }
+  }, [where]);
 
   //   if (!car) {
   //     return null;
@@ -119,16 +130,16 @@ function CarShowPage() {
     }
   };
 
-  const reviewsSection = () => {
-    if (reviews && reviews !== []) {
-      return reviews.map((review, idx) => {
-        if (review.car.id === car.id)
-          return <ReviewIndexItem review={review} key={idx} />;
-      });
-    } else {
-      return <p>No reviews yet</p>;
-    }
-  };
+  // const reviewsSection = () => {
+  //   if (reviews && reviews !== []) {
+  //     return reviews.map((review, idx) => {
+  //       if (review.car.id === car.id)
+  //         return <ReviewIndexItem review={review} key={idx} />;
+  //     });
+  //   } else {
+  //     return <p>No reviews yet</p>;
+  //   }
+  // };
 
   const profileImg = () => {
     if (car.host && car.host.photoUrl) {
@@ -145,6 +156,8 @@ function CarShowPage() {
         setSearchPageFromDate={setStartDate}
         searchPageUntilDate={endDate}
         setSearchPageUntilDate={setEndDate}
+        searchPageWhere={searchPageWhere}
+        setSearchPageWhere={setSearchPageWhere}
       />
       <div id="car-show-heart-container">
         <FavHeart className="heart-car-show" car={car} favorites={favorites} />
@@ -392,12 +405,12 @@ function CarShowPage() {
                 {/* {reviewsSection} */}
                 {reviews &&
                 reviews !== [] &&
-                reviews.filter((review) => review.car.id === car.id).length >
-                  0 ? (
+                // reviews.filter((review) => review.carId === car.id).length >
+                reviews.length > 0 ? (
                   // reviews.length > 0 ? (
                   reviews.map((review, idx) => {
-                    if (review.car.id === car.id)
-                      return <ReviewIndexItem review={review} key={idx} />;
+                    // if (review.carId === car.id)
+                    return <ReviewIndexItem review={review} key={idx} />;
                   })
                 ) : (
                   <p>No reviews yet</p>

@@ -40,7 +40,7 @@ function CarMap({
 
   useEffect(() => {
     if (map) {
-      console.log(mapOptions.center, "center before");
+      // console.log(mapOptions.center, "center before");
       const urlParams = new URLSearchParams(location.search);
       // const coords = urlParams.get("coords");
       if (urlParams.get("coords")) {
@@ -48,7 +48,7 @@ function CarMap({
           .get("coords")
           .split(",")
           .map((coord) => parseFloat(coord));
-        console.log("Coords:", coords);
+        // console.log("Coords:", coords);
         // mapOptions.center = coords;
         // mapOptions.center = {
         //   lat: coords[0],
@@ -69,7 +69,7 @@ function CarMap({
       }
     }
 
-    console.log("Map Options:", mapOptions);
+    // console.log("Map Options:", mapOptions);
   }, [location]);
 
   useEffect(() => {

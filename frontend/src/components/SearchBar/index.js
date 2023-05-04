@@ -37,7 +37,7 @@ const SearchBar = () => {
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
-        console.log("Success", latLng);
+        // console.log("Success", latLng);
         setCoords(latLng);
         // update center state
         // setMapCenter(latLng);

@@ -1,11 +1,10 @@
 class Api::TripsController < ApplicationController
     before_action :require_logged_in, only: [:create, :index, :update, :destroy]
-      wrap_parameters include: Trip.attribute_names + ['carId'] + ['startDate'] + ['endDate']  + ['protectionPlan'] 
+    wrap_parameters include: Trip.attribute_names + ['carId'] + ['startDate'] + ['endDate']  + ['protectionPlan'] 
     
     def create
         @trip = Trip.new(trip_params);
         @trip.driver_id = current_user.id;
-
         if @trip.save
             render :show
         else
@@ -28,7 +27,6 @@ class Api::TripsController < ApplicationController
         else
             # render json: { message: 'Unauthorized' }, status: :unauthorized
             render json: { errors: @trip.errors.full_messages }, status: :unprocessable_entity
-
         end
     end
 
@@ -41,8 +39,6 @@ class Api::TripsController < ApplicationController
         end
     end
 
-
-    
     private
     
     def trip_params

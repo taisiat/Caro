@@ -1,17 +1,17 @@
 import "./TripIndexItem.css";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { deleteTrip } from "../../../store/trips";
-import { fetchTrips } from "../../../store/trips";
-import { useEffect } from "react";
-import { fetchReviews } from "../../../store/reviews";
-import { useSelector } from "react-redux";
-import Spinner from "../../Spinner";
+// import { useDispatch } from "react-redux";
+// import { deleteTrip } from "../../../store/trips";
+// import { fetchTrips } from "../../../store/trips";
+// import { useEffect } from "react";
+// import { fetchReviews } from "../../../store/reviews";
+// import { useSelector } from "react-redux";
+// import Spinner from "../../Spinner";
 
-const TripIndexItem = ({ trip }) => {
+const TripIndexItem = ({ trip, reviews }) => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const reviews = useSelector((state) => Object.values(state.reviews));
+  // const dispatch = useDispatch();
+  // const reviews = useSelector((state) => Object.values(state.reviews));
 
   //   const dateFormat = (dateStr) => {
   //     const date = new Date(dateStr);
@@ -45,13 +45,13 @@ const TripIndexItem = ({ trip }) => {
   //     return utcDate.toLocaleDateString("en-US", options);
   //   };
 
-  useEffect(() => {
-    dispatch(fetchTrips());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchTrips());
+  // }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchReviews());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchReviews());
+  // }, [dispatch]);
 
   let reviewId;
 
@@ -103,7 +103,7 @@ const TripIndexItem = ({ trip }) => {
         onClick={() => history.push(`/cars/${trip.car.id}`)}
       >
         <img
-          src={trip.car.photosUrl[0] ? trip.car.photosUrl[0] : <Spinner />}
+          src={trip.car.photosUrl[0]}
           alt="car image"
           id="trip-car-img"
         ></img>

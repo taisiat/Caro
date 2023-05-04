@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./TripsPage.css";
 import { Redirect } from "react-router-dom";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { fetchTrips } from "../../store/trips";
 import SearchLine from "../SearchLine";
 import noTripsImage from "./image_no_trips.png";
 import TripIndexItem from "./TripIndexItem";
-import Footer from "../Footer";
-import { deleteTrip } from "../../store/trips";
-import { useHistory } from "react-router-dom";
+// import Footer from "../Footer";
+// import { deleteTrip } from "../../store/trips";
+// import { useHistory } from "react-router-dom";
+import { fetchReviews } from "../../store/reviews";
 
 function TripsPage() {
-  const history = useHistory();
+  // const history = useHistory();
   const dispatch = useDispatch();
+  const reviews = useSelector((state) => Object.values(state.reviews));
   const sessionUser = useSelector((state) => state.session.user);
   // const trips = useSelector((state) => Object.values(state.trips));
   const trips = useSelector((state) =>
@@ -27,6 +29,10 @@ function TripsPage() {
   useEffect(() => {
     dispatch(fetchTrips());
   }, [dispatch, sessionUser]);
+
+  useEffect(() => {
+    dispatch(fetchReviews());
+  }, [dispatch]);
 
   // const handleTripDelete = (tripId) => {
   //   dispatch(deleteTrip(tripId));
@@ -56,10 +62,14 @@ function TripsPage() {
         <>
           <h1 id="trips-header">Trips</h1>
 
-          {trips.map((trip) => (
-            <>
-              <TripIndexItem trip={trip} key={trip}></TripIndexItem>
-            </>
+          {trips.map((trip, idx) => (
+            // <>
+            <TripIndexItem
+              trip={trip}
+              key={`${idx}-${trip.id}`}
+              reviews={reviews}
+            ></TripIndexItem>
+            // </>
           ))}
         </>
       );

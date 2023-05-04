@@ -17,11 +17,8 @@ class Trip < ApplicationRecord
   validate :end_date_after_start_date
   validate :no_overlapping_bookings
 
-
   belongs_to :driver, class_name: :User, foreign_key: :driver_id
   belongs_to :car, class_name: :Car, foreign_key: :car_id
-
-
 
   private
 

@@ -10,7 +10,6 @@ class ApplicationController < ActionController::API
     
     before_action :snake_case_params, :attach_authenticity_token
 
-
     def current_user
         @current_user ||= User.find_by(session_token: session[:session_token])
     end
@@ -56,5 +55,4 @@ class ApplicationController < ActionController::API
             logger.error "\n#{@message}:\n\t#{@stack.join("\n\t")}\n"
         end
     end
-
 end

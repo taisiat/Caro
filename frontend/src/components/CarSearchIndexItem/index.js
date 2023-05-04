@@ -3,7 +3,7 @@ import { AiTwotoneStar } from "react-icons/ai";
 import { IoRibbonSharp } from "react-icons/io5";
 import { BiMapAlt } from "react-icons/bi";
 import FavHeart from "../FavHeart";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import Spinner from "../Spinner";
@@ -62,8 +62,8 @@ const CarSearchIndexItem = ({
     <div
       id="car-index-item-container"
       className={isHighlighted ? "highlighted" : ""}
-      onMouseEnter={() => setHighlightedCar(car.id)}
-      onMouseLeave={() => setHighlightedCar(null)}
+      onMouseEnter={() => setHighlightedCar && setHighlightedCar(car.id)}
+      onMouseLeave={() => setHighlightedCar && setHighlightedCar(null)}
 
       //   onClick={() => history.push(`/cars/${car.id}`)}
     >

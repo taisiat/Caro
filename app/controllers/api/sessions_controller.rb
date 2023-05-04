@@ -11,7 +11,6 @@ class Api::SessionsController < ApplicationController
 
   def create
     @user = User.find_by_credentials(params[:email], params[:password])
-
     if @user
       login!(@user)
       render 'api/users/show'
@@ -30,5 +29,4 @@ class Api::SessionsController < ApplicationController
     logout!
     render json: { message: 'success' }
   end
-
 end

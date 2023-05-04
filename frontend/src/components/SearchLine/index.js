@@ -16,8 +16,8 @@ const SearchLine = ({
   setSearchPageUntilDate,
   searchPageWhere,
   setSearchPageWhere,
-  searchPageCoords,
-  setSearchPageCoords,
+  // searchPageCoords,
+  // setSearchPageCoords,
   // bounds,
   // setBounds,
 }) => {
@@ -82,7 +82,8 @@ const SearchLine = ({
   const handleSearchClick = () => {
     // console.log("hi from handleSearchClick start");
 
-    if (location.pathname.includes("/cars")) {
+    // if (location.pathname.includes("/cars")) {
+    if (location.pathname.match(/^\/cars\/[^0-9]/)) {
       setSearchPageFromDate(from);
       setSearchPageUntilDate(until);
       setSearchPageWhere(where);
@@ -114,7 +115,7 @@ const SearchLine = ({
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
-        console.log("Success", latLng);
+        // console.log("Success", latLng);
         setCoords(latLng);
         // update center state
         // setMapCenter(latLng);
