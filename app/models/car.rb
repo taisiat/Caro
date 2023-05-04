@@ -80,48 +80,9 @@ class Car < ApplicationRecord
     reviews.length
   end
 
-  # def self.car_lat
-  #   :location[0]
-  # end
-
-  # def self.car_lng
-  #   :location[1]
-  # end
-
   def self.in_bounds(bounds)
-    # debugger
     lower_lat, lower_lng, upper_lat, upper_lng = bounds
-    # car_lat, car_lng = :location
-    # car_lat = :location[0]
-    # car_lng = :location[1]
-    # # where(car_lat: lower_lat..upper_lat, car_lng: lower_lng..upper_lng)
     Car.where("location[1]::float BETWEEN ? AND ?", lower_lat, upper_lat)
     .where("location[2]::float BETWEEN ? AND ?", lower_lng, upper_lng)
-    # where("cast(location[0] as float) BETWEEN ? AND ?", lower_lat, upper_lat)
-    # .where("cast(location[1] as float) BETWEEN ? AND ?", lower_lng, upper_lng)
-    # Car.where("ARRAY_FIRST(location) BETWEEN ? AND ?", lower_lat, upper_lat)
-    # .where("ARRAY_LAST(location) BETWEEN ? AND ?", lower_lng, upper_lng)
-    # Car.where("ARRAY[location[1]] = 37.808205" )
-        # Car.where(make: "Subaru" )
-
-    # Car.where("location @> ARRAY[?,?]", 37.808205, -122.415480)
   end
-
-  # def self.filter_by_superhost(superhost_filter)
-  #   if superhost_filter == true
-  #     joins(:host).where(users: { is_superhost: true })
-  #   else
-  #     all
-  #   end
-  # end
-
-  # def self.no_overlapping_trips(date_range)
-  #   # trip_start, trip_end = date_range
-  #   # trip_start, trip_end = dateRange.map { |d| Date.parse(d) }
-  #   trip_start = Date.parse(date_range[0]).iso8601
-  #   trip_end = Date.parse(date_range[1]).iso8601
-  #   Car
-  #   .where.not(id: Trip.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)", trip_start, trip_start, trip_end, trip_end)
-  #   .select(:car_id))    
-  # end
 end

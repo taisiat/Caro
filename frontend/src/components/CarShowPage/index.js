@@ -18,7 +18,7 @@ import { FaChevronCircleRight } from "react-icons/fa";
 // import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { useHistory } from "react-router-dom";
 import CarBookForm from "../CarBookForm";
-import { fetchReviews } from "../../store/reviews";
+// import { fetchReviews } from "../../store/reviews";
 import Spinner from "../Spinner";
 import ReviewIndexItem from "../ReviewIndexItem";
 import { VscAccount } from "react-icons/vsc";
@@ -432,6 +432,7 @@ function CarShowPage() {
                 lat: parseFloat(car.location[0]),
                 lng: parseFloat(car.location[1]),
               },
+              zoom: 17,
             }}
           />
         </div>

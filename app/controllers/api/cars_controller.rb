@@ -1,40 +1,26 @@
 class Api::CarsController < ApplicationController
     before_action :require_logged_in, only: :create
     wrap_parameters include: Car.attribute_names  + ['doorsCount'] + ['seatsCount'] + ['dailyRate']
-    # wrap_parameters include: Car.attribute_names + [:photo], format: :multipart_form + ['doorsCount'] + ['seatsCount'] + ['dailyRate']
 
   def index
     @cars = Car.includes(:host).includes(:reviews).includes(:trips)
-    # debugger
     @cars = @cars.in_bounds(bounds) if bounds
     @cars = @cars.where(daily_rate: price_range) if price_range
-    # @cars = @cars.no_overlapping_trips(date_range) if date_range
-    # debugger
     if !date_range
       @cars
     elsif date_range === ["",""] || date_range === ["Invalid Date", "Invalid Date"]
       @cars
     else
-      # debugger
-      # @cars = @cars.no_overlapping_trips(date_range)
-      # debugger
       @cars = @cars.where.not(id: Trip.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?) OR (start_date >= ? AND end_date <= ?)", Date.parse(date_range[0]),Date.parse(date_range[0]) , Date.parse(date_range[1]), Date.parse(date_range[1]), Date.parse(date_range[0]), Date.parse(date_range[1]))
       .select(:car_id)) 
     end
-    # @cars = @cars.where(host_id.is_superhost: superhost_filter) if superhost_filter
-    # @cars = @cars.joins(:users).where(users: { is_superhost: superhost_filter }) if superhost_filter
-    # @cars = @cars.where(Car.host.is_superhost: superhost_filter) if superhost_filter
-    # @cars = @cars.filter_by_superhost(superhost_filter)
     if superhost_filter === 'true'
       @cars = @cars.where(host_id: User.where(is_superhost: true).pluck(:id))
     else
       @cars
     end
     if experience_filter === ''
-      # debugger
       @cars
-    # elsif experience_filter === 'All'
-    #   @cars
     else
       @cars = @cars.where(category: experience_filter)
     end
@@ -89,7 +75,6 @@ class Api::CarsController < ApplicationController
 
   def date_range
     return nil unless params[:trip_start] && params[:trip_end]
-    # [Date.parse(params[:trip_start]),Date.parse(params[:trip_end])]
     [params[:trip_start],params[:trip_end]]
   end
 
