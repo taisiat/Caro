@@ -83,7 +83,8 @@ const SearchLine = ({
     // console.log("hi from handleSearchClick start");
 
     // if (location.pathname.includes("/cars")) {
-    if (location.pathname.match(/^\/cars\/[^0-9]/)) {
+    // if (location.pathname.match(/^\/cars\/[^0-9]/)) {
+    if (location.pathname.match(/^\/cars\/?$|^(?!\/cars\/\d)\/cars\/\?.*/)) {
       setSearchPageFromDate(from);
       setSearchPageUntilDate(until);
       setSearchPageWhere(where);

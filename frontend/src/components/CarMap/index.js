@@ -171,7 +171,6 @@ function CarMap({
             fillColor: "white",
             strokeColor: "darkslateblue",
             strokeWeight: 1,
-            strokeWeight: 0,
             scale: 15,
             labelOrigin: new window.google.maps.Point(1.5, 1),
             anchor: new window.google.maps.Point(1.5, 1),

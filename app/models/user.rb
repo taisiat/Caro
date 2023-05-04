@@ -18,7 +18,7 @@
 class User < ApplicationRecord
   has_secure_password
   validates :phone_number, allow_blank: true, format: { with: /\A\d{3}-\d{3}-\d{4}\z/, message: "should be in the format xxx-xxx-xxxx" }
-  validates :first_name, :last_name, presence: true #password_digest is validated by has_secure_password
+  validates :first_name, :last_name, presence: true
   validates :session_token, uniqueness: true, presence: true
   validates :email, presence:true, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { in: 3..255 }, uniqueness: true
   validates :password, length: {in: 6..255}, allow_nil: true
@@ -55,7 +55,7 @@ class User < ApplicationRecord
     inverse_of: :driver
 
   def self.find_by_credentials(email, password)
-    user = User.find_by(:email => email) #changed from User.find_by(email: email)
+    user = User.find_by(:email => email)
     user&.authenticate(password)
   end
 

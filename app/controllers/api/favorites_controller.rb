@@ -8,10 +8,7 @@ class Api::FavoritesController < ApplicationController
 
         if @favorite.save
             render :show
-            # head :no_content
-            # render :index
         else
-            # render json: { errors: @favorite.errors.full_messages }, status: :unprocessable_entity
             head :no_content
         end
     end
@@ -27,12 +24,8 @@ class Api::FavoritesController < ApplicationController
     def destroy
         @favorite = current_user.favorites.find(params[:id])
         if @favorite&.destroy
-            # render :index
             head :no_content
         else
-            # render json: { message: 'Unauthorized' }, status: :unauthorized
-            # render json: { errors: @favorite.errors.full_messages }, status: :unprocessable_entity
-            # render json: { message: 'Unauthorized' }, status: :unauthorized
             head :no_content
         end
     end
