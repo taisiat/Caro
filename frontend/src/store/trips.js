@@ -54,12 +54,22 @@ export const updateTrip = (tripFormData) => async (dispatch) => {
   return response;
 };
 
-export const deleteTrip = (tripId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/trips/${tripId}`, {
-    method: "DELETE",
-  });
-  dispatch(removeTrip(tripId));
-  return response;
+export const deleteTrip = (tripId, callback) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/trips/${tripId}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      dispatch(removeTrip(tripId));
+      if (callback) {
+        callback();
+      }
+    } else {
+      throw new Error(`Error deleting trip: ${response.statusText}`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 function tripsReducer(state = {}, action) {

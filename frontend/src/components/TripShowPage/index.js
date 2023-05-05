@@ -8,6 +8,7 @@ import { updateTrip } from "../../store/trips";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchTrip } from "../../store/trips";
+import { fetchTrips } from "../../store/trips";
 import SearchLine from "../SearchLine";
 import Spinner from "../Spinner";
 
@@ -106,8 +107,12 @@ const TripShowPage = () => {
   };
 
   const handleTripDelete = () => {
-    dispatch(deleteTrip(trip.id));
-    history.push("/trips");
+    dispatch(
+      deleteTrip(trip.id, () => {
+        dispatch(fetchTrips());
+        history.push("/trips");
+      })
+    );
   };
 
   return (
