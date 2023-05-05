@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 850px;
+  width: 860px;
   height: 60px;
   position: fixed;
   top: 5px;
@@ -42,7 +42,7 @@
 }
 
 #where-container-line {
-  width: 45%;
+  width: 43%;
 }
 
 .search-input-line:hover {
