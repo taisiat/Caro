@@ -9,6 +9,7 @@ import { VscAccount } from "react-icons/vsc";
 import { SlMenu } from "react-icons/sl";
 import { useSelector } from "react-redux";
 import { fetchUser } from "../../store/user";
+import demoProfilePic from "./demo_profile_pic.jpg";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -45,8 +46,30 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
+  // const profileImg = () => {
+  //   if (sessionUser.photoUrl) {
+  //     return (
+  //       <img
+  //         src={sessionUser.photoUrl}
+  //         alt="profile picture"
+  //         id="profile-img-button"
+  //       />
+  //     );
+  //   } else {
+  //     return <VscAccount />;
+  //   }
+  // };
+
   const profileImg = () => {
-    if (sessionUser.photoUrl) {
+    if (sessionUser.id === 1) {
+      return (
+        <img
+          src={demoProfilePic}
+          alt="profile picture"
+          id="profile-img-button"
+        />
+      );
+    } else if (sessionUser.photoUrl) {
       return (
         <img
           src={sessionUser.photoUrl}
