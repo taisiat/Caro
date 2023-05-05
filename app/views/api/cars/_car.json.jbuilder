@@ -47,7 +47,8 @@ json.reviews car.reviews do |review|
     :car_id,
     :created_at,
     :updated_at,
-    :average_rating
+    :average_rating,
+    :id
 
   json.driver do
     json.extract! review.driver, :id, :first_name, :last_name, :approved_to_drive, :is_superhost, :is_clean_certified, :email, :phone_number, :created_at, :updated_at, :trips_count, :user_rating, :hosted_cars_count

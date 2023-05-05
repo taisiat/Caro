@@ -26,6 +26,7 @@ function FilterForm({
               id="min-price"
               min="0"
               type="number"
+              className={minPricing < 0 ? "price-input-too-low" : ""}
               placeholder="$"
               value={minPricing}
               onChange={(e) => setMinPricing(parseValue(e.target.value))}
@@ -41,6 +42,7 @@ function FilterForm({
               id="max-price"
               placeholder="$"
               min="0"
+              className={maxPricing < 0 ? "price-input-too-low" : ""}
               value={maxPricing}
               onChange={(e) => setMaxPricing(parseValue(e.target.value))}
             />

@@ -46,20 +46,6 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
-  // const profileImg = () => {
-  //   if (sessionUser.photoUrl) {
-  //     return (
-  //       <img
-  //         src={sessionUser.photoUrl}
-  //         alt="profile picture"
-  //         id="profile-img-button"
-  //       />
-  //     );
-  //   } else {
-  //     return <VscAccount />;
-  //   }
-  // };
-
   const profileImg = () => {
     if (sessionUser.id === 1) {
       return (
