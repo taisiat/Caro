@@ -33,6 +33,10 @@ function ProfilePage() {
     dispatch(fetchReviews());
   }, [dispatch]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   if (!user) {
     return <Spinner />;
   }

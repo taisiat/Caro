@@ -3,8 +3,13 @@ import SearchBar from "../SearchBar";
 import BrowseByDestinationComponent from "./BrowseByDestinationComponent";
 import BrowseByExperienceComponent from "./BrowseByExperienceComponent";
 import "./SplashPage.css";
+import { useEffect } from "react";
 
 const SplashPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <div className="splash-img-container"></div>

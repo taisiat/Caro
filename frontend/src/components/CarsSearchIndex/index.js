@@ -32,6 +32,11 @@ function CarsSearchIndex() {
   const [searchPageWhere, setSearchPageWhere] = useState("");
   const [searchPageCoords, setSearchPageCoords] = useState("");
   const favorites = useSelector((state) => Object.values(state.favorites));
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     dispatch(fetchFavorites());
   }, [dispatch, sessionUser]);

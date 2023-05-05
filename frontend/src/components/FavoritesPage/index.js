@@ -16,6 +16,10 @@ function FavoritesPage() {
   const cars = useSelector((state) => Object.values(state.cars));
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     dispatch(fetchCars({}));
   }, [dispatch, sessionUser]);
 
