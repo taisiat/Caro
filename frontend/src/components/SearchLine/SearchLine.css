@@ -90,13 +90,13 @@
 }
 
 #where-input-searchline {
-  width: 250px;
+  width: 300px;
 }
 
 .suggestions-container {
   position: absolute;
   top: 62px;
-  left: 90px;
+  left: 80px;
   width: 450px;
   max-height: 200px;
   overflow: auto;
