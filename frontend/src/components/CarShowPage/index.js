@@ -120,6 +120,37 @@ function CarShowPage() {
     }
   };
 
+  const writeReview = () => {
+    if (!car.trips.length) return;
+    let canWrite = false;
+    for (let i = 0; i < car.trips.length; i++) {
+      if (
+        car.trips[i].driver_id === sessionUser.id &&
+        new Date(car.trips[i].end_date) < new Date()
+      ) {
+        canWrite = true;
+        break;
+      }
+    }
+    let hasWritten = false;
+    for (let i = 0; i < car.reviews.length; i++) {
+      if (car.reviews[i].driverId === sessionUser.id) {
+        hasWritten = true;
+        break;
+      }
+    }
+    if (canWrite && !hasWritten) {
+      return (
+        <button
+          id="write-own-review-button"
+          onClick={() => history.push(`/cars/${car.id}/reviews`)}
+        >
+          Write a review
+        </button>
+      );
+    }
+  };
+
   return (
     <div id="car-show-container">
       <SearchLine
@@ -342,6 +373,7 @@ function CarShowPage() {
             </div>
             <div className="car-show-section">
               <h2 className="car-show-section-header">REVIEWS</h2>
+              {writeReview()}
               <div id="reviews-index-container">
                 {reviews && reviews !== [] && reviews.length > 0 ? (
                   reviews.map((review, idx) => {
