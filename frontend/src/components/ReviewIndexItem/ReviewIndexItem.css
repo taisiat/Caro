@@ -70,7 +70,8 @@
   margin-bottom: 10px;
 }
 
-#revise-own-review-button {
+#revise-own-review-button,
+#write-own-review-button {
   background-color: rgb(217, 188, 253);
   border: none;
   padding-left: 10px;
@@ -79,15 +80,17 @@
   padding-bottom: 5px;
   padding-top: 5px;
   color: #383737;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
   margin: 0;
 }
 
-#revise-own-review-button:hover {
+#revise-own-review-button:hover,
+#write-own-review-button:hover {
   cursor: pointer;
   background-color: rgb(171, 92, 250);
   color: white;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
 }
 
 #review-tile-info {
