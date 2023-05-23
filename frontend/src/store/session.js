@@ -22,7 +22,7 @@ export const login =
   async (dispatch) => {
     const response = await csrfFetch("/api/session", {
       method: "POST",
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email: email.toLowerCase(), password }),
     });
     const data = await response.json();
     storeCurrentUser(data.user);
@@ -44,7 +44,7 @@ export const signup = (user) => async (dispatch) => {
   const response = await csrfFetch("/api/users", {
     method: "POST",
     body: JSON.stringify({
-      email,
+      email: email.toLowerCase(),
       password,
       firstName,
       lastName,
