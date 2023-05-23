@@ -55,7 +55,8 @@ class User < ApplicationRecord
     inverse_of: :driver
 
   def self.find_by_credentials(email, password)
-    user = User.find_by(:email => email)
+    # user = User.find_by(:email => email)
+    user = User.where("LOWER(email) = ?", email.downcase).first
     user&.authenticate(password)
   end
 
