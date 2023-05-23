@@ -79,7 +79,7 @@ const CarSearchIndexItem = ({
           )}
         </div>
         <div id="car-tile-location-info">
-          <BiMapAlt />
+          <BiMapAlt id="map-icon" />
           <p>{car.city}</p>
         </div>
       </div>
