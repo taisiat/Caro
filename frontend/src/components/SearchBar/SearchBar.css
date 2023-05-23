@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 800px;
+  width: 850px;
   height: 60px;
   background-color: white;
   position: absolute;
@@ -52,15 +52,16 @@
 
 #where-container {
   width: 50%;
+  margin-top: 10px;
 }
 
 #where-input-searchbar {
   margin-left: -5px;
 }
 
-.search-divider {
+/* .search-divider {
   border-left: 1px solid #1c1919;
-}
+} */
 
 #search-button-container {
   font-size: 25px;
@@ -94,13 +95,13 @@
   padding-left: 10px;
 }
 
-#from-container p,
+/* #from-container p,
 #until-container p {
   padding-top: 5px;
   border-left: 1px solid #cbc8c8;
   padding-left: 10px;
   margin-left: -10px;
-}
+} */
 
 #where-container p {
   padding-top: 5px;
@@ -126,7 +127,7 @@
   top: 62px;
   left: 20px;
   /* width: 478px; */
-  width: 408px;
+  width: 432px;
 
   max-height: 200px;
   overflow: auto;

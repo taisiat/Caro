@@ -14,9 +14,16 @@ import "flatpickr/dist/themes/dark.css";
 const SearchBar = () => {
   const [where, setWhere] = useState("");
   const [coords, setCoords] = useState("");
-  const [from, setFrom] = useState("");
-  const [until, setUntil] = useState("");
+  // const [from, setFrom] = useState(new Date().fp_incr(1));
+  // const [until, setUntil] = useState(new Date().fp_incr(2));
   const history = useHistory();
+  const [validPlace, setValidPlace] = useState(false);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfter = new Date();
+  dayAfter.setDate(dayAfter.getDate() + 2);
+  const [from, setFrom] = useState(tomorrow);
+  const [until, setUntil] = useState(dayAfter);
 
   const handleSearchClick = () => {
     localStorage.setItem("fromDate", from);
@@ -40,17 +47,22 @@ const SearchBar = () => {
     if (!selectedDates[0]) return;
     console.log(selectedDates, "selectedDates", dateStr, "dateStr");
     setFrom(selectedDates[0]);
-    if (!selectedDates[1]) {
-      const nextDay = new Date(selectedDates[0]);
-      nextDay.setDate(nextDay.getDate() + 1);
-      setUntil(nextDay.toISOString().slice(0, 10));
-    } else {
-      setUntil(selectedDates[1]);
-    }
+    // if (!selectedDates[1]) {
+    //   const nextDay = new Date(selectedDates[0]);
+    //   nextDay.setDate(nextDay.getDate() + 1);
+    //   setUntil(nextDay.toISOString().slice(0, 10));
+    // } else {
+    setUntil(selectedDates[1]);
+    // }
     console.log(from, "from", until, "until");
   };
 
-  const handleSelect = (address) => {
+  const handlePlaceOnChange = (address) => {
+    setWhere(address);
+    setValidPlace(false);
+  };
+
+  const handlePlaceOnSelect = (address) => {
     setWhere(address);
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
@@ -58,10 +70,11 @@ const SearchBar = () => {
         setCoords(latLng);
       })
       .catch((error) => console.error("Error", error));
+    setValidPlace(true);
   };
 
   const searchButton = () => {
-    if (until && from && until >= from) {
+    if (until && from && until >= from && (validPlace || where === "")) {
       return (
         <div id="search-button-container" onClick={handleSearchClick}>
           <RiSearch2Line id="search-icon" />
@@ -82,8 +95,10 @@ const SearchBar = () => {
         <p>Where</p>
         <PlacesAutocomplete
           value={where}
-          onChange={(newValue) => setWhere(newValue)}
-          onSelect={(address) => handleSelect(address)}
+          // onChange={(newValue) => setWhere(newValue)}
+          // onSelect={(address) => handleSelect(address)}
+          onChange={(address) => handlePlaceOnChange(address)}
+          onSelect={(address) => handlePlaceOnSelect(address)}
         >
           {({
             getInputProps,
@@ -94,7 +109,8 @@ const SearchBar = () => {
             <div>
               <input
                 {...getInputProps({
-                  placeholder: "City, airport, address or hotel",
+                  placeholder:
+                    "City, airport, address or hotel... or, search everywhere",
                   className: "search-input",
                   id: "where-input-searchbar",
                 })}
