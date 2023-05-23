@@ -121,7 +121,7 @@ function CarShowPage() {
   };
 
   const writeReview = () => {
-    if (!car.trips.length) return;
+    if (!car.trips.length || !sessionUser) return;
     let canWrite = false;
     for (let i = 0; i < car.trips.length; i++) {
       if (

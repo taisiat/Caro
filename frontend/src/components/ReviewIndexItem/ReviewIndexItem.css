@@ -80,7 +80,7 @@
   padding-bottom: 5px;
   padding-top: 5px;
   color: #383737;
-  font-size: 12px;
+  font-size: 14px;
   cursor: pointer;
   margin: 0;
 }
@@ -90,6 +90,7 @@
   cursor: pointer;
   background-color: rgb(171, 92, 250);
   color: white;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
 }
 
 #review-tile-info {
