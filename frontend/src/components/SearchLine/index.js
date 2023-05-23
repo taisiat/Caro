@@ -8,6 +8,8 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/dark.css";
 
 const SearchLine = ({
   searchPageFromDate,
@@ -20,10 +22,18 @@ const SearchLine = ({
   const [where, setWhere] = useState("");
   const [coords, setCoords] = useState("");
 
-  const [from, setFrom] = useState("");
-  const [until, setUntil] = useState("");
+  // const [from, setFrom] = useState("");
+  // const [until, setUntil] = useState("");
   const history = useHistory();
   const location = useLocation();
+
+  const [validPlace, setValidPlace] = useState(false);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfter = new Date();
+  dayAfter.setDate(dayAfter.getDate() + 2);
+  const [from, setFrom] = useState(tomorrow);
+  const [until, setUntil] = useState(dayAfter);
 
   useEffect(() => {
     if (searchPageFromDate) {
@@ -58,16 +68,38 @@ const SearchLine = ({
     }
   };
 
-  const handleDateInput = (e) => {
-    setFrom(e.target.value);
-    if (until === "") {
-      const nextDay = new Date(e.target.value);
-      nextDay.setDate(nextDay.getDate() + 1);
-      setUntil(nextDay.toISOString().slice(0, 10));
-    }
+  // const handleDateInput = (e) => {
+  //   setFrom(e.target.value);
+  //   if (until === "") {
+  //     const nextDay = new Date(e.target.value);
+  //     nextDay.setDate(nextDay.getDate() + 1);
+  //     setUntil(nextDay.toISOString().slice(0, 10));
+  //   }
+  // };
+
+  const handleDateInput = (selectedDates, dateStr) => {
+    if (!selectedDates[0]) return;
+    console.log(selectedDates, "selectedDates", dateStr, "dateStr");
+    setFrom(selectedDates[0]);
+    setUntil(selectedDates[1]);
   };
 
-  const handleSelect = (address) => {
+  // const handleSelect = (address) => {
+  //   setWhere(address);
+  //   geocodeByAddress(address)
+  //     .then((results) => getLatLng(results[0]))
+  //     .then((latLng) => {
+  //       setCoords(latLng);
+  //     })
+  //     .catch((error) => console.error("Error", error));
+  // };
+
+  const handlePlaceOnChange = (address) => {
+    setWhere(address);
+    setValidPlace(false);
+  };
+
+  const handlePlaceOnSelect = (address) => {
     setWhere(address);
     geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
@@ -75,6 +107,23 @@ const SearchLine = ({
         setCoords(latLng);
       })
       .catch((error) => console.error("Error", error));
+    setValidPlace(true);
+  };
+
+  const searchButton = () => {
+    if (until && from && until >= from && (validPlace || where === "")) {
+      return (
+        <div id="search-button-container-line" onClick={handleSearchClick}>
+          <RiSearch2Line id="search-icon" className="search-line-button" />
+        </div>
+      );
+    } else {
+      return (
+        <div id="search-button-container-line-inactive">
+          <RiSearch2Line id="search-icon" className="search-line-button" />
+        </div>
+      );
+    }
   };
 
   return (
@@ -83,8 +132,10 @@ const SearchLine = ({
         <p>Where</p>
         <PlacesAutocomplete
           value={where}
-          onChange={(newValue) => setWhere(newValue)}
-          onSelect={(address) => handleSelect(address)}
+          // onChange={(newValue) => setWhere(newValue)}
+          // onSelect={(address) => handleSelect(address)}
+          onChange={(address) => handlePlaceOnChange(address)}
+          onSelect={(address) => handlePlaceOnSelect(address)}
         >
           {({
             getInputProps,
@@ -95,7 +146,7 @@ const SearchLine = ({
             <div>
               <input
                 {...getInputProps({
-                  placeholder: "City, airport, address or hotel",
+                  placeholder: "Location... or, search everywhere",
                   className: "search-input-line",
                   id: "where-input-searchline",
                 })}
@@ -121,7 +172,7 @@ const SearchLine = ({
           )}
         </PlacesAutocomplete>
       </div>
-      <div id="from-container-line">
+      {/* <div id="from-container-line">
         <p>From</p>
         <div id="from-input-container-line">
           <input
@@ -148,8 +199,27 @@ const SearchLine = ({
             ></input>
           </div>
         </div>
+      </div> */}
+      <div id="when-container-line">
+        <p>When</p>
+        <div id="when-input-container-line">
+          <Flatpickr
+            className="search-date-line-flatpickr"
+            placeholder="Start and end dates for your trip"
+            options={{
+              dateFormat: "Y-m-d",
+              minDate: new Date().fp_incr(1),
+              defaultDate: [new Date().fp_incr(1), new Date().fp_incr(2)],
+              onChange: handleDateInput,
+              altInput: true,
+              altFormat: "F j, Y",
+              mode: "range",
+            }}
+          />
+        </div>
       </div>
-      {until < from && (
+      {searchButton()}
+      {/* {until < from && (
         <div id="search-button-container-line-inactive">
           <RiSearch2Line id="search-icon" className="search-line-button" />
         </div>
@@ -158,7 +228,7 @@ const SearchLine = ({
         <div id="search-button-container-line" onClick={handleSearchClick}>
           <RiSearch2Line id="search-icon" className="search-line-button" />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
