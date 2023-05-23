@@ -15,6 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "flatpickr": "^4.6.13",
+    "react-flatpickr": "^3.10.13",
     "react-places-autocomplete": "^7.3.0"
   }
 }
