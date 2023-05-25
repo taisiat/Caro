@@ -145,7 +145,7 @@ function FilterForm({
               handleChange(e.target.value, changeTypes.EXPERIENCE.tag)
             }
           >
-            <option value="All">All</option>
+            <option value="all">All</option>
             <option value="Exotic">Deluxe + Super Deluxe</option>
             <option value="Electric">Electric</option>
             <option value="All-Wheel Drive">All-Wheel Drive</option>

@@ -14,8 +14,8 @@ const CarBookForm = ({ car }) => {
   const dispatch = useDispatch();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const fromDate = localStorage.getItem("fromDate");
-  const untilDate = localStorage.getItem("untilDate");
+  // const fromDate = localStorage.getItem("fromDate");
+  // const untilDate = localStorage.getItem("untilDate");
   const { carId } = useParams();
   const protectionPrices = {
     Premier: 50,
@@ -26,19 +26,19 @@ const CarBookForm = ({ car }) => {
   const [errors, setErrors] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  useEffect(() => {
-    if (fromDate) {
-      setStartDate(fromDate);
-      localStorage.removeItem("fromDate");
-    }
-  }, [fromDate]);
+  // useEffect(() => {
+  //   if (fromDate) {
+  //     setStartDate(fromDate);
+  //     localStorage.removeItem("fromDate");
+  //   }
+  // }, [fromDate]);
 
-  useEffect(() => {
-    if (untilDate) {
-      setEndDate(untilDate);
-      localStorage.removeItem("untilDate");
-    }
-  }, [untilDate]);
+  // useEffect(() => {
+  //   if (untilDate) {
+  //     setEndDate(untilDate);
+  //     localStorage.removeItem("untilDate");
+  //   }
+  // }, [untilDate]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

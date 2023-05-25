@@ -13,7 +13,7 @@ class Api::CarsController < ApplicationController
       @cars
     end
     
-    if experience_filter === ''
+    if experience_filter === 'all'
       @cars
     else
       @cars = @cars.where(category: experience_filter)

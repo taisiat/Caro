@@ -87,10 +87,10 @@ const SearchLine = (
     setFlatpickrKey(Date.now());
   }, [location.search]);
 
-  useEffect(() => {
-    console.log("from:", from);
-    console.log("until:", until);
-  }, [from, until]);
+  // useEffect(() => {
+  //   console.log("from:", from);
+  //   console.log("until:", until);
+  // }, [from, until]);
 
   // const handleSearchClick = () => {
   //   if (location.pathname.match(/^\/cars\/?$|^(?!\/cars\/\d)\/cars\/\?.*/)) {

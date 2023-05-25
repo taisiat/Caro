@@ -30,9 +30,9 @@ function CarShowPage() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [searchPageWhere, setSearchPageWhere] = useState("");
-  const fromDate = localStorage.getItem("fromDate");
-  const untilDate = localStorage.getItem("untilDate");
-  const where = localStorage.getItem("where");
+  // const fromDate = localStorage.getItem("fromDate");
+  // const untilDate = localStorage.getItem("untilDate");
+  // const where = localStorage.getItem("where");
 
   const dispatch = useDispatch();
   const [currentImg, setCurrentImg] = useState(0);
@@ -60,23 +60,23 @@ function CarShowPage() {
     dispatch(fetchCar(carId));
   }, [dispatch]);
 
-  useEffect(() => {
-    if (fromDate) {
-      setStartDate(fromDate);
-    }
-  }, [fromDate]);
+  // useEffect(() => {
+  //   if (fromDate) {
+  //     setStartDate(fromDate);
+  //   }
+  // }, [fromDate]);
 
-  useEffect(() => {
-    if (untilDate) {
-      setEndDate(untilDate);
-    }
-  }, [untilDate]);
+  // useEffect(() => {
+  //   if (untilDate) {
+  //     setEndDate(untilDate);
+  //   }
+  // }, [untilDate]);
 
-  useEffect(() => {
-    if (where) {
-      setSearchPageWhere(where);
-    }
-  }, [where]);
+  // useEffect(() => {
+  //   if (where) {
+  //     setSearchPageWhere(where);
+  //   }
+  // }, [where]);
 
   if (!car) {
     return <Spinner />;

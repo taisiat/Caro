@@ -23,9 +23,9 @@ function CarMap({
   useEffect(() => {
     if (map) {
       const urlParams = new URLSearchParams(location.search);
-      if (urlParams.get("coords")) {
-        const coords = urlParams
-          .get("coords")
+      const coordsParams = urlParams.get("coords");
+      if (coordsParams) {
+        const coords = coordsParams
           .split(",")
           .map((coord) => parseFloat(coord));
         const newLatLng = new window.google.maps.LatLng(coords[0], coords[1]);

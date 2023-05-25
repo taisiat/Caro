@@ -28,7 +28,7 @@ function CarsSearchIndex() {
   const [minPricing, setMinPricing] = useState(1);
   const [maxPricing, setMaxPricing] = useState(4000);
   const [superhostFilter, setSuperhostFilter] = useState(false);
-  const [experienceType, setExperienceType] = useState("");
+  const [experienceType, setExperienceType] = useState("all");
   const [searchPageFromDate, setSearchPageFromDate] = useState("");
   const [searchPageUntilDate, setSearchPageUntilDate] = useState("");
   const [searchPageWhere, setSearchPageWhere] = useState("");
@@ -64,31 +64,31 @@ function CarsSearchIndex() {
     if (experienceParams) {
       setExperienceType(experienceParams);
     }
-  }, [experienceParams, location.search]);
+  }, [experienceParams]);
 
   useEffect(() => {
     if (minPricingParams) {
       setMinPricing(minPricingParams);
     }
-  }, [minPricingParams, location.search]);
+  }, [minPricingParams]);
 
   useEffect(() => {
     if (maxPricingParams) {
       setMaxPricing(maxPricingParams);
     }
-  }, [maxPricingParams, location.search]);
+  }, [maxPricingParams]);
 
   useEffect(() => {
     if (superhostParams) {
       setSuperhostFilter(superhostParams);
     }
-  }, [superhostParams, location.search]);
+  }, [superhostParams]);
 
   useEffect(() => {
     if (locationParams) {
       setSearchPageWhere(locationParams);
     }
-  }, [locationParams, location.search]);
+  }, [locationParams]);
 
   // useEffect(() => {
   //   if (fromDate) {
@@ -107,7 +107,7 @@ function CarsSearchIndex() {
       setSearchPageUntilDate(new Date(untilDate));
       // console.log(fromDate, untilDate, "dates", from, "from", until, "until");
     }
-  }, [datesParams, location.search]);
+  }, [datesParams]);
 
   // useEffect(() => {
   //   if (untilDate) {
