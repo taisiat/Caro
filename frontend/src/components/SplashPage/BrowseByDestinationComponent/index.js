@@ -35,6 +35,10 @@ const BrowseByDestinationComponent = () => {
       name: "LV",
     },
   };
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfter = new Date();
+  dayAfter.setDate(dayAfter.getDate() + 2);
 
   const handleCityClick = (city) => {
     // searchParams.set("coords", cityOptions[city].coords);
@@ -43,6 +47,8 @@ const BrowseByDestinationComponent = () => {
       `${cityOptions[city].coords.lat},${cityOptions[city].coords.lng}`
     );
     searchParams.set("zoom", cityOptions[city].zoom);
+    searchParams.set("dates", `${tomorrow},${dayAfter}`);
+
     // history.push(`${location.pathname}?${searchParams.toString()}`);
     history.push({
       pathname: "/cars",

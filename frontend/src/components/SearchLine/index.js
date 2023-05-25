@@ -56,23 +56,44 @@ const SearchLine = (
   //     setWhere(searchPageWhere);
   //   }
   // }, [searchPageWhere]);
+  const urlParams = new URLSearchParams(location.search);
+  const searchParams = new URLSearchParams();
+  const existingSearchParams = new URLSearchParams(location.search);
+
+  const locationParams = urlParams.get("location");
+  const coordsParams = urlParams.get("coords");
+  const datesParam = urlParams.get("dates");
+
+  // useEffect(() => {
+  //   // const searchParams = new URLSearchParams();
+
+  //   if (!datesParam) {
+  //     console.log("no dates!", from, until);
+  //     existingSearchParams.set("dates", `${from},${until}`);
+  //     // history.push(`${location.pathname}?${searchParams.toString()}`);
+  //     history.push({
+  //       pathname: "/cars",
+  //       search: existingSearchParams.toString(),
+  //     });
+  //   }
+  // }, [datesParam]);
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-    const locationParams = urlParams.get("location");
+    // const urlParams = new URLSearchParams(location.search);
+    // const locationParams = urlParams.get("location");
     if (locationParams) {
       setWhere(locationParams);
       setValidPlace(true);
     }
 
-    const coordsParams = urlParams.get("coords");
+    // const coordsParams = urlParams.get("coords");
     if (coordsParams) {
       const coordsArray = coordsParams.split(",");
       const lat = parseFloat(coordsArray[0]);
       const lng = parseFloat(coordsArray[1]);
       setCoords([lat, lng]);
     }
-    const datesParam = urlParams.get("dates");
+    // const datesParam = urlParams.get("dates");
     // console.log("datesParam:", datesParam);
 
     if (datesParam) {
@@ -82,8 +103,15 @@ const SearchLine = (
       const untilDate = new Date(datesArray[1].substring(0, 15));
       setFrom(new Date(fromDate));
       setUntil(new Date(untilDate));
-      console.log(fromDate, untilDate, "dates", from, "from", until, "until");
+      // console.log(fromDate, untilDate, "dates", from, "from", until, "until");
     }
+    // else {
+    //   existingSearchParams.set("dates", `${from},${until}`);
+    //   history.push({
+    //     pathname: "/cars",
+    //     search: existingSearchParams.toString(),
+    //   });
+    // }
     setFlatpickrKey(Date.now());
   }, [location.search]);
 
@@ -111,19 +139,38 @@ const SearchLine = (
   //   setFlatpickrKey(Date.now());
   // }, [until]);
 
+  // const handleSearchClick = () => {
+  //   // const searchParams = new URLSearchParams();
+  //   if (coords) {
+  //     searchParams.set("coords", `${coords.lat},${coords.lng}`);
+  //     searchParams.set("location", where);
+  //   } else {
+  //     searchParams.set("coords", "39.24140288621095,-119.42514550357927");
+  //     searchParams.set("cityZoom", 15);
+  //   }
+  //   searchParams.set("dates", `${from},${until}`);
+  //   history.push({
+  //     pathname: "/cars",
+  //     search: searchParams.toString(),
+  //   });
+  // };
+
   const handleSearchClick = () => {
-    const searchParams = new URLSearchParams();
+    // const searchParams = new URLSearchParams();
     if (coords) {
-      searchParams.set("coords", `${coords.lat},${coords.lng}`);
-      searchParams.set("location", where);
+      existingSearchParams.set("coords", `${coords.lat},${coords.lng}`);
+      existingSearchParams.set("location", where);
     } else {
-      searchParams.set("coords", "39.24140288621095,-119.42514550357927");
-      searchParams.set("cityZoom", 15);
+      existingSearchParams.set(
+        "coords",
+        "39.24140288621095,-119.42514550357927"
+      );
+      existingSearchParams.set("cityZoom", 15);
     }
-    searchParams.set("dates", `${from},${until}`);
+    existingSearchParams.set("dates", `${from},${until}`);
     history.push({
       pathname: "/cars",
-      search: searchParams.toString(),
+      search: existingSearchParams.toString(),
     });
   };
 

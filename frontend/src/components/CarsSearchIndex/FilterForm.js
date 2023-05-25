@@ -17,7 +17,6 @@ function FilterForm({
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  const parseValue = (val) => (val === "" ? val : parseInt(val));
   const changeTypes = {
     MINPRICE: { tag: "minPrice", value: minPricing },
     MAXPRICE: { tag: "maxPrice", value: maxPricing },
@@ -35,6 +34,8 @@ function FilterForm({
       }
     });
   }, []);
+
+  const parseValue = (val) => (val === "" ? val : parseInt(val));
 
   const handleChange = (newVal, type) => {
     const existingVal = searchParams.get(type);
