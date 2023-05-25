@@ -11,16 +11,19 @@ import PlacesAutocomplete, {
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/dark.css";
 
-const SearchLine = ({
-  searchPageFromDate,
-  setSearchPageFromDate,
-  searchPageUntilDate,
-  setSearchPageUntilDate,
-  searchPageWhere,
-  setSearchPageWhere,
-}) => {
+const SearchLine = (
+  {
+    // searchPageFromDate,
+    // setSearchPageFromDate,
+    // searchPageUntilDate,
+    // setSearchPageUntilDate,
+    // searchPageWhere,
+    // setSearchPageWhere,
+  }
+) => {
   const [where, setWhere] = useState("");
   const [coords, setCoords] = useState("");
+  const [flatpickrKey, setFlatpickrKey] = useState(Date.now());
 
   // const [from, setFrom] = useState("");
   // const [until, setUntil] = useState("");
@@ -32,40 +35,96 @@ const SearchLine = ({
   tomorrow.setDate(tomorrow.getDate() + 1);
   const dayAfter = new Date();
   dayAfter.setDate(dayAfter.getDate() + 2);
+  // const [from, setFrom] = useState(tomorrow);
+  // const [until, setUntil] = useState(dayAfter);
   const [from, setFrom] = useState(tomorrow);
   const [until, setUntil] = useState(dayAfter);
+  // useEffect(() => {
+  //   if (searchPageFromDate) {
+  //     setFrom(searchPageFromDate);
+  //   }
+  // }, [searchPageFromDate]);
+
+  // useEffect(() => {
+  //   if (searchPageUntilDate) {
+  //     setUntil(searchPageUntilDate);
+  //   }
+  // }, [searchPageUntilDate]);
+
+  // useEffect(() => {
+  //   if (searchPageWhere) {
+  //     setWhere(searchPageWhere);
+  //   }
+  // }, [searchPageWhere]);
 
   useEffect(() => {
-    if (searchPageFromDate) {
-      setFrom(searchPageFromDate);
+    const urlParams = new URLSearchParams(location.search);
+    const locationParams = urlParams.get("location");
+    if (locationParams) {
+      setWhere(locationParams);
+      setValidPlace(true);
     }
-  }, [searchPageFromDate]);
+
+    const coordsParams = urlParams.get("coords");
+    if (coordsParams) {
+      const coordsArray = coordsParams.split(",");
+      const lat = parseFloat(coordsArray[0]);
+      const lng = parseFloat(coordsArray[1]);
+      setCoords([lat, lng]);
+    }
+    const datesParam = urlParams.get("dates");
+    // console.log("datesParam:", datesParam);
+
+    if (datesParam) {
+      // const [fromDate, untilDate] = datesParam.split(",");
+      const datesArray = datesParam.split(",");
+      const fromDate = new Date(datesArray[0].substring(0, 15));
+      const untilDate = new Date(datesArray[1].substring(0, 15));
+      setFrom(new Date(fromDate));
+      setUntil(new Date(untilDate));
+      console.log(fromDate, untilDate, "dates", from, "from", until, "until");
+    }
+    setFlatpickrKey(Date.now());
+  }, [location.search]);
 
   useEffect(() => {
-    if (searchPageUntilDate) {
-      setUntil(searchPageUntilDate);
-    }
-  }, [searchPageUntilDate]);
+    console.log("from:", from);
+    console.log("until:", until);
+  }, [from, until]);
 
-  useEffect(() => {
-    if (searchPageWhere) {
-      setWhere(searchPageWhere);
-    }
-  }, [searchPageWhere]);
+  // const handleSearchClick = () => {
+  //   if (location.pathname.match(/^\/cars\/?$|^(?!\/cars\/\d)\/cars\/\?.*/)) {
+  //     setSearchPageFromDate(from);
+  //     setSearchPageUntilDate(until);
+  //     setSearchPageWhere(where);
+  //     history.push(`/cars?coords=${coords.lat},${coords.lng}`);
+  //   } else {
+  //     localStorage.setItem("fromDate", from);
+  //     localStorage.setItem("untilDate", until);
+  //     localStorage.setItem("where", where);
+  //     localStorage.setItem("coords", JSON.stringify(coords));
+  //     history.push("/cars/");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   setFlatpickrKey(Date.now());
+  // }, [until]);
 
   const handleSearchClick = () => {
-    if (location.pathname.match(/^\/cars\/?$|^(?!\/cars\/\d)\/cars\/\?.*/)) {
-      setSearchPageFromDate(from);
-      setSearchPageUntilDate(until);
-      setSearchPageWhere(where);
-      history.push(`/cars?coords=${coords.lat},${coords.lng}`);
+    const searchParams = new URLSearchParams();
+    if (coords) {
+      searchParams.set("coords", `${coords.lat},${coords.lng}`);
+      searchParams.set("location", where);
     } else {
-      localStorage.setItem("fromDate", from);
-      localStorage.setItem("untilDate", until);
-      localStorage.setItem("where", where);
-      localStorage.setItem("coords", JSON.stringify(coords));
-      history.push("/cars/");
+      searchParams.set("coords", "39.24140288621095,-119.42514550357927");
+      searchParams.set("cityZoom", 15);
     }
+    searchParams.set("dates", `${from},${until}`);
+    history.push({
+      pathname: "/cars",
+      search: searchParams.toString(),
+    });
   };
 
   // const handleDateInput = (e) => {
@@ -77,9 +136,8 @@ const SearchLine = ({
   //   }
   // };
 
-  const handleDateInput = (selectedDates, dateStr) => {
+  const handleDateInput = (selectedDates) => {
     if (!selectedDates[0]) return;
-    console.log(selectedDates, "selectedDates", dateStr, "dateStr");
     setFrom(selectedDates[0]);
     setUntil(selectedDates[1]);
   };
@@ -204,16 +262,20 @@ const SearchLine = ({
         <p>When</p>
         <div id="when-input-container-line">
           <Flatpickr
+            key={flatpickrKey}
             className="search-date-line-flatpickr"
             placeholder="Start and end dates for your trip"
             options={{
               dateFormat: "Y-m-d",
               minDate: new Date().fp_incr(1),
-              defaultDate: [new Date().fp_incr(1), new Date().fp_incr(2)],
+              defaultDate: [from, until],
               onChange: handleDateInput,
               altInput: true,
               altFormat: "F j, Y",
               mode: "range",
+              // onReady: function (selectedDates, dateStr, instance) {
+              // instance.setDate([from, until]);
+              // },
             }}
           />
         </div>

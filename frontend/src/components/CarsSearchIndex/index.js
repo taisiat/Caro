@@ -11,6 +11,7 @@ import FilterForm from "./FilterForm";
 import Spinner from "../Spinner";
 import noCarsImage from "./no_car_found.png";
 import { fetchFavorites } from "../../store/favorites";
+import { useLocation } from "react-router-dom";
 
 function CarsSearchIndex() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -18,10 +19,11 @@ function CarsSearchIndex() {
   const cars = useSelector((state) => Object.values(state.cars));
   const [highlightedCar, setHighlightedCar] = useState(null);
   const history = useHistory();
-  const experience = localStorage.getItem("experience");
-  const fromDate = localStorage.getItem("fromDate");
-  const untilDate = localStorage.getItem("untilDate");
-  const where = localStorage.getItem("where");
+  const location = useLocation();
+  // const experience = localStorage.getItem("experience");
+  // const fromDate = localStorage.getItem("fromDate");
+  // const untilDate = localStorage.getItem("untilDate");
+  // const where = localStorage.getItem("where");
   const [bounds, setBounds] = useState(null);
   const [minPricing, setMinPricing] = useState(1);
   const [maxPricing, setMaxPricing] = useState(4000);
@@ -32,6 +34,16 @@ function CarsSearchIndex() {
   const [searchPageWhere, setSearchPageWhere] = useState("");
   const [searchPageCoords, setSearchPageCoords] = useState("");
   const favorites = useSelector((state) => Object.values(state.favorites));
+  const searchParams = new URLSearchParams();
+  const currentSearchParams = new URLSearchParams(window.location.search);
+  const urlParams = new URLSearchParams(location.search);
+  const experienceParams = urlParams.get("experience");
+  const datesParams = urlParams.get("dates");
+  const minPricingParams = urlParams.get("minPrice");
+  const maxPricingParams = urlParams.get("maxPrice");
+  const superhostParams = urlParams.get("superhost");
+  const locationParams = urlParams.get("location");
+  const coordsParams = urlParams.get("coords");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -41,33 +53,83 @@ function CarsSearchIndex() {
     dispatch(fetchFavorites());
   }, [dispatch, sessionUser]);
 
-  useEffect(() => {
-    if (experience) {
-      setExperienceType(experience);
-      localStorage.removeItem("experience");
-    }
-  }, [experience]);
+  //  useEffect(() => {
+  //    if (experience) {
+  //      setExperienceType(experience);
+  //      localStorage.removeItem("experience");
+  //    }
+  //  }, [experience]);
 
   useEffect(() => {
-    if (fromDate) {
-      setSearchPageFromDate(fromDate);
-      localStorage.removeItem("fromDate");
+    if (experienceParams) {
+      setExperienceType(experienceParams);
     }
-  }, [fromDate]);
+  }, [experienceParams, location.search]);
 
   useEffect(() => {
-    if (untilDate) {
-      setSearchPageUntilDate(untilDate);
-      localStorage.removeItem("untilDate");
+    if (minPricingParams) {
+      setMinPricing(minPricingParams);
     }
-  }, [untilDate]);
+  }, [minPricingParams, location.search]);
 
   useEffect(() => {
-    if (where) {
-      setSearchPageWhere(where);
-      localStorage.removeItem("where");
+    if (maxPricingParams) {
+      setMaxPricing(maxPricingParams);
     }
-  }, [where]);
+  }, [maxPricingParams, location.search]);
+
+  useEffect(() => {
+    if (superhostParams) {
+      setSuperhostFilter(superhostParams);
+    }
+  }, [superhostParams, location.search]);
+
+  useEffect(() => {
+    if (locationParams) {
+      setSearchPageWhere(locationParams);
+    }
+  }, [locationParams, location.search]);
+
+  // useEffect(() => {
+  //   if (fromDate) {
+  //     setSearchPageFromDate(fromDate);
+  //     localStorage.removeItem("fromDate");
+  //   }
+  // }, [fromDate]);
+
+  useEffect(() => {
+    if (datesParams) {
+      // setSearchPageFromDate(fromDate);
+      const datesArray = datesParams.split(",");
+      const fromDate = new Date(datesArray[0].substring(0, 15));
+      const untilDate = new Date(datesArray[1].substring(0, 15));
+      setSearchPageFromDate(new Date(fromDate));
+      setSearchPageUntilDate(new Date(untilDate));
+      // console.log(fromDate, untilDate, "dates", from, "from", until, "until");
+    }
+  }, [datesParams, location.search]);
+
+  // useEffect(() => {
+  //   if (untilDate) {
+  //     setSearchPageUntilDate(untilDate);
+  //     localStorage.removeItem("untilDate");
+  //   }
+  // }, [untilDate]);
+
+  // useEffect(() => {
+  //   if (where) {
+  //     setSearchPageWhere(where);
+  //     localStorage.removeItem("where");
+  //   }
+  // }, [where]);
+  // useEffect(() => {
+  //   if (coordsParams) {
+  //     const coordsArray = coordsParams.split(",");
+  //     const lat = parseFloat(coordsArray[0]);
+  //     const lng = parseFloat(coordsArray[1]);
+  //     setSearchPageCoords([lat, lng]);
+  //   }
+  // }, [coordsParams, location.search]);
 
   const handleDateChange = (userInputDate) => {
     const dateObj = new Date(Date.parse(userInputDate));
@@ -125,16 +187,16 @@ function CarsSearchIndex() {
   return (
     <div id="car-index-container">
       <SearchLine
-        searchPageFromDate={searchPageFromDate}
-        setSearchPageFromDate={setSearchPageFromDate}
-        searchPageUntilDate={searchPageUntilDate}
-        setSearchPageUntilDate={setSearchPageUntilDate}
-        searchPageWhere={searchPageWhere}
-        setSearchPageWhere={setSearchPageWhere}
-        searchPageCoords={searchPageCoords}
-        setSearchPageCoords={setSearchPageCoords}
-        setBounds={setBounds}
-        bounds={bounds}
+      // searchPageFromDate={searchPageFromDate}
+      // setSearchPageFromDate={setSearchPageFromDate}
+      // searchPageUntilDate={searchPageUntilDate}
+      // setSearchPageUntilDate={setSearchPageUntilDate}
+      // searchPageWhere={searchPageWhere}
+      // setSearchPageWhere={setSearchPageWhere}
+      // searchPageCoords={searchPageCoords}
+      // setSearchPageCoords={setSearchPageCoords}
+      // setBounds={setBounds}
+      // bounds={bounds}
       />
       <div id="search-buttons">
         <FilterForm
@@ -175,7 +237,12 @@ function CarsSearchIndex() {
           cars={cars}
           mapEventHandlers={mapEventHandlers}
           markerEventHandlers={{
-            click: (car) => history.push(`/cars/${car.id}`),
+            // click: (car) => history.push(`/cars/${car.id}`),
+            click: (car) =>
+              history.push({
+                pathname: `/cars/${car.id}`,
+                search: currentSearchParams.toString(),
+              }),
             mouseover: (car) => setHighlightedCar(car.id),
             mouseout: () => setHighlightedCar(null),
           }}

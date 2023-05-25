@@ -10,6 +10,8 @@ import PlacesAutocomplete, {
 // import Flatpickr from "flatpickr";
 import Flatpickr from "react-flatpickr";
 import "flatpickr/dist/themes/dark.css";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const SearchBar = () => {
   const [where, setWhere] = useState("");
@@ -17,6 +19,8 @@ const SearchBar = () => {
   // const [from, setFrom] = useState(new Date().fp_incr(1));
   // const [until, setUntil] = useState(new Date().fp_incr(2));
   const history = useHistory();
+  const location = useLocation();
+
   const [validPlace, setValidPlace] = useState(false);
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -25,12 +29,40 @@ const SearchBar = () => {
   const [from, setFrom] = useState(tomorrow);
   const [until, setUntil] = useState(dayAfter);
 
+  // const handleSearchClick = () => {
+  //   localStorage.setItem("fromDate", from);
+  //   localStorage.setItem("untilDate", until);
+  //   localStorage.setItem("where", where);
+  //   localStorage.setItem("coords", JSON.stringify(coords));
+  //   history.push("/cars/");
+  // };
+
+  // useEffect(() => {
+  //   const urlParams = new URLSearchParams(location.search);
+  //   if (urlParams.get("location")) {
+  //     setWhere(urlParams.get("location"));
+  //   }
+  //   if (urlParams.get("dates")) {
+  //     const dates = urlParams.get("dates").split(",");
+  //     setFrom(dates[0]);
+  //     setUntil(dates[1]);
+  //   }
+  // }, [location]);
+
   const handleSearchClick = () => {
-    localStorage.setItem("fromDate", from);
-    localStorage.setItem("untilDate", until);
-    localStorage.setItem("where", where);
-    localStorage.setItem("coords", JSON.stringify(coords));
-    history.push("/cars/");
+    const searchParams = new URLSearchParams();
+    if (coords) {
+      searchParams.set("coords", `${coords.lat},${coords.lng}`);
+      searchParams.set("location", where);
+    } else {
+      searchParams.set("coords", "39.24140288621095,-119.42514550357927");
+      searchParams.set("cityZoom", 15);
+    }
+    searchParams.set("dates", `${from},${until}`);
+    history.push({
+      pathname: "/cars",
+      search: searchParams.toString(),
+    });
   };
 
   // const handleDateInput = (e) => {

@@ -17,6 +17,8 @@ const CarSearchIndexItem = ({
   searchPageFromDate,
 }) => {
   const [heartClick, setHeartClick] = useState(false);
+  const searchParams = new URLSearchParams();
+  const currentSearchParams = new URLSearchParams(window.location.search);
 
   const handleHeartClick = () => {
     setHeartClick(!heartClick);
@@ -42,7 +44,11 @@ const CarSearchIndexItem = ({
     localStorage.setItem("cityZoom", 14);
     localStorage.setItem("fromDate", searchPageFromDate);
     localStorage.setItem("untilDate", searchPageUntilDate);
-    history.push(`/cars/${car.id}`);
+    // history.push(`/cars/${car.id}`);
+    history.push({
+      pathname: `/cars/${car.id}`,
+      search: currentSearchParams.toString(),
+    });
   };
 
   useEffect(() => {
