@@ -65,8 +65,8 @@ const SearchLine = (
   const coordsParams = urlParams.get("coords");
   const datesParam = urlParams.get("dates");
   const defaultCoords = {
-    lat: "39.24140288621095",
-    lng: "-119.42514550357927",
+    lat: 39.24140288621095,
+    lng: -119.42514550357927,
   };
 
   // useEffect(() => {
@@ -120,7 +120,8 @@ const SearchLine = (
     //   });
     // }
     setFlatpickrKey(Date.now());
-  }, [location.search]);
+    // }, [location.search]);
+  }, [locationParams, coordsParams, datesParam]);
 
   // useEffect(() => {
   //   console.log("from:", from);
@@ -165,7 +166,8 @@ const SearchLine = (
   const handleSearchClick = () => {
     // const searchParams = new URLSearchParams();
     // console.log(coords, "coords");
-    if (coords) {
+    console.log(coords, "coords", defaultCoords, "defaultCoords");
+    if (coords && JSON.stringify(coords) !== JSON.stringify(defaultCoords)) {
       existingSearchParams.set("coords", `${coords.lat},${coords.lng}`);
       // existingSearchParams.set("coords", coords);
       existingSearchParams.delete("zoom");
@@ -199,7 +201,7 @@ const SearchLine = (
   // };
 
   const handleOnClose = (selectedDates) => {
-    console.log("in handleOnClose");
+    console.log("in handleOnClose", selectedDates);
     // existingSearchParams.set("dates", `${from},${until}`);
     // const updatedSearchParams = new URLSearchParams(
     //   existingSearchParams.toString()
@@ -213,11 +215,18 @@ const SearchLine = (
     // await setFrom(selectedDates[0]);
     // await setUntil(selectedDates[1]);
     // existingSearchParams.set("dates", `${from},${until}`);
-    if (selectedDates.length === 2) setDateRange(selectedDates);
-    existingSearchParams.set("dates", dateRange);
-    setFlatpickrKey(Date.now());
-    console.log(dateRange, "dateRange after handleclose");
-    history.push(`${location.pathname}?${existingSearchParams.toString()}`);
+    // if (selectedDates.length === 2) setDateRange(selectedDates);  ///rerender?
+    if (selectedDates.length === 2) {
+      existingSearchParams.set("dates", dateRange);
+      // setFlatpickrKey(Date.now());
+      // history.push(`${location.pathname}?${existingSearchParams.toString()}`);
+      history.push({
+        pathname: "/cars",
+        search: existingSearchParams.toString(),
+      });
+    }
+    // // console.log(dateRange, "dateRange after handleclose");
+    // history.push(`${location.pathname}?${existingSearchParams.toString()}`);
 
     // history.push({
     //   pathname: "/cars",
@@ -232,7 +241,7 @@ const SearchLine = (
   };
 
   const handleDateInput = (selectedDates) => {
-    console.log("selectedDates:", selectedDates, dateRange, "dateRange");
+    // console.log("selectedDates:", selectedDates, dateRange, "dateRange");
     if (selectedDates.length < 2) {
       return;
     } else if (selectedDates.length === 2) {
@@ -241,6 +250,22 @@ const SearchLine = (
     // setFrom(selectedDates[0]);
     // setUntil(selectedDates[1]);
   };
+
+  // useEffect(() => {
+  //   existingSearchParams.set("dates", dateRange);
+  //   setFlatpickrKey(Date.now());
+  //   // console.log(dateRange, "dateRange after handleclose");
+  //   history.push(`${location.pathname}?${existingSearchParams.toString()}`);
+  //   // console.log(dateRange, "dateRange");
+  // }, [dateRange]);
+
+  // useEffect(() => {
+  //   existingSearchParams.set("dates", dateRange);
+  //   setFlatpickrKey(Date.now());
+  //   // console.log(dateRange, "dateRange after handleclose");
+  //   history.push(`${location.pathname}?${existingSearchParams.toString()}`);
+  //   // console.log(dateRange, "dateRange");
+  // }, [dateRange]);
 
   // useEffect(() => {
   //   if (until) {
@@ -268,6 +293,14 @@ const SearchLine = (
     setCoords(null);
   };
 
+  // useEffect(() => {
+  //   existingSearchParams.set("coords", dateRange);
+  //   setFlatpickrKey(Date.now());
+  //   // console.log(dateRange, "dateRange after handleclose");
+  //   history.push(`${location.pathname}?${existingSearchParams.toString()}`);
+  //   // console.log(dateRange, "dateRange");
+  // }, [coords]);
+
   const handlePlaceOnSelect = (address) => {
     setWhere(address);
     geocodeByAddress(address)
@@ -278,15 +311,15 @@ const SearchLine = (
       .catch((error) => console.error("Error", error));
     setValidPlace(true);
 
-    if (coords) {
-      existingSearchParams.set("coords", `${coords.lat},${coords.lng}`);
-      existingSearchParams.delete("zoom");
-      existingSearchParams.set("location", where);
-    }
-    history.push({
-      pathname: "/cars",
-      search: existingSearchParams.toString(),
-    });
+    // if (coords) {
+    //   existingSearchParams.set("coords", `${coords.lat},${coords.lng}`);
+    //   existingSearchParams.delete("zoom");
+    //   existingSearchParams.set("location", where);
+    // }
+    // history.push({
+    //   pathname: "/cars",
+    //   search: existingSearchParams.toString(),
+    // });
   };
 
   const searchButton = () => {
