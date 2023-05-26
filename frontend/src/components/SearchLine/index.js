@@ -22,7 +22,7 @@ const SearchLine = (
   }
 ) => {
   const [where, setWhere] = useState("");
-  const [coords, setCoords] = useState("");
+  const [coords, setCoords] = useState(null);
   const [flatpickrKey, setFlatpickrKey] = useState(Date.now());
 
   // const [from, setFrom] = useState("");
@@ -37,8 +37,8 @@ const SearchLine = (
   dayAfter.setDate(dayAfter.getDate() + 2);
   // const [from, setFrom] = useState(tomorrow);
   // const [until, setUntil] = useState(dayAfter);
-  const [from, setFrom] = useState(tomorrow);
-  const [until, setUntil] = useState(dayAfter);
+  // const [from, setFrom] = useState(tomorrow);
+  // const [until, setUntil] = useState(dayAfter);
   const [dateRange, setDateRange] = useState([tomorrow, dayAfter]);
   // useEffect(() => {
   //   if (searchPageFromDate) {
@@ -58,7 +58,7 @@ const SearchLine = (
   //   }
   // }, [searchPageWhere]);
   const urlParams = new URLSearchParams(location.search);
-  const searchParams = new URLSearchParams();
+  // const searchParams = new URLSearchParams();
   const existingSearchParams = new URLSearchParams(location.search);
 
   const locationParams = urlParams.get("location");
@@ -168,6 +168,7 @@ const SearchLine = (
     if (coords) {
       existingSearchParams.set("coords", `${coords.lat},${coords.lng}`);
       // existingSearchParams.set("coords", coords);
+      existingSearchParams.delete("zoom");
 
       existingSearchParams.set("location", where);
     } else {
@@ -176,7 +177,8 @@ const SearchLine = (
         // "39.24140288621095,-119.42514550357927"
         `${defaultCoords.lat},${defaultCoords.lng}`
       );
-      existingSearchParams.set("cityZoom", 15);
+      // existingSearchParams.set("cityZoom", 15);
+      existingSearchParams.set("zoom", 5);
     }
     // existingSearchParams.set("dates", `${from},${until}`);
     existingSearchParams.set("dates", dateRange);
@@ -257,6 +259,7 @@ const SearchLine = (
   const handlePlaceOnChange = (address) => {
     setWhere(address);
     setValidPlace(false);
+    setCoords(null);
   };
 
   const handlePlaceOnSelect = (address) => {

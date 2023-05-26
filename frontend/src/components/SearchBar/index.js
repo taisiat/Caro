@@ -56,7 +56,8 @@ const SearchBar = () => {
       searchParams.set("location", where);
     } else {
       searchParams.set("coords", "39.24140288621095,-119.42514550357927");
-      searchParams.set("cityZoom", 15);
+      // searchParams.set("cityZoom", 15);
+      searchParams.set("zoom", 15);
     }
     searchParams.set("dates", `${from},${until}`);
     history.push({
