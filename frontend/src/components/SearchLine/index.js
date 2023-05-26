@@ -164,7 +164,7 @@ const SearchLine = (
 
   const handleSearchClick = () => {
     // const searchParams = new URLSearchParams();
-    console.log(coords, "coords");
+    // console.log(coords, "coords");
     if (coords) {
       existingSearchParams.set("coords", `${coords.lat},${coords.lng}`);
       // existingSearchParams.set("coords", coords);
@@ -199,6 +199,7 @@ const SearchLine = (
   // };
 
   const handleOnClose = (selectedDates) => {
+    console.log("in handleOnClose");
     // existingSearchParams.set("dates", `${from},${until}`);
     // const updatedSearchParams = new URLSearchParams(
     //   existingSearchParams.toString()
@@ -212,9 +213,10 @@ const SearchLine = (
     // await setFrom(selectedDates[0]);
     // await setUntil(selectedDates[1]);
     // existingSearchParams.set("dates", `${from},${until}`);
-    setDateRange(selectedDates);
+    if (selectedDates.length === 2) setDateRange(selectedDates);
     existingSearchParams.set("dates", dateRange);
-
+    setFlatpickrKey(Date.now());
+    console.log(dateRange, "dateRange after handleclose");
     history.push(`${location.pathname}?${existingSearchParams.toString()}`);
 
     // history.push({
@@ -230,8 +232,12 @@ const SearchLine = (
   };
 
   const handleDateInput = (selectedDates) => {
-    if (!selectedDates[0]) return;
-    if (selectedDates.length === 2) setDateRange(selectedDates);
+    console.log("selectedDates:", selectedDates, dateRange, "dateRange");
+    if (selectedDates.length < 2) {
+      return;
+    } else if (selectedDates.length === 2) {
+      setDateRange(selectedDates);
+    }
     // setFrom(selectedDates[0]);
     // setUntil(selectedDates[1]);
   };
@@ -271,11 +277,21 @@ const SearchLine = (
       })
       .catch((error) => console.error("Error", error));
     setValidPlace(true);
+
+    if (coords) {
+      existingSearchParams.set("coords", `${coords.lat},${coords.lng}`);
+      existingSearchParams.delete("zoom");
+      existingSearchParams.set("location", where);
+    }
+    history.push({
+      pathname: "/cars",
+      search: existingSearchParams.toString(),
+    });
   };
 
   const searchButton = () => {
     // if (until && from && until >= from && (validPlace || where === "")) {
-    if (dateRange && (validPlace || where === "")) {
+    if (dateRange.length === 2 && (validPlace || where === "")) {
       return (
         <div id="search-button-container-line" onClick={handleSearchClick}>
           <RiSearch2Line id="search-icon" className="search-line-button" />

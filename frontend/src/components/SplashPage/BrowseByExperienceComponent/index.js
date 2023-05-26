@@ -44,6 +44,7 @@ const BrowseByExperienceComponent = () => {
   const handleExperienceClick = (experience) => {
     searchParams.set("experience", experience);
     searchParams.set("dates", `${tomorrow},${dayAfter}`);
+    searchParams.set("zoom", 5);
 
     history.push({
       pathname: "/cars",
