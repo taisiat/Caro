@@ -29,6 +29,7 @@ function CarShowPage() {
   const reviews = car ? Object.values(car.reviews) : null;
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  // const [dateRange, setDateRange] = useState("");
   const [searchPageWhere, setSearchPageWhere] = useState("");
   // const fromDate = localStorage.getItem("fromDate");
   // const untilDate = localStorage.getItem("untilDate");
@@ -39,6 +40,7 @@ function CarShowPage() {
   const imageListLength = car?.photosUrl ? car.photosUrl.length : 0;
   const history = useHistory();
   const favorites = useSelector((state) => Object.values(state.favorites));
+  // const datesParam = urlParams.get("dates");
 
   useEffect(() => {
     dispatch(fetchFavorites());
@@ -154,12 +156,12 @@ function CarShowPage() {
   return (
     <div id="car-show-container">
       <SearchLine
-        searchPageFromDate={startDate}
-        setSearchPageFromDate={setStartDate}
-        searchPageUntilDate={endDate}
-        setSearchPageUntilDate={setEndDate}
-        searchPageWhere={searchPageWhere}
-        setSearchPageWhere={setSearchPageWhere}
+      // searchPageFromDate={startDate}
+      // setSearchPageFromDate={setStartDate}
+      // searchPageUntilDate={endDate}
+      // setSearchPageUntilDate={setEndDate}
+      // searchPageWhere={searchPageWhere}
+      // setSearchPageWhere={setSearchPageWhere}
       />
       <div id="car-show-heart-container">
         <FavHeart className="heart-car-show" car={car} favorites={favorites} />

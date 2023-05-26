@@ -7,13 +7,17 @@ import { createTrip } from "../../store/trips";
 import { __esModule } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/dark.css";
 
 const CarBookForm = ({ car }) => {
   const sessionUser = useSelector((state) => state.session.user);
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  // const [startDate, setStartDate] = useState("");
+  // const [endDate, setEndDate] = useState("");
   // const fromDate = localStorage.getItem("fromDate");
   // const untilDate = localStorage.getItem("untilDate");
   const { carId } = useParams();
@@ -25,6 +29,15 @@ const CarBookForm = ({ car }) => {
   };
   const [errors, setErrors] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const urlParams = new URLSearchParams(location.search);
+
+  const datesParam = urlParams.get("dates");
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfter = new Date();
+  dayAfter.setDate(dayAfter.getDate() + 2);
+  const [dateRange, setDateRange] = useState([tomorrow, dayAfter]);
+  const [flatpickrKey, setFlatpickrKey] = useState(Date.now());
 
   // useEffect(() => {
   //   if (fromDate) {
@@ -44,9 +57,22 @@ const CarBookForm = ({ car }) => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    if (datesParam) {
+      const datesArray = datesParam.split(",");
+      const fromDate = new Date(datesArray[0].substring(0, 15));
+      const untilDate = new Date(datesArray[1].substring(0, 15));
+      setDateRange([fromDate, untilDate]);
+      setFlatpickrKey(Date.now());
+    }
+  }, [datesParam]);
+
   const tripPrice = () => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    // const start = new Date(startDate);
+    const start = new Date(dateRange[0]);
+
+    // const end = new Date(endDate);
+    const end = new Date(dateRange[1]);
     const days = (end - start) / (1000 * 60 * 60 * 24) + 1;
     const protectionPrice = protectionPrices[selectedAnswer] * days;
     return days * car.dailyRate + protectionPrice;
@@ -61,14 +87,14 @@ const CarBookForm = ({ car }) => {
       return;
     }
 
-    if (new Date(startDate) <= new Date()) {
+    if (new Date(dateRange[0]) <= new Date()) {
       setErrors(["Start date must be in the future."]);
       return;
     }
     const tripData = {
       carId,
-      startDate: handleDateChange(startDate),
-      endDate: handleDateChange(endDate),
+      startDate: handleDateChange(dateRange[0]),
+      endDate: handleDateChange(dateRange[1]),
       protectionPlan: selectedAnswer,
     };
 
@@ -100,20 +126,41 @@ const CarBookForm = ({ car }) => {
     return utcDate;
   };
 
-  const handleDateInput = (e) => {
-    setStartDate(e.target.value);
-    if (endDate === "") {
-      const nextDay = new Date(e.target.value);
-      nextDay.setDate(nextDay.getDate() + 1);
-      setEndDate(nextDay.toISOString().slice(0, 10));
+  // const handleDateInput = (e) => {
+  //   setStartDate(e.target.value);
+  //   if (endDate === "") {
+  //     const nextDay = new Date(e.target.value);
+  //     nextDay.setDate(nextDay.getDate() + 1);
+  //     setEndDate(nextDay.toISOString().slice(0, 10));
+  //   }
+  // };
+
+  // const handleDateInput = (e) => {
+  //   setStartDate(e.target.value);
+  //   if (endDate === "") {
+  //     const nextDay = new Date(e.target.value);
+  //     nextDay.setDate(nextDay.getDate() + 1);
+  //     setEndDate(nextDay.toISOString().slice(0, 10));
+  //   }
+  // };
+
+  const handleDateInput = (selectedDates) => {
+    // console.log("selectedDates:", selectedDates, dateRange, "dateRange");
+    if (selectedDates.length < 2) {
+      return;
+    } else if (selectedDates.length === 2) {
+      setDateRange(selectedDates);
     }
+    // setFrom(selectedDates[0]);
+    // setUntil(selectedDates[1]);
   };
 
   return (
     <>
       <div id="car-show-price-container">
         <h3 className="daily-rate-pricing">{`$${car.dailyRate} / day`}</h3>
-        {startDate && endDate && selectedAnswer ? (
+        {/* {startDate && endDate && selectedAnswer ? ( */}
+        {dateRange.length === 2 && selectedAnswer ? (
           <p>{`$${tripPrice()}  total`}</p>
         ) : (
           <p>Add trip dates and protection plan to see final price</p>
@@ -121,7 +168,39 @@ const CarBookForm = ({ car }) => {
       </div>
       <div id="search-car-show-container"></div>
       <form onSubmit={handleSubmit}>
-        <p className="form-field-title">Trip start</p>
+        <div id="when-container-create-trip">
+          <p className="form-field-title">Trip dates</p>
+          <div id="from-input-container-car-show">
+            <Flatpickr
+              key={flatpickrKey}
+              className="search-date-create-trip-flatpickr"
+              placeholder="Start and end dates for your trip"
+              options={{
+                dateFormat: "Y-m-d",
+                minDate: new Date().fp_incr(1),
+                defaultDate: dateRange,
+                onChange: handleDateInput,
+                // onClose: handleOnClose,
+                altInput: true,
+                altFormat: "F j, Y",
+                mode: "range",
+                // onReady: function (selectedDates, dateStr, instance) {
+                // instance.setDate([from, until]);
+                // },
+              }}
+            />
+          </div>
+        </div>
+        {errors.map((error) => {
+          if (error.includes("date"))
+            return (
+              <p className="booking-error-msg" key={error}>
+                {error}
+              </p>
+            );
+        })}
+
+        {/* <p className="form-field-title">Trip start</p>
         <div id="from-input-container-car-show">
           <input
             type="date"
@@ -130,16 +209,16 @@ const CarBookForm = ({ car }) => {
             value={startDate}
             onChange={handleDateInput}
           ></input>
-        </div>
-        {errors.map((error) => {
+        </div> */}
+        {/* {errors.map((error) => {
           if (error.includes("Start"))
             return (
               <p className="booking-error-msg" key={error}>
                 {error}
               </p>
             );
-        })}
-        <p className="form-field-title">Trip end</p>
+        })} */}
+        {/* <p className="form-field-title">Trip end</p>
         <div id="until-input-container-car-show">
           <input
             type="date"
@@ -158,7 +237,7 @@ const CarBookForm = ({ car }) => {
                 {error}
               </p>
             );
-        })}
+        })} */}
         <h2 className="form-field-title">Please select a protection plan</h2>
         <div id="protection-plan-options-container">
           <label
