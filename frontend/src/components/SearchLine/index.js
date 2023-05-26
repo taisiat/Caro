@@ -183,11 +183,48 @@ const SearchLine = (
   //   }
   // };
 
+  // const handleOnClose = async (selectedDates) => {
+  //   // existingSearchParams.set("dates", `${from},${until}`);
+  //   // const updatedSearchParams = new URLSearchParams(
+  //   //   existingSearchParams.toString()
+  //   // );
+  //   // updatedSearchParams.set("dates", `${from},${until}`);
+
+  //   // history.push({
+  //   //   pathname: "/cars",
+  //   //   search: updatedSearchParams.toString(),
+  //   // });
+  //   await setFrom(selectedDates[0]);
+  //   await setUntil(selectedDates[1]);
+  //   existingSearchParams.set("dates", `${from},${until}`);
+
+  //   history.push({
+  //     pathname: "/cars",
+  //     search: existingSearchParams.toString(),
+  //   });
+
+  //   // existingSearchParams.set("dates", `${from},${until}`);
+  //   // history.push({
+  //   //   pathname: "/cars",
+  //   //   search: existingSearchParams.toString(),
+  //   // });
+  // };
+
   const handleDateInput = (selectedDates) => {
     if (!selectedDates[0]) return;
     setFrom(selectedDates[0]);
     setUntil(selectedDates[1]);
   };
+
+  // useEffect(() => {
+  //   if (until) {
+  //     existingSearchParams.set("dates", `${from},${until}`);
+  //     history.push({
+  //       pathname: "/cars",
+  //       search: existingSearchParams.toString(),
+  //     });
+  //   }
+  // }, [until]);
 
   // const handleSelect = (address) => {
   //   setWhere(address);
@@ -317,6 +354,7 @@ const SearchLine = (
               minDate: new Date().fp_incr(1),
               defaultDate: [from, until],
               onChange: handleDateInput,
+              // onClose: handleOnClose,
               altInput: true,
               altFormat: "F j, Y",
               mode: "range",
