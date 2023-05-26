@@ -15,25 +15,72 @@ function CarMap({
   const mapRef = useRef(null);
   const markers = useRef({});
   const history = useHistory();
-  const cityCoords = JSON.parse(localStorage.getItem("cityCoords"));
-  const cityZoom = JSON.parse(localStorage.getItem("cityZoom"));
-  const coords = JSON.parse(localStorage.getItem("coords"));
+  // const cityCoords = JSON.parse(localStorage.getItem("cityCoords"));
+  // const cityZoom = JSON.parse(localStorage.getItem("cityZoom"));
+  // const coords = JSON.parse(localStorage.getItem("coords"));
   const location = useLocation();
+  const urlParams = new URLSearchParams(location.search);
+  const coordsParams = urlParams.get("coords");
+  const zoomParams = urlParams.get("zoom");
 
   useEffect(() => {
+    console.log("in useeffect", map);
     if (map) {
-      const urlParams = new URLSearchParams(location.search);
-      const coordsParams = urlParams.get("coords");
+      // const urlParams = new URLSearchParams(location.search);
+      // const coordsParams = urlParams.get("coords");
       if (coordsParams) {
         const coords = coordsParams
           .split(",")
           .map((coord) => parseFloat(coord));
         const newLatLng = new window.google.maps.LatLng(coords[0], coords[1]);
         map.setCenter(newLatLng);
-        map.setZoom(14);
+        if (zoomParams) {
+          console.log("in zoomparams", zoomParams);
+          map.setZoom(parseInt(zoomParams));
+        } else {
+          map.setZoom(14);
+        }
+        // console.log(
+        //   mapOptions.zoom,
+        //   "mapOptions.zoom",
+        //   mapOptions.center,
+        //   "mapOptions.center"
+        // );
       }
     }
-  }, [location]);
+    // }, [location]);
+  }, [coordsParams, zoomParams, map]);
+
+  // useEffect(() => {
+  //   if (map) {
+  //     // const urlParams = new URLSearchParams(location.search);
+  //     // const coordsParams = urlParams.get("coords");
+  //     if (zoomParams) {
+  //       // map.setCenter(newLatLng);
+  //       map.setZoom(zoomParams);
+  //       // mapOptions.zoom = zoomParams;
+  //     } else {
+  //       map.setZoom(14);
+  //       // mapOptions.zoom = 14;
+  //     }
+  //   } else {
+  //     if (zoomParams) {
+  //       // map.setCenter(newLatLng);
+  //       // map.setZoom(zoomParams);
+  //       mapOptions.zoom = zoomParams;
+  //     } else {
+  //       // map.setZoom(14);
+  //       mapOptions.zoom = 14;
+  //     }
+  // //   }
+  // //   // }, [location]);
+  // }, [zoomParams]);
+
+  // useEffect(() => {
+  //   if (zoomParams) {
+  //     mapOptions.zoom = zoomParams;
+  //   }
+  // }, [zoomParams]);
 
   useEffect(() => {
     if (map && mapOptions.center) {
@@ -45,28 +92,28 @@ function CarMap({
     }
   }, [map, mapOptions.center]);
 
-  useEffect(() => {
-    if (cityCoords) {
-      mapOptions.center = cityCoords;
-      mapOptions.zoom = cityZoom;
-      localStorage.clear();
-    }
-  }, [cityCoords]);
+  // useEffect(() => {
+  //   if (cityCoords) {
+  //     mapOptions.center = cityCoords;
+  //     mapOptions.zoom = cityZoom;
+  //     localStorage.clear();
+  //   }
+  // }, [cityCoords]);
 
-  useEffect(() => {
-    if (cityZoom) {
-      mapOptions.zoom = cityZoom;
-      localStorage.clear();
-    }
-  }, [cityZoom]);
+  // useEffect(() => {
+  //   if (cityZoom) {
+  //     mapOptions.zoom = cityZoom;
+  //     localStorage.clear();
+  //   }
+  // }, [cityZoom]);
 
-  useEffect(() => {
-    if (coords) {
-      mapOptions.center = coords;
-      mapOptions.zoom = 14;
-      localStorage.clear();
-    }
-  }, [coords]);
+  // useEffect(() => {
+  //   if (coords) {
+  //     mapOptions.center = coords;
+  //     mapOptions.zoom = 14;
+  //     localStorage.clear();
+  //   }
+  // }, [coords]);
 
   useEffect(() => {
     if (!map) {
