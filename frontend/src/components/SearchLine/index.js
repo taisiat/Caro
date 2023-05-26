@@ -39,6 +39,7 @@ const SearchLine = (
   // const [until, setUntil] = useState(dayAfter);
   const [from, setFrom] = useState(tomorrow);
   const [until, setUntil] = useState(dayAfter);
+  const [dateRange, setDateRange] = useState([tomorrow, dayAfter]);
   // useEffect(() => {
   //   if (searchPageFromDate) {
   //     setFrom(searchPageFromDate);
@@ -63,6 +64,10 @@ const SearchLine = (
   const locationParams = urlParams.get("location");
   const coordsParams = urlParams.get("coords");
   const datesParam = urlParams.get("dates");
+  const defaultCoords = {
+    lat: "39.24140288621095",
+    lng: "-119.42514550357927",
+  };
 
   // useEffect(() => {
   //   // const searchParams = new URLSearchParams();
@@ -91,7 +96,8 @@ const SearchLine = (
       const coordsArray = coordsParams.split(",");
       const lat = parseFloat(coordsArray[0]);
       const lng = parseFloat(coordsArray[1]);
-      setCoords([lat, lng]);
+      // setCoords([lat, lng]);
+      setCoords({ lat, lng });
     }
     // const datesParam = urlParams.get("dates");
     // console.log("datesParam:", datesParam);
@@ -101,8 +107,9 @@ const SearchLine = (
       const datesArray = datesParam.split(",");
       const fromDate = new Date(datesArray[0].substring(0, 15));
       const untilDate = new Date(datesArray[1].substring(0, 15));
-      setFrom(new Date(fromDate));
-      setUntil(new Date(untilDate));
+      setDateRange([fromDate, untilDate]);
+      // setFrom(new Date(fromDate));
+      // setUntil(new Date(untilDate));
       // console.log(fromDate, untilDate, "dates", from, "from", until, "until");
     }
     // else {
@@ -157,17 +164,23 @@ const SearchLine = (
 
   const handleSearchClick = () => {
     // const searchParams = new URLSearchParams();
+    console.log(coords, "coords");
     if (coords) {
       existingSearchParams.set("coords", `${coords.lat},${coords.lng}`);
+      // existingSearchParams.set("coords", coords);
+
       existingSearchParams.set("location", where);
     } else {
       existingSearchParams.set(
         "coords",
-        "39.24140288621095,-119.42514550357927"
+        // "39.24140288621095,-119.42514550357927"
+        `${defaultCoords.lat},${defaultCoords.lng}`
       );
       existingSearchParams.set("cityZoom", 15);
     }
-    existingSearchParams.set("dates", `${from},${until}`);
+    // existingSearchParams.set("dates", `${from},${until}`);
+    existingSearchParams.set("dates", dateRange);
+
     history.push({
       pathname: "/cars",
       search: existingSearchParams.toString(),
@@ -183,37 +196,42 @@ const SearchLine = (
   //   }
   // };
 
-  // const handleOnClose = async (selectedDates) => {
-  //   // existingSearchParams.set("dates", `${from},${until}`);
-  //   // const updatedSearchParams = new URLSearchParams(
-  //   //   existingSearchParams.toString()
-  //   // );
-  //   // updatedSearchParams.set("dates", `${from},${until}`);
+  const handleOnClose = (selectedDates) => {
+    // existingSearchParams.set("dates", `${from},${until}`);
+    // const updatedSearchParams = new URLSearchParams(
+    //   existingSearchParams.toString()
+    // );
+    // updatedSearchParams.set("dates", `${from},${until}`);
 
-  //   // history.push({
-  //   //   pathname: "/cars",
-  //   //   search: updatedSearchParams.toString(),
-  //   // });
-  //   await setFrom(selectedDates[0]);
-  //   await setUntil(selectedDates[1]);
-  //   existingSearchParams.set("dates", `${from},${until}`);
+    // history.push({
+    //   pathname: "/cars",
+    //   search: updatedSearchParams.toString(),
+    // });
+    // await setFrom(selectedDates[0]);
+    // await setUntil(selectedDates[1]);
+    // existingSearchParams.set("dates", `${from},${until}`);
+    setDateRange(selectedDates);
+    existingSearchParams.set("dates", dateRange);
 
-  //   history.push({
-  //     pathname: "/cars",
-  //     search: existingSearchParams.toString(),
-  //   });
+    history.push(`${location.pathname}?${existingSearchParams.toString()}`);
 
-  //   // existingSearchParams.set("dates", `${from},${until}`);
-  //   // history.push({
-  //   //   pathname: "/cars",
-  //   //   search: existingSearchParams.toString(),
-  //   // });
-  // };
+    // history.push({
+    //   pathname: "/cars",
+    //   search: existingSearchParams.toString(),
+    // });
+
+    // existingSearchParams.set("dates", `${from},${until}`);
+    // history.push({
+    //   pathname: "/cars",
+    //   search: existingSearchParams.toString(),
+    // });
+  };
 
   const handleDateInput = (selectedDates) => {
     if (!selectedDates[0]) return;
-    setFrom(selectedDates[0]);
-    setUntil(selectedDates[1]);
+    if (selectedDates.length === 2) setDateRange(selectedDates);
+    // setFrom(selectedDates[0]);
+    // setUntil(selectedDates[1]);
   };
 
   // useEffect(() => {
@@ -253,7 +271,8 @@ const SearchLine = (
   };
 
   const searchButton = () => {
-    if (until && from && until >= from && (validPlace || where === "")) {
+    // if (until && from && until >= from && (validPlace || where === "")) {
+    if (dateRange && (validPlace || where === "")) {
       return (
         <div id="search-button-container-line" onClick={handleSearchClick}>
           <RiSearch2Line id="search-icon" className="search-line-button" />
@@ -352,9 +371,9 @@ const SearchLine = (
             options={{
               dateFormat: "Y-m-d",
               minDate: new Date().fp_incr(1),
-              defaultDate: [from, until],
+              defaultDate: dateRange,
               onChange: handleDateInput,
-              // onClose: handleOnClose,
+              onClose: handleOnClose,
               altInput: true,
               altFormat: "F j, Y",
               mode: "range",
