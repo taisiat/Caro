@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div id="splash-footer">
       <div id="footer-icons-container">
-        <p>TAISIA KARASEVA</p>
+        <p id="name">TAISIA KARASEVA</p>
         <a
           className="footer-link"
           href="https://github.com/taisiat/Caro.git"
