@@ -46,6 +46,7 @@ This project is implemented with the following technologies:
 - `Ruby on Rails` backend with `JBuilder` to sculpt backend responses
 - Google `Maps JavaScript API`, `Places API`, and `Geocoding API` to enable the map and locations search
 - `AWS` for hosting car and user images and `Active Storage` for using images in app
+- `Flatpickr` for trip date selection
 - `Heroku` for app hosting
 - `Webpack` to bundle and transpile the source code
 - `npm` to manage project dependencies
@@ -124,7 +125,7 @@ def index
       @cars
     end
 
-    if experience_filter === ''
+    if experience_filter === 'all'
       @cars
     else
       @cars = @cars.where(category: experience_filter)
@@ -145,7 +146,7 @@ The resultant cars list gets passed to the `Google Map` for placement of markers
 
 ---
 
-### An interesting search challenge
+### An interesting search challenge // section needs update
 
 Caro allows users to start a `Places Search Box` + dates search from any page via a navbar searchline or the splash page's searchbar. The search action triggers a jump over to the cars search index, which dispatches a cars fetch using the search inputs.
 
@@ -197,7 +198,7 @@ Meanwhile the `CarMap` listens to changes in the URL, parses the value if it fin
 
 The change in the `Google Map`'s viewport triggers a change to `bounds` as described above, which causes a new dispatch to fetch cars, refreshing the search results.
 
-Storing the search query in the URL has other benefits, like ability to share the search parameters easily with friends. Refactoring all search to use this method, rather than `localStorage`, is a major improvement on the roadmap.
+Storing the search query in the URL has other benefits, like ability to share the search parameters easily with friends. Refactoring all search to use this method, rather than `localStorage`, is a major improvement on the roadmap. // update
 
 ---
 
@@ -310,7 +311,7 @@ Take a look at the source files for implementation of other notable features:
 Upcoming improvements include:
 
 - Additional CRUD for listing new cars
-- Search URLs that preserve the query parameters
+- Search URLs that preserve the query parameters // WIP!
 - Ability to change user profile picture
 
 ---
