@@ -57,6 +57,7 @@ function Navigation() {
       <div id="nav-left">
         <a href="/">
           <img src={logo} alt="logo" id="logo" />
+          <div className="light-beam"></div>
         </a>
       </div>
       <div id="nav-right">{sessionLinks}</div>
