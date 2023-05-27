@@ -11,6 +11,8 @@ import { fetchTrip } from "../../store/trips";
 import { fetchTrips } from "../../store/trips";
 import SearchLine from "../SearchLine";
 import Spinner from "../Spinner";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/dark.css";
 
 const TripShowPage = () => {
   const { tripId } = useParams();
@@ -18,8 +20,8 @@ const TripShowPage = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const history = useHistory();
   const dispatch = useDispatch();
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  // const [startDate, setStartDate] = useState("");
+  // const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const protectionPrices = {
@@ -28,6 +30,8 @@ const TripShowPage = () => {
     Minimum: 10,
     None: 0,
   };
+  const [dateRange, setDateRange] = useState(null);
+  const [flatpickrKey, setFlatpickrKey] = useState(Date.now());
 
   const formattedDate = (rawDate) => {
     const date = new Date(rawDate);
@@ -35,10 +39,19 @@ const TripShowPage = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (trip) {
-      setStartDate(formattedDate(trip.startDate));
-      setEndDate(formattedDate(trip.endDate));
+      // setStartDate(formattedDate(trip.startDate));
+      // setEndDate(formattedDate(trip.endDate));
+      setDateRange([
+        formattedDate(trip.startDate),
+        formattedDate(trip.endDate),
+      ]);
       setSelectedAnswer(trip.protectionPlan);
+      setFlatpickrKey(Date.now());
     }
   }, [trip]);
 
@@ -62,8 +75,8 @@ const TripShowPage = () => {
   }
 
   const tripPrice = () => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = new Date(dateRange[0]);
+    const end = new Date(dateRange[1]);
     const days = (end - start) / (1000 * 60 * 60 * 24) + 1;
     const protectionPrice = protectionPrices[selectedAnswer] * days;
     return days * trip.car.dailyRate + protectionPrice;
@@ -73,7 +86,7 @@ const TripShowPage = () => {
     e.preventDefault();
     setErrors([]);
 
-    if (new Date(startDate) <= new Date()) {
+    if (new Date(dateRange[0]) <= new Date()) {
       setErrors(["Start date must be in the future."]);
       return;
     }
@@ -81,8 +94,8 @@ const TripShowPage = () => {
     const tripData = {
       tripId: trip.id,
       carId: trip.car.id,
-      startDate: new Date(startDate.toLocaleString()).toISOString(),
-      endDate: new Date(endDate.toLocaleString()).toISOString(),
+      startDate: new Date(dateRange[0].toLocaleString()).toISOString(),
+      endDate: new Date(dateRange[1].toLocaleString()).toISOString(),
       protectionPlan: selectedAnswer,
     };
 
@@ -115,13 +128,24 @@ const TripShowPage = () => {
     );
   };
 
+  const handleDateInput = (selectedDates) => {
+    // console.log("selectedDates:", selectedDates, dateRange, "dateRange");
+    if (selectedDates.length < 2) {
+      return;
+    } else if (selectedDates.length === 2) {
+      setDateRange(selectedDates);
+    }
+    // setFrom(selectedDates[0]);
+    // setUntil(selectedDates[1]);
+  };
+
   return (
     <>
       <SearchLine />
       <div id="trip-edit-form-container">
         <div className="car-show-price-container">
           <h3 id="daily-rate-pricing-trip-edit">{`$${trip.car.dailyRate} / day`}</h3>
-          {startDate && endDate && selectedAnswer ? (
+          {dateRange?.length === 2 && selectedAnswer ? (
             <p>{`$${tripPrice()}  total`}</p>
           ) : (
             <p>Add trip dates and protection plan to see final price</p>
@@ -129,7 +153,38 @@ const TripShowPage = () => {
         </div>
         <div id="search-car-show-container"></div>
         <form onSubmit={handleSubmit}>
-          <p className="form-field-title">Trip start</p>
+          <div id="when-container-create-trip">
+            <p className="form-field-title">Trip dates</p>
+            <div id="from-input-container-car-show">
+              <Flatpickr
+                key={flatpickrKey}
+                className="search-date-create-trip-flatpickr"
+                placeholder="Start and end dates for your trip"
+                options={{
+                  dateFormat: "Y-m-d",
+                  minDate: new Date().fp_incr(1),
+                  defaultDate: dateRange,
+                  onChange: handleDateInput,
+                  // onClose: handleOnClose,
+                  altInput: true,
+                  altFormat: "F j, Y",
+                  mode: "range",
+                  // onReady: function (selectedDates, dateStr, instance) {
+                  // instance.setDate([from, until]);
+                  // },
+                }}
+              />
+            </div>
+          </div>
+          {errors.map((error) => {
+            if (error.includes("date"))
+              return (
+                <p className="booking-error-msg" key={error}>
+                  {error}
+                </p>
+              );
+          })}
+          {/* <p className="form-field-title">Trip start</p>
           <div id="from-input-container-car-show">
             <input
               type="date"
@@ -168,7 +223,7 @@ const TripShowPage = () => {
                     {error}
                   </p>
                 );
-            })}
+            })} */}
 
           <h2 className="form-field-title">Please select a protection plan</h2>
           <div id="protection-plan-options-container">
