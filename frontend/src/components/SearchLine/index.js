@@ -124,6 +124,18 @@ const SearchLine = (
   }, [locationParams, coordsParams, datesParam]);
 
   // useEffect(() => {
+  //   if (coords) {
+  //     existingSearchParams.set("coords", `${coords.lat},${coords.lng}`);
+  //     existingSearchParams.delete("zoom");
+  //     existingSearchParams.set("location", where);
+  //   }
+  //   history.push({
+  //     pathname: "/cars",
+  //     search: existingSearchParams.toString(),
+  //   });
+  // }, [coords]);
+
+  // useEffect(() => {
   //   console.log("from:", from);
   //   console.log("until:", until);
   // }, [from, until]);
@@ -218,6 +230,7 @@ const SearchLine = (
     // if (selectedDates.length === 2) setDateRange(selectedDates);  ///rerender?
     if (selectedDates.length === 2) {
       existingSearchParams.set("dates", dateRange);
+      // existingSearchParams.delete("zoom");
       // setFlatpickrKey(Date.now());
       // history.push(`${location.pathname}?${existingSearchParams.toString()}`);
       history.push({
@@ -307,19 +320,19 @@ const SearchLine = (
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {
         setCoords(latLng);
+
+        existingSearchParams.set("coords", `${latLng.lat},${latLng.lng}`);
+        existingSearchParams.delete("zoom");
+        existingSearchParams.set("location", address);
+
+        // Push the new location to history
+        history.push({
+          pathname: "/cars",
+          search: existingSearchParams.toString(),
+        });
       })
       .catch((error) => console.error("Error", error));
     setValidPlace(true);
-
-    // if (coords) {
-    //   existingSearchParams.set("coords", `${coords.lat},${coords.lng}`);
-    //   existingSearchParams.delete("zoom");
-    //   existingSearchParams.set("location", where);
-    // }
-    // history.push({
-    //   pathname: "/cars",
-    //   search: existingSearchParams.toString(),
-    // });
   };
 
   const searchButton = () => {
@@ -336,6 +349,41 @@ const SearchLine = (
           <RiSearch2Line id="search-icon" className="search-line-button" />
         </div>
       );
+    }
+  };
+
+  const dateSearch = () => {
+    const { pathname, search } = window.location;
+    if (pathname.startsWith("/cars") && search) {
+      // if (window.location.pathname.startsWith("/cars?")) {
+      return (
+        <div id="when-container-line">
+          <p>When</p>
+          <div id="when-input-container-line">
+            <Flatpickr
+              key={flatpickrKey}
+              className="search-date-line-flatpickr"
+              placeholder="Start and end dates for your trip"
+              options={{
+                dateFormat: "Y-m-d",
+                minDate: new Date().fp_incr(1),
+                defaultDate: dateRange,
+                onChange: handleDateInput,
+                onClose: handleOnClose,
+                altInput: true,
+                altFormat: "F j, Y",
+                mode: "range",
+                // onReady: function (selectedDates, dateStr, instance) {
+                // instance.setDate([from, until]);
+                // },
+              }}
+            />
+          </div>
+        </div>
+        // {searchButton()}
+      );
+    } else {
+      return null;
     }
   };
 
@@ -359,7 +407,7 @@ const SearchLine = (
             <div>
               <input
                 {...getInputProps({
-                  placeholder: "Location... or, search everywhere",
+                  placeholder: "Search for a car by location...",
                   className: "search-input-line",
                   id: "where-input-searchline",
                 })}
@@ -413,7 +461,8 @@ const SearchLine = (
           </div>
         </div>
       </div> */}
-      <div id="when-container-line">
+      {dateSearch()}
+      {/* <div id="when-container-line">
         <p>When</p>
         <div id="when-input-container-line">
           <Flatpickr
@@ -435,8 +484,8 @@ const SearchLine = (
             }}
           />
         </div>
-      </div>
-      {searchButton()}
+      </div> */}
+      {/* {searchButton()} */}
       {/* {until < from && (
         <div id="search-button-container-line-inactive">
           <RiSearch2Line id="search-icon" className="search-line-button" />

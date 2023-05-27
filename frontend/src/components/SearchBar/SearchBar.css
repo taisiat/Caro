@@ -154,6 +154,10 @@
   margin-left: -5px;
 }
 
+.search-date-bar-flatpickr:hover {
+  cursor: pointer;
+}
+
 .flatpickr-calendar {
   font-family: "Mulish", sans-serif;
 }

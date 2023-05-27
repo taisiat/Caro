@@ -29,10 +29,13 @@ nav {
   height: 35px;
   /* transition: opacity 0.2s ease-in-out; */
   position: relative;
+  transition: transform 0.2s ease-in-out;
 }
 
 #logo:hover {
-  box-shadow: -5px -10px 10px rgba(148, 61, 247, 0.3);
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
 }
 
 .nav-button {

@@ -21,6 +21,7 @@ import ReviewIndexItem from "../ReviewIndexItem";
 import { VscAccount } from "react-icons/vsc";
 import CarMap from "../CarMap";
 import { fetchFavorites } from "../../store/favorites";
+import { useLocation } from "react-router-dom";
 
 function CarShowPage() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -41,6 +42,9 @@ function CarShowPage() {
   const history = useHistory();
   const favorites = useSelector((state) => Object.values(state.favorites));
   // const datesParam = urlParams.get("dates");
+  // const urlParams = new URLSearchParams(location.search);
+  const location = useLocation();
+  const existingSearchParams = new URLSearchParams(location.search);
 
   useEffect(() => {
     dispatch(fetchFavorites());
@@ -48,6 +52,11 @@ function CarShowPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    existingSearchParams.set("zoom", 17);
+    history.push(`${location.pathname}?${existingSearchParams.toString()}`);
   }, []);
 
   const handleImgSlider = (direction) => {
@@ -401,7 +410,7 @@ function CarShowPage() {
                 lat: parseFloat(car.location[0]),
                 lng: parseFloat(car.location[1]),
               },
-              zoom: 17,
+              // zoom: 17,
             }}
           />
         </div>
