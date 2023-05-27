@@ -229,7 +229,9 @@ const SearchLine = (
     // existingSearchParams.set("dates", `${from},${until}`);
     // if (selectedDates.length === 2) setDateRange(selectedDates);  ///rerender?
     if (selectedDates.length === 2) {
-      existingSearchParams.set("dates", dateRange);
+      existingSearchParams.set("dates", selectedDates);
+      existingSearchParams.delete("zoom");
+
       // existingSearchParams.delete("zoom");
       // setFlatpickrKey(Date.now());
       // history.push(`${location.pathname}?${existingSearchParams.toString()}`);
@@ -323,6 +325,8 @@ const SearchLine = (
 
         existingSearchParams.set("coords", `${latLng.lat},${latLng.lng}`);
         existingSearchParams.delete("zoom");
+        existingSearchParams.set("dates", dateRange);
+
         existingSearchParams.set("location", address);
 
         // Push the new location to history
