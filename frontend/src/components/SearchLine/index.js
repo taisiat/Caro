@@ -213,7 +213,7 @@ const SearchLine = (
   // };
 
   const handleOnClose = (selectedDates) => {
-    console.log("in handleOnClose", selectedDates);
+    // console.log("in handleOnClose", selectedDates);
     // existingSearchParams.set("dates", `${from},${until}`);
     // const updatedSearchParams = new URLSearchParams(
     //   existingSearchParams.toString()
@@ -231,7 +231,7 @@ const SearchLine = (
     if (selectedDates.length === 2) {
       existingSearchParams.set("dates", selectedDates);
       existingSearchParams.delete("zoom");
-
+      //add conditional to change zoom based on location presence
       // existingSearchParams.delete("zoom");
       // setFlatpickrKey(Date.now());
       // history.push(`${location.pathname}?${existingSearchParams.toString()}`);
