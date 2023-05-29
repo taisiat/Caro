@@ -232,6 +232,11 @@ const SearchLine = (
       existingSearchParams.set("dates", selectedDates);
       existingSearchParams.delete("zoom");
       //add conditional to change zoom based on location presence
+      if (validPlace) {
+        existingSearchParams.set("zoom", 15);
+      } else {
+        existingSearchParams.set("zoom", 5);
+      }
       // existingSearchParams.delete("zoom");
       // setFlatpickrKey(Date.now());
       // history.push(`${location.pathname}?${existingSearchParams.toString()}`);
