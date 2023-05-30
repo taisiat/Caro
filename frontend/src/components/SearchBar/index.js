@@ -28,6 +28,10 @@ const SearchBar = () => {
   dayAfter.setDate(dayAfter.getDate() + 2);
   const [from, setFrom] = useState(tomorrow);
   const [until, setUntil] = useState(dayAfter);
+  const defaultCoords = {
+    lat: 39.24140288621095,
+    lng: -119.42514550357927,
+  };
 
   // const handleSearchClick = () => {
   //   localStorage.setItem("fromDate", from);
@@ -54,8 +58,9 @@ const SearchBar = () => {
     if (coords) {
       searchParams.set("coords", `${coords.lat},${coords.lng}`);
       searchParams.set("location", where);
+      searchParams.set("zoom", 15);
     } else {
-      searchParams.set("coords", "39.24140288621095,-119.42514550357927");
+      searchParams.set("coords", `${defaultCoords.lat},${defaultCoords.lng}`);
       // searchParams.set("cityZoom", 15);
       // searchParams.set("zoom", 15);
       searchParams.set("zoom", 5);

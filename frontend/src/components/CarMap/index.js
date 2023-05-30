@@ -22,6 +22,7 @@ function CarMap({
   const urlParams = new URLSearchParams(location.search);
   const coordsParams = urlParams.get("coords");
   const zoomParams = urlParams.get("zoom");
+  const viewportParams = urlParams.get("viewport");
 
   useEffect(() => {
     console.log("in useeffect", map);
@@ -32,13 +33,44 @@ function CarMap({
         const coords = coordsParams
           .split(",")
           .map((coord) => parseFloat(coord));
+        console.log(coords, "coords");
         const newLatLng = new window.google.maps.LatLng(coords[0], coords[1]);
         map.setCenter(newLatLng);
-        if (zoomParams) {
-          console.log("in zoomparams", zoomParams);
-          map.setZoom(parseInt(zoomParams));
+
+        if (viewportParams) {
+          // const boundsRegex = /\((-?\d+(\.\d+)?), (-?\d+(\.\d+)?)\)/g;
+          // const boundsCoordinates = boundsParams.match(boundsRegex);
+          const bounds = new window.google.maps.LatLngBounds();
+          const coords = viewportParams
+            // .replace("(", "")
+            // .replace(")", "")
+            .split(",")
+            .map((coord) => parseFloat(coord.trim()));
+
+          console.log(coords, "coords");
+          const west = coords[0];
+          const east = coords[1];
+          const north = coords[2];
+          const south = coords[3];
+
+          bounds.extend(new window.google.maps.LatLng(north, west));
+          bounds.extend(new window.google.maps.LatLng(south, east));
+
+          // const edgePoints = boundsParams
+          //   .split(",")
+          //   .map((point) => parseFloat(point));
+          // console.log(boundsParams, "boundsParams");
+          // edgePoints.forEach((coordinate) => {
+          //   bounds.extend(
+          //     new window.google.maps.LatLng(coordinate[0], coordinate[1])
+          //   );
+          // });
+          map.fitBounds(bounds);
+          // if (zoomParams) {
+          //   console.log("in zoomparams", zoomParams);
+          //   map.setZoom(parseInt(zoomParams));
         } else {
-          map.setZoom(14);
+          map.setZoom(15); //from 14
         }
         // console.log(
         //   mapOptions.zoom,
@@ -49,7 +81,7 @@ function CarMap({
       }
     }
     // }, [location]);
-  }, [coordsParams, zoomParams, map]);
+  }, [coordsParams, zoomParams, viewportParams, map]);
 
   // useEffect(() => {
   //   if (map) {

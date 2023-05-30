@@ -230,12 +230,16 @@ const SearchLine = (
     // if (selectedDates.length === 2) setDateRange(selectedDates);  ///rerender?
     if (selectedDates.length === 2) {
       existingSearchParams.set("dates", selectedDates);
-      existingSearchParams.delete("zoom");
+      // existingSearchParams.delete("zoom");
       //add conditional to change zoom based on location presence
       if (validPlace) {
         existingSearchParams.set("zoom", 15);
       } else {
         existingSearchParams.set("zoom", 5);
+        existingSearchParams.set(
+          "coords",
+          `${defaultCoords.lat},${defaultCoords.lng}`
+        );
       }
       // existingSearchParams.delete("zoom");
       // setFlatpickrKey(Date.now());
@@ -311,6 +315,15 @@ const SearchLine = (
     setWhere(address);
     setValidPlace(false);
     setCoords(null);
+    if (!address) {
+      console.log("no address");
+      // existingSearchParams.delete("coords");
+      existingSearchParams.set("location", address);
+      history.push({
+        pathname: "/cars",
+        search: existingSearchParams.toString(),
+      });
+    }
   };
 
   // useEffect(() => {
@@ -321,26 +334,62 @@ const SearchLine = (
   //   // console.log(dateRange, "dateRange");
   // }, [coords]);
 
+  // const handlePlaceOnSelect = (address) => {
+  //   setWhere(address);
+  //   geocodeByAddress(address)
+  //     .then((results) => getLatLng(results[0]))
+  //     .then((latLng) => {
+  //       setCoords(latLng);
+  //       console.log(results[0].geometry.bounds, "bounds");
+
+  //       existingSearchParams.set("coords", `${latLng.lat},${latLng.lng}`);
+  //       existingSearchParams.delete("zoom");
+  //       existingSearchParams.set("dates", dateRange);
+
+  //       existingSearchParams.set("location", address);
+
+  //       // Push the new location to history
+  //       history.push({
+  //         pathname: "/cars",
+  //         search: existingSearchParams.toString(),
+  //       });
+  //     })
+  //     .catch((error) => console.error("Error", error));
+  //   setValidPlace(true);
+  // };
+
   const handlePlaceOnSelect = (address) => {
     setWhere(address);
     geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
-        setCoords(latLng);
+      .then((results) => {
+        console.log("Geocoding results:", results);
+        if (results && results.length > 0) {
+          getLatLng(results[0]).then((latLng) => {
+            setCoords(latLng);
+            console.log(latLng, "latLng", coords, "coords");
+            existingSearchParams.set("coords", `${latLng.lat},${latLng.lng}`);
+            existingSearchParams.delete("zoom");
+            existingSearchParams.set("dates", dateRange);
+            if (results[0].geometry.viewport) {
+              existingSearchParams.set(
+                "viewport",
+                `${results[0].geometry.viewport.Ha.hi},${results[0].geometry.viewport.Ha.lo}, ${results[0].geometry.viewport.Ua.hi}, ${results[0].geometry.viewport.Ua.lo}`
+              );
+            }
+            existingSearchParams.set("location", address);
+            history.push({
+              pathname: "/cars",
+              search: existingSearchParams.toString(),
+            });
+          });
 
-        existingSearchParams.set("coords", `${latLng.lat},${latLng.lng}`);
-        existingSearchParams.delete("zoom");
-        existingSearchParams.set("dates", dateRange);
-
-        existingSearchParams.set("location", address);
-
-        // Push the new location to history
-        history.push({
-          pathname: "/cars",
-          search: existingSearchParams.toString(),
-        });
+          // Push the new location to history
+        } else {
+          // Handle no results found case
+          console.error("No results found for the address:", address);
+        }
       })
-      .catch((error) => console.error("Error", error));
+      .catch((error) => console.error("Geocoding error:", error));
     setValidPlace(true);
   };
 

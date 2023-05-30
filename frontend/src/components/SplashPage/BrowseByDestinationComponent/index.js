@@ -17,6 +17,7 @@ const BrowseByDestinationComponent = () => {
       },
       zoom: 12,
       name: "SF",
+      fullName: "San Francisco",
     },
     SEATTLE: {
       coords: {
@@ -25,6 +26,7 @@ const BrowseByDestinationComponent = () => {
       },
       zoom: 11,
       name: "SEATTLE",
+      fullName: "Seattle",
     },
     LV: {
       coords: {
@@ -33,6 +35,7 @@ const BrowseByDestinationComponent = () => {
       },
       zoom: 12,
       name: "LV",
+      fullName: "Las Vegas",
     },
   };
   const tomorrow = new Date();
@@ -48,6 +51,7 @@ const BrowseByDestinationComponent = () => {
     );
     searchParams.set("zoom", cityOptions[city].zoom);
     searchParams.set("dates", `${tomorrow},${dayAfter}`);
+    searchParams.set("location", cityOptions[city].fullName);
 
     // history.push(`${location.pathname}?${searchParams.toString()}`);
     history.push({
