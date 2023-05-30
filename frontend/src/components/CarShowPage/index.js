@@ -45,6 +45,7 @@ function CarShowPage() {
   // const urlParams = new URLSearchParams(location.search);
   const location = useLocation();
   const existingSearchParams = new URLSearchParams(location.search);
+  const zoomParams = existingSearchParams.get("zoom");
 
   useEffect(() => {
     dispatch(fetchFavorites());
@@ -54,10 +55,10 @@ function CarShowPage() {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    existingSearchParams.set("zoom", 17);
-    history.push(`${location.pathname}?${existingSearchParams.toString()}`);
-  }, []);
+  // useEffect(() => {
+  //   // existingSearchParams.set("zoom", 17);
+  //   history.push(`${location.pathname}?${existingSearchParams.toString()}`);
+  // }, []);
 
   const handleImgSlider = (direction) => {
     handleChangeImage();
@@ -410,7 +411,7 @@ function CarShowPage() {
                 lat: parseFloat(car.location[0]),
                 lng: parseFloat(car.location[1]),
               },
-              // zoom: 17,
+              zoom: parseInt(zoomParams),
             }}
           />
         </div>

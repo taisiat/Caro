@@ -69,6 +69,8 @@ function CarMap({
           // if (zoomParams) {
           //   console.log("in zoomparams", zoomParams);
           //   map.setZoom(parseInt(zoomParams));
+        } else if (zoomParams) {
+          map.setZoom(parseInt(zoomParams));
         } else {
           map.setZoom(15); //from 14
         }

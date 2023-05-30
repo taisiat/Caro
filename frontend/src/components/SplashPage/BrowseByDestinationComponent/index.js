@@ -15,27 +15,45 @@ const BrowseByDestinationComponent = () => {
         lat: 37.773972,
         lng: -122.431297,
       },
+      // viewport: {
+      //   west: -123.1328309,
+      //   east: -122.28178,
+      //   north: 37.6398299,
+      //   south: 37.9298239,
+      // },
       zoom: 12,
       name: "SF",
-      fullName: "San Francisco",
+      fullName: "San Francisco, CA, USA",
     },
     SEATTLE: {
       coords: {
         lat: 47.6062,
         lng: -122.3321,
       },
+      // viewport: {
+      //   west: -122.2244331,
+      //   east: -122.4596959,
+      //   north: 47.734145,
+      //   south: 47.4919119,
+      // },
       zoom: 11,
       name: "SEATTLE",
-      fullName: "Seattle",
+      fullName: "Seattle, WA, USA",
     },
     LV: {
       coords: {
         lat: 36.1369025286101,
         lng: -115.13567472862186,
       },
+      // viewport: {
+      //   west: -115.414625,
+      //   east: -115.062072,
+      //   north: 36.1296229,
+      //   south: 36.380623,
+      // },
       zoom: 12,
       name: "LV",
-      fullName: "Las Vegas",
+      fullName: "Las Vegas, NV, USA",
     },
   };
   const tomorrow = new Date();
@@ -50,6 +68,10 @@ const BrowseByDestinationComponent = () => {
       `${cityOptions[city].coords.lat},${cityOptions[city].coords.lng}`
     );
     searchParams.set("zoom", cityOptions[city].zoom);
+    // searchParams.set(
+    //   "viewport",
+    //   `${cityOptions[city].viewport.west},${cityOptions[city].viewport.east}, ${cityOptions[city].viewport.north}, ${cityOptions[city].viewport.south}`
+    // );
     searchParams.set("dates", `${tomorrow},${dayAfter}`);
     searchParams.set("location", cityOptions[city].fullName);
 

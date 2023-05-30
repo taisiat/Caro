@@ -32,6 +32,8 @@ const SearchBar = () => {
     lat: 39.24140288621095,
     lng: -119.42514550357927,
   };
+  const searchParams = new URLSearchParams();
+  const [results, setResults] = useState(null);
 
   // const handleSearchClick = () => {
   //   localStorage.setItem("fromDate", from);
@@ -54,11 +56,21 @@ const SearchBar = () => {
   // }, [location]);
 
   const handleSearchClick = () => {
-    const searchParams = new URLSearchParams();
-    if (coords) {
+    // const searchParams = new URLSearchParams();
+    // if (coords) {
+    if (coords && JSON.stringify(coords) !== JSON.stringify(defaultCoords)) {
+      // searchParams.set("coords", `${coords.lat},${coords.lng}`);
+      // searchParams.set("location", where);
+      // searchParams.set("zoom", 15);
       searchParams.set("coords", `${coords.lat},${coords.lng}`);
       searchParams.set("location", where);
-      searchParams.set("zoom", 15);
+      if (results) {
+        searchParams.set(
+          "viewport",
+          `${results.geometry.viewport.Ha.hi},${results.geometry.viewport.Ha.lo}, ${results.geometry.viewport.Ua.hi}, ${results.geometry.viewport.Ua.lo}`
+        );
+      }
+      searchParams.delete("zoom");
     } else {
       searchParams.set("coords", `${defaultCoords.lat},${defaultCoords.lng}`);
       // searchParams.set("cityZoom", 15);
@@ -103,12 +115,54 @@ const SearchBar = () => {
 
   const handlePlaceOnSelect = (address) => {
     setWhere(address);
+    // geocodeByAddress(address)
+    //   .then((results) => getLatLng(results[0]))
+    //   .then((latLng) => {
+    //     setCoords(latLng);
+    //     searchParams.set("coords", `${latLng.lat},${latLng.lng}`);
+    //     // existingSearchParams.delete("zoom");
+    //     // existingSearchParams.set("dates", dateRange);
+    //     if (results[0].geometry.viewport) {
+    //       searchParams.set(
+    //         "viewport",
+    //         `${results[0].geometry.viewport.Ha.hi},${results[0].geometry.viewport.Ha.lo}, ${results[0].geometry.viewport.Ua.hi}, ${results[0].geometry.viewport.Ua.lo}`
+    //       );
+    //     }
+    //     searchParams.set("location", address);
+    //   })
+    //   .catch((error) => console.error("Error", error));
+    // setValidPlace(true);
     geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
-        setCoords(latLng);
+      .then((results) => {
+        console.log("Geocoding results:", results);
+        if (results && results.length > 0) {
+          getLatLng(results[0]).then((latLng) => {
+            setCoords(latLng);
+            setResults(results[0]);
+            console.log(latLng, "latLng", coords, "coords");
+            // searchParams.set("coords", `${latLng.lat},${latLng.lng}`);
+            // searchParams.delete("zoom");
+            // searchParams.set("dates", dateRange);
+            // if (results[0].geometry.viewport) {
+            //   searchParams.set(
+            //     "viewport",
+            //     `${results[0].geometry.viewport.Ha.hi},${results[0].geometry.viewport.Ha.lo}, ${results[0].geometry.viewport.Ua.hi}, ${results[0].geometry.viewport.Ua.lo}`
+            //   );
+            // }
+            // searchParams.set("location", address);
+            // history.push({
+            //   pathname: "/cars",
+            //   search: searchParams.toString(),
+            // });
+          });
+
+          // Push the new location to history
+        } else {
+          // Handle no results found case
+          console.error("No results found for the address:", address);
+        }
       })
-      .catch((error) => console.error("Error", error));
+      .catch((error) => console.error("Geocoding error:", error));
     setValidPlace(true);
   };
 
