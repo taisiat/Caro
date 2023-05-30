@@ -8,10 +8,10 @@ function FilterForm({
   maxPricing,
   superhostFilter,
   experienceType,
-  setMinPricing,
-  setMaxPricing,
-  setSuperhostFilter,
-  setExperienceType,
+  // setMinPricing,
+  // setMaxPricing,
+  // setSuperhostFilter,
+  // setExperienceType,
 }) {
   const history = useHistory();
   const location = useLocation();

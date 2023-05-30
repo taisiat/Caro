@@ -32,9 +32,9 @@ function CarsSearchIndex() {
   const [searchPageFromDate, setSearchPageFromDate] = useState("");
   const [searchPageUntilDate, setSearchPageUntilDate] = useState("");
   const [searchPageWhere, setSearchPageWhere] = useState("");
-  const [searchPageCoords, setSearchPageCoords] = useState("");
+  // const [searchPageCoords, setSearchPageCoords] = useState("");
   const favorites = useSelector((state) => Object.values(state.favorites));
-  const searchParams = new URLSearchParams();
+  // const searchParams = new URLSearchParams();
   const currentSearchParams = new URLSearchParams(window.location.search);
   const urlParams = new URLSearchParams(location.search);
   const experienceParams = urlParams.get("experience");
@@ -43,7 +43,7 @@ function CarsSearchIndex() {
   const maxPricingParams = urlParams.get("maxPrice");
   const superhostParams = urlParams.get("superhost");
   const locationParams = urlParams.get("location");
-  const coordsParams = urlParams.get("coords");
+  // const coordsParams = urlParams.get("coords");
 
   useEffect(() => {
     window.scrollTo(0, 0);

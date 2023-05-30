@@ -19,7 +19,7 @@ const SearchBar = () => {
   // const [from, setFrom] = useState(new Date().fp_incr(1));
   // const [until, setUntil] = useState(new Date().fp_incr(2));
   const history = useHistory();
-  const location = useLocation();
+  // const location = useLocation();
 
   const [validPlace, setValidPlace] = useState(false);
   const tomorrow = new Date();

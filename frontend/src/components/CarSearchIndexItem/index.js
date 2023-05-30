@@ -13,11 +13,11 @@ const CarSearchIndexItem = ({
   isHighlighted,
   setHighlightedCar,
   favorites,
-  searchPageUntilDate,
-  searchPageFromDate,
+  // searchPageUntilDate,
+  // searchPageFromDate,
 }) => {
   const [heartClick, setHeartClick] = useState(false);
-  const searchParams = new URLSearchParams();
+  // const searchParams = new URLSearchParams();
   const currentSearchParams = new URLSearchParams(window.location.search);
 
   const handleHeartClick = () => {

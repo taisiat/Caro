@@ -28,10 +28,10 @@ function CarShowPage() {
   const { carId } = useParams();
   const car = useSelector((state) => state.cars[carId]);
   const reviews = car ? Object.values(car.reviews) : null;
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  // const [startDate, setStartDate] = useState("");
+  // const [endDate, setEndDate] = useState("");
   // const [dateRange, setDateRange] = useState("");
-  const [searchPageWhere, setSearchPageWhere] = useState("");
+  // const [searchPageWhere, setSearchPageWhere] = useState("");
   // const fromDate = localStorage.getItem("fromDate");
   // const untilDate = localStorage.getItem("untilDate");
   // const where = localStorage.getItem("where");
