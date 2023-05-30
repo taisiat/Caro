@@ -53,6 +53,10 @@ function CarsSearchIndex() {
     dispatch(fetchFavorites());
   }, [dispatch, sessionUser]);
 
+  useEffect(() => {
+    console.log(cars.length, "num of cars");
+  }, [cars.length]);
+
   //  useEffect(() => {
   //    if (experience) {
   //      setExperienceType(experience);
@@ -141,6 +145,16 @@ function CarsSearchIndex() {
 
   useEffect(() => {
     if (minPricing && maxPricing && bounds) {
+      console.log(
+        bounds,
+        "bounds",
+        searchPageWhere,
+        "where",
+        locationParams,
+        "locationParams",
+        cars.length,
+        "cars.length"
+      );
       dispatch(
         fetchCars({
           minPricing,
@@ -161,6 +175,7 @@ function CarsSearchIndex() {
     experienceType,
     searchPageFromDate,
     searchPageUntilDate,
+    // searchPageWhere,
     dispatch,
   ]);
 

@@ -45,6 +45,7 @@ const CarSearchIndexItem = ({
     // localStorage.setItem("fromDate", searchPageFromDate);
     // localStorage.setItem("untilDate", searchPageUntilDate);
     // history.push(`/cars/${car.id}`);
+    currentSearchParams.delete("viewport");
     currentSearchParams.set("zoom", 17);
     history.push({
       pathname: `/cars/${car.id}`,
