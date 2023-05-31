@@ -13,10 +13,9 @@ const CarSearchIndexItem = ({
   isHighlighted,
   setHighlightedCar,
   favorites,
-  searchPageUntilDate,
-  searchPageFromDate,
 }) => {
   const [heartClick, setHeartClick] = useState(false);
+  const currentSearchParams = new URLSearchParams(window.location.search);
 
   const handleHeartClick = () => {
     setHeartClick(!heartClick);
@@ -39,10 +38,12 @@ const CarSearchIndexItem = ({
   };
 
   const handleTileClick = () => {
-    localStorage.setItem("cityZoom", 14);
-    localStorage.setItem("fromDate", searchPageFromDate);
-    localStorage.setItem("untilDate", searchPageUntilDate);
-    history.push(`/cars/${car.id}`);
+    currentSearchParams.delete("viewport");
+    currentSearchParams.set("zoom", 17);
+    history.push({
+      pathname: `/cars/${car.id}`,
+      search: currentSearchParams.toString(),
+    });
   };
 
   useEffect(() => {

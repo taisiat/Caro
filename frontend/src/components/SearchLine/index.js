@@ -8,73 +8,148 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/dark.css";
 
-const SearchLine = ({
-  searchPageFromDate,
-  setSearchPageFromDate,
-  searchPageUntilDate,
-  setSearchPageUntilDate,
-  searchPageWhere,
-  setSearchPageWhere,
-}) => {
+const SearchLine = () => {
   const [where, setWhere] = useState("");
-  const [coords, setCoords] = useState("");
-
-  const [from, setFrom] = useState("");
-  const [until, setUntil] = useState("");
+  const [coords, setCoords] = useState(null);
+  const [flatpickrKey, setFlatpickrKey] = useState(Date.now());
   const history = useHistory();
   const location = useLocation();
 
-  useEffect(() => {
-    if (searchPageFromDate) {
-      setFrom(searchPageFromDate);
-    }
-  }, [searchPageFromDate]);
+  const [validPlace, setValidPlace] = useState(false);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfter = new Date();
+  dayAfter.setDate(dayAfter.getDate() + 2);
+  const [dateRange, setDateRange] = useState([tomorrow, dayAfter]);
+  const urlParams = new URLSearchParams(location.search);
+  const existingSearchParams = new URLSearchParams(location.search);
+  const locationParams = urlParams.get("location");
+  const coordsParams = urlParams.get("coords");
+  const datesParam = urlParams.get("dates");
+  const defaultCoords = {
+    lat: 39.24140288621095,
+    lng: -119.42514550357927,
+  };
 
   useEffect(() => {
-    if (searchPageUntilDate) {
-      setUntil(searchPageUntilDate);
+    if (locationParams) {
+      setWhere(locationParams);
+      setValidPlace(true);
     }
-  }, [searchPageUntilDate]);
-
-  useEffect(() => {
-    if (searchPageWhere) {
-      setWhere(searchPageWhere);
+    if (coordsParams) {
+      const coordsArray = coordsParams.split(",");
+      const lat = parseFloat(coordsArray[0]);
+      const lng = parseFloat(coordsArray[1]);
+      setCoords({ lat, lng });
     }
-  }, [searchPageWhere]);
+    if (datesParam) {
+      const datesArray = datesParam.split(",");
+      const fromDate = new Date(datesArray[0].substring(0, 15));
+      const untilDate = new Date(datesArray[1].substring(0, 15));
+      setDateRange([fromDate, untilDate]);
+    }
+    setFlatpickrKey(Date.now());
+  }, [locationParams, coordsParams, datesParam]);
 
-  const handleSearchClick = () => {
-    if (location.pathname.match(/^\/cars\/?$|^(?!\/cars\/\d)\/cars\/\?.*/)) {
-      setSearchPageFromDate(from);
-      setSearchPageUntilDate(until);
-      setSearchPageWhere(where);
-      history.push(`/cars?coords=${coords.lat},${coords.lng}`);
-    } else {
-      localStorage.setItem("fromDate", from);
-      localStorage.setItem("untilDate", until);
-      localStorage.setItem("where", where);
-      localStorage.setItem("coords", JSON.stringify(coords));
-      history.push("/cars/");
+  const handleOnClose = (selectedDates) => {
+    if (selectedDates.length === 2) {
+      existingSearchParams.set("dates", selectedDates);
+      if (!validPlace) {
+        existingSearchParams.set("zoom", 5);
+        existingSearchParams.set(
+          "coords",
+          `${defaultCoords.lat},${defaultCoords.lng}`
+        );
+      }
+      history.push({
+        pathname: "/cars",
+        search: existingSearchParams.toString(),
+      });
     }
   };
 
-  const handleDateInput = (e) => {
-    setFrom(e.target.value);
-    if (until === "") {
-      const nextDay = new Date(e.target.value);
-      nextDay.setDate(nextDay.getDate() + 1);
-      setUntil(nextDay.toISOString().slice(0, 10));
+  const handleDateInput = (selectedDates) => {
+    if (selectedDates.length < 2) {
+      return;
+    } else if (selectedDates.length === 2) {
+      setDateRange(selectedDates);
     }
   };
 
-  const handleSelect = (address) => {
+  const handlePlaceOnChange = (address) => {
+    setWhere(address);
+    setValidPlace(false);
+    setCoords(null);
+    if (!address) {
+      existingSearchParams.set("location", address);
+      history.push({
+        pathname: "/cars",
+        search: existingSearchParams.toString(),
+      });
+    }
+  };
+
+  const handlePlaceOnSelect = (address) => {
     setWhere(address);
     geocodeByAddress(address)
-      .then((results) => getLatLng(results[0]))
-      .then((latLng) => {
-        setCoords(latLng);
+      .then((results) => {
+        if (results && results.length > 0) {
+          getLatLng(results[0]).then((latLng) => {
+            setCoords(latLng);
+            existingSearchParams.set("coords", `${latLng.lat},${latLng.lng}`);
+            existingSearchParams.delete("zoom");
+            existingSearchParams.set("dates", dateRange);
+            if (results[0].geometry.viewport) {
+              existingSearchParams.set(
+                "viewport",
+                `${results[0].geometry.viewport.Ha.hi},${results[0].geometry.viewport.Ha.lo}, ${results[0].geometry.viewport.Ua.hi}, ${results[0].geometry.viewport.Ua.lo}`
+              );
+            }
+            existingSearchParams.set("location", address);
+            history.push({
+              pathname: "/cars",
+              search: existingSearchParams.toString(),
+            });
+          });
+        } else {
+          console.error("No results found for the address:", address);
+        }
       })
-      .catch((error) => console.error("Error", error));
+      .catch((error) => console.error("Geocoding error:", error));
+    setValidPlace(true);
+  };
+
+  const dateSearch = () => {
+    const { pathname, search } = window.location;
+    if (pathname.startsWith("/cars") && search) {
+      return (
+        <div id="when-container-line">
+          <p>When</p>
+          <div id="when-input-container-line">
+            <Flatpickr
+              key={flatpickrKey}
+              className="search-date-line-flatpickr"
+              placeholder="Start and end dates for your trip"
+              options={{
+                dateFormat: "Y-m-d",
+                minDate: new Date().fp_incr(1),
+                defaultDate: dateRange,
+                onChange: handleDateInput,
+                onClose: handleOnClose,
+                altInput: true,
+                altFormat: "F j, Y",
+                mode: "range",
+              }}
+            />
+          </div>
+        </div>
+      );
+    } else {
+      return null;
+    }
   };
 
   return (
@@ -83,8 +158,8 @@ const SearchLine = ({
         <p>Where</p>
         <PlacesAutocomplete
           value={where}
-          onChange={(newValue) => setWhere(newValue)}
-          onSelect={(address) => handleSelect(address)}
+          onChange={(address) => handlePlaceOnChange(address)}
+          onSelect={(address) => handlePlaceOnSelect(address)}
         >
           {({
             getInputProps,
@@ -95,7 +170,7 @@ const SearchLine = ({
             <div>
               <input
                 {...getInputProps({
-                  placeholder: "City, airport, address or hotel",
+                  placeholder: "Search for a car by location...",
                   className: "search-input-line",
                   id: "where-input-searchline",
                 })}
@@ -121,44 +196,7 @@ const SearchLine = ({
           )}
         </PlacesAutocomplete>
       </div>
-      <div id="from-container-line">
-        <p>From</p>
-        <div id="from-input-container-line">
-          <input
-            type="date"
-            min={new Date().toISOString().split("T")[0]}
-            className="search-input-line search-date"
-            value={from}
-            onChange={handleDateInput}
-          ></input>
-        </div>
-      </div>
-      <div>
-        <div id="until-container-line">
-          <p>Until</p>
-          <div id="until-input-container-line">
-            <input
-              type="date"
-              min={from}
-              className={`search-input-line search-date${
-                until < from ? " date-input-error" : ""
-              }`}
-              value={until}
-              onChange={(e) => setUntil(e.target.value)}
-            ></input>
-          </div>
-        </div>
-      </div>
-      {until < from && (
-        <div id="search-button-container-line-inactive">
-          <RiSearch2Line id="search-icon" className="search-line-button" />
-        </div>
-      )}
-      {until >= from && (
-        <div id="search-button-container-line" onClick={handleSearchClick}>
-          <RiSearch2Line id="search-icon" className="search-line-button" />
-        </div>
-      )}
+      {dateSearch()}
     </div>
   );
 };

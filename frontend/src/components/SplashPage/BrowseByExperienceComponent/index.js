@@ -3,35 +3,57 @@ import typeElectric from "./image_experience_electric.jpg";
 import typeAllWheel from "./image_experience_allwheeldrive.jpg";
 import "./BrowseByExperienceComponent.css";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const BrowseByExperienceComponent = () => {
   const history = useHistory();
-  const handleDeluxClick = () => {
-    localStorage.setItem("experience", "Exotic");
-    history.push("/cars");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const experienceOptions = {
+    Exotic: {
+      name: "Exotic",
+    },
+    Electric: {
+      name: "Electric",
+    },
+    AWD: {
+      name: "All-Wheel Drive",
+    },
   };
 
-  const handleElectricClick = () => {
-    localStorage.setItem("experience", "Electric");
-    history.push("/cars");
-  };
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfter = new Date();
+  dayAfter.setDate(dayAfter.getDate() + 2);
 
-  const handleAllWheelClick = () => {
-    localStorage.setItem("experience", "All-Wheel Drive");
-    history.push("/cars");
+  const handleExperienceClick = (experience) => {
+    searchParams.set("experience", experience);
+    searchParams.set("dates", `${tomorrow},${dayAfter}`);
+    searchParams.set("zoom", 5);
+
+    history.push({
+      pathname: "/cars",
+      search: searchParams.toString(),
+    });
   };
 
   return (
     <div id="experience-container">
       <h1 className="browse-by-tagline">Browse By Experience</h1>
       <div className="categories">
-        <div className="car-type-container" onClick={handleDeluxClick}>
+        <div
+          className="car-type-container"
+          onClick={() => handleExperienceClick(experienceOptions.Exotic.name)}
+        >
           <div className="experience-img-container">
             <img src={typeDelux} alt="Delux cars" className="car-type-tile" />
           </div>
           <p>Deluxe & Super Deluxe</p>
         </div>
-        <div className="car-type-container" onClick={handleElectricClick}>
+        <div
+          className="car-type-container"
+          onClick={() => handleExperienceClick(experienceOptions.Electric.name)}
+        >
           <div className="experience-img-container">
             <img
               src={typeElectric}
@@ -41,7 +63,10 @@ const BrowseByExperienceComponent = () => {
           </div>
           <p>Electric</p>
         </div>
-        <div className="car-type-container" onClick={handleAllWheelClick}>
+        <div
+          className="car-type-container"
+          onClick={() => handleExperienceClick(experienceOptions.AWD.name)}
+        >
           <div className="experience-img-container">
             <img
               src={typeAllWheel}

@@ -49,13 +49,11 @@ function TripsPage() {
           <h1 id="trips-header">Trips</h1>
 
           {trips.map((trip, idx) => (
-            // <>
             <TripIndexItem
               trip={trip}
               key={`${idx}-${trip.id}`}
               reviews={reviews}
             ></TripIndexItem>
-            // </>
           ))}
         </>
       );

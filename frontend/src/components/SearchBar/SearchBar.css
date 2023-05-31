@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 950px;
+  width: 850px;
   height: 60px;
   background-color: white;
   position: absolute;
@@ -22,7 +22,7 @@
 
 .search-input {
   border: 0;
-  width: 110%;
+  width: 100%;
   font-size: 12px;
   font-size: 16px;
   margin-left: -10px;
@@ -42,7 +42,8 @@
 
 #where-container,
 #from-container,
-#until-container {
+#until-container,
+#when-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -50,16 +51,17 @@
 }
 
 #where-container {
-  width: 45%;
+  width: 50%;
+  margin-top: 10px;
 }
 
 #where-input-searchbar {
   margin-left: -5px;
 }
 
-.search-divider {
+/* .search-divider {
   border-left: 1px solid #1c1919;
-}
+} */
 
 #search-button-container {
   font-size: 25px;
@@ -93,14 +95,6 @@
   padding-left: 10px;
 }
 
-#from-container p,
-#until-container p {
-  padding-top: 5px;
-  border-left: 1px solid #cbc8c8;
-  padding-left: 10px;
-  margin-left: -10px;
-}
-
 #where-container p {
   padding-top: 5px;
 }
@@ -124,7 +118,9 @@
   position: absolute;
   top: 62px;
   left: 20px;
-  width: 478px;
+  /* width: 478px; */
+  width: 432px;
+
   max-height: 200px;
   overflow: auto;
   background-color: #fff;
@@ -143,4 +139,17 @@
 .suggestion-item:hover,
 .suggestion-item-active {
   background-color: #eeddf7;
+}
+
+.search-date-bar-flatpickr {
+  width: 330px;
+  margin-left: -5px;
+}
+
+.search-date-bar-flatpickr:hover {
+  cursor: pointer;
+}
+
+.flatpickr-calendar {
+  font-family: "Mulish", sans-serif;
 }

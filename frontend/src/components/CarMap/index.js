@@ -15,25 +15,43 @@ function CarMap({
   const mapRef = useRef(null);
   const markers = useRef({});
   const history = useHistory();
-  const cityCoords = JSON.parse(localStorage.getItem("cityCoords"));
-  const cityZoom = JSON.parse(localStorage.getItem("cityZoom"));
-  const coords = JSON.parse(localStorage.getItem("coords"));
   const location = useLocation();
+  const urlParams = new URLSearchParams(location.search);
+  const coordsParams = urlParams.get("coords");
+  const zoomParams = urlParams.get("zoom");
+  const viewportParams = urlParams.get("viewport");
 
   useEffect(() => {
     if (map) {
-      const urlParams = new URLSearchParams(location.search);
-      if (urlParams.get("coords")) {
-        const coords = urlParams
-          .get("coords")
+      if (coordsParams) {
+        const coords = coordsParams
           .split(",")
           .map((coord) => parseFloat(coord));
         const newLatLng = new window.google.maps.LatLng(coords[0], coords[1]);
         map.setCenter(newLatLng);
-        map.setZoom(14);
+
+        if (viewportParams) {
+          const bounds = new window.google.maps.LatLngBounds();
+          const coords = viewportParams
+            .split(",")
+            .map((coord) => parseFloat(coord.trim()));
+
+          const west = coords[0];
+          const east = coords[1];
+          const north = coords[2];
+          const south = coords[3];
+
+          bounds.extend(new window.google.maps.LatLng(north, west));
+          bounds.extend(new window.google.maps.LatLng(south, east));
+          map.fitBounds(bounds);
+        } else if (zoomParams) {
+          map.setZoom(parseInt(zoomParams));
+        } else {
+          map.setZoom(15);
+        }
       }
     }
-  }, [location]);
+  }, [coordsParams, zoomParams, viewportParams, map]);
 
   useEffect(() => {
     if (map && mapOptions.center) {
@@ -44,29 +62,6 @@ function CarMap({
       map.panTo(newCenter);
     }
   }, [map, mapOptions.center]);
-
-  useEffect(() => {
-    if (cityCoords) {
-      mapOptions.center = cityCoords;
-      mapOptions.zoom = cityZoom;
-      localStorage.clear();
-    }
-  }, [cityCoords]);
-
-  useEffect(() => {
-    if (cityZoom) {
-      mapOptions.zoom = cityZoom;
-      localStorage.clear();
-    }
-  }, [cityZoom]);
-
-  useEffect(() => {
-    if (coords) {
-      mapOptions.center = coords;
-      mapOptions.zoom = 14;
-      localStorage.clear();
-    }
-  }, [coords]);
 
   useEffect(() => {
     if (!map) {

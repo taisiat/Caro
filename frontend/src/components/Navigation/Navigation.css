@@ -12,6 +12,8 @@ nav {
 
 #nav-left {
   padding: 15px;
+  position: relative;
+  display: inline-block;
 }
 
 #nav-right {
@@ -25,6 +27,14 @@ nav {
 
 #logo {
   height: 35px;
+  position: relative;
+  transition: transform 0.2s ease-in-out;
+}
+
+#logo:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
 }
 
 .nav-button {

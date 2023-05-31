@@ -16,6 +16,17 @@
   text-decoration: underline;
 }
 
+.search-date-create-trip-flatpickr {
+  width: 100%;
+  border: 1px solid #e2e0e0;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
+.search-date-create-trip-flatpickr:hover {
+  cursor: pointer;
+}
+
 #search-car-show-container {
   display: flex;
   flex-direction: column;
