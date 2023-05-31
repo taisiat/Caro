@@ -16,10 +16,6 @@ const CarBookForm = ({ car }) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
-  // const [startDate, setStartDate] = useState("");
-  // const [endDate, setEndDate] = useState("");
-  // const fromDate = localStorage.getItem("fromDate");
-  // const untilDate = localStorage.getItem("untilDate");
   const { carId } = useParams();
   const protectionPrices = {
     Premier: 50,
@@ -39,20 +35,6 @@ const CarBookForm = ({ car }) => {
   const [dateRange, setDateRange] = useState([tomorrow, dayAfter]);
   const [flatpickrKey, setFlatpickrKey] = useState(Date.now());
 
-  // useEffect(() => {
-  //   if (fromDate) {
-  //     setStartDate(fromDate);
-  //     localStorage.removeItem("fromDate");
-  //   }
-  // }, [fromDate]);
-
-  // useEffect(() => {
-  //   if (untilDate) {
-  //     setEndDate(untilDate);
-  //     localStorage.removeItem("untilDate");
-  //   }
-  // }, [untilDate]);
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -68,10 +50,7 @@ const CarBookForm = ({ car }) => {
   }, [datesParam]);
 
   const tripPrice = () => {
-    // const start = new Date(startDate);
     const start = new Date(dateRange[0]);
-
-    // const end = new Date(endDate);
     const end = new Date(dateRange[1]);
     const days = (end - start) / (1000 * 60 * 60 * 24) + 1;
     const protectionPrice = protectionPrices[selectedAnswer] * days;
@@ -126,40 +105,18 @@ const CarBookForm = ({ car }) => {
     return utcDate;
   };
 
-  // const handleDateInput = (e) => {
-  //   setStartDate(e.target.value);
-  //   if (endDate === "") {
-  //     const nextDay = new Date(e.target.value);
-  //     nextDay.setDate(nextDay.getDate() + 1);
-  //     setEndDate(nextDay.toISOString().slice(0, 10));
-  //   }
-  // };
-
-  // const handleDateInput = (e) => {
-  //   setStartDate(e.target.value);
-  //   if (endDate === "") {
-  //     const nextDay = new Date(e.target.value);
-  //     nextDay.setDate(nextDay.getDate() + 1);
-  //     setEndDate(nextDay.toISOString().slice(0, 10));
-  //   }
-  // };
-
   const handleDateInput = (selectedDates) => {
-    // console.log("selectedDates:", selectedDates, dateRange, "dateRange");
     if (selectedDates.length < 2) {
       return;
     } else if (selectedDates.length === 2) {
       setDateRange(selectedDates);
     }
-    // setFrom(selectedDates[0]);
-    // setUntil(selectedDates[1]);
   };
 
   return (
     <>
       <div id="car-show-price-container">
         <h3 className="daily-rate-pricing">{`$${car.dailyRate} / day`}</h3>
-        {/* {startDate && endDate && selectedAnswer ? ( */}
         {dateRange.length === 2 && selectedAnswer ? (
           <p>{`$${tripPrice()}  total`}</p>
         ) : (
@@ -180,13 +137,9 @@ const CarBookForm = ({ car }) => {
                 minDate: new Date().fp_incr(1),
                 defaultDate: dateRange,
                 onChange: handleDateInput,
-                // onClose: handleOnClose,
                 altInput: true,
                 altFormat: "F j, Y",
                 mode: "range",
-                // onReady: function (selectedDates, dateStr, instance) {
-                // instance.setDate([from, until]);
-                // },
               }}
             />
           </div>
@@ -199,45 +152,6 @@ const CarBookForm = ({ car }) => {
               </p>
             );
         })}
-
-        {/* <p className="form-field-title">Trip start</p>
-        <div id="from-input-container-car-show">
-          <input
-            type="date"
-            min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
-            className="search-input-car-show search-date"
-            value={startDate}
-            onChange={handleDateInput}
-          ></input>
-        </div> */}
-        {/* {errors.map((error) => {
-          if (error.includes("Start"))
-            return (
-              <p className="booking-error-msg" key={error}>
-                {error}
-              </p>
-            );
-        })} */}
-        {/* <p className="form-field-title">Trip end</p>
-        <div id="until-input-container-car-show">
-          <input
-            type="date"
-            value={endDate}
-            min={startDate}
-            className={`search-input-car-show search-date${
-              endDate < startDate ? " date-input-error" : ""
-            }`}
-            onChange={(e) => setEndDate(e.target.value)}
-          ></input>
-        </div>
-        {errors.map((error) => {
-          if (error.includes("End"))
-            return (
-              <p className="booking-error-msg" key={error}>
-                {error}
-              </p>
-            );
-        })} */}
         <h2 className="form-field-title">Please select a protection plan</h2>
         <div id="protection-plan-options-container">
           <label

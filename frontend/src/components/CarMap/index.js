@@ -15,9 +15,6 @@ function CarMap({
   const mapRef = useRef(null);
   const markers = useRef({});
   const history = useHistory();
-  // const cityCoords = JSON.parse(localStorage.getItem("cityCoords"));
-  // const cityZoom = JSON.parse(localStorage.getItem("cityZoom"));
-  // const coords = JSON.parse(localStorage.getItem("coords"));
   const location = useLocation();
   const urlParams = new URLSearchParams(location.search);
   const coordsParams = urlParams.get("coords");
@@ -25,29 +22,20 @@ function CarMap({
   const viewportParams = urlParams.get("viewport");
 
   useEffect(() => {
-    console.log("in useeffect", map);
     if (map) {
-      // const urlParams = new URLSearchParams(location.search);
-      // const coordsParams = urlParams.get("coords");
       if (coordsParams) {
         const coords = coordsParams
           .split(",")
           .map((coord) => parseFloat(coord));
-        console.log(coords, "coords");
         const newLatLng = new window.google.maps.LatLng(coords[0], coords[1]);
         map.setCenter(newLatLng);
 
         if (viewportParams) {
-          // const boundsRegex = /\((-?\d+(\.\d+)?), (-?\d+(\.\d+)?)\)/g;
-          // const boundsCoordinates = boundsParams.match(boundsRegex);
           const bounds = new window.google.maps.LatLngBounds();
           const coords = viewportParams
-            // .replace("(", "")
-            // .replace(")", "")
             .split(",")
             .map((coord) => parseFloat(coord.trim()));
 
-          console.log(coords, "coords");
           const west = coords[0];
           const east = coords[1];
           const north = coords[2];
@@ -55,66 +43,15 @@ function CarMap({
 
           bounds.extend(new window.google.maps.LatLng(north, west));
           bounds.extend(new window.google.maps.LatLng(south, east));
-
-          // const edgePoints = boundsParams
-          //   .split(",")
-          //   .map((point) => parseFloat(point));
-          // console.log(boundsParams, "boundsParams");
-          // edgePoints.forEach((coordinate) => {
-          //   bounds.extend(
-          //     new window.google.maps.LatLng(coordinate[0], coordinate[1])
-          //   );
-          // });
           map.fitBounds(bounds);
-          // if (zoomParams) {
-          //   console.log("in zoomparams", zoomParams);
-          //   map.setZoom(parseInt(zoomParams));
         } else if (zoomParams) {
           map.setZoom(parseInt(zoomParams));
         } else {
-          map.setZoom(15); //from 14
+          map.setZoom(15);
         }
-        // console.log(
-        //   mapOptions.zoom,
-        //   "mapOptions.zoom",
-        //   mapOptions.center,
-        //   "mapOptions.center"
-        // );
       }
     }
-    // }, [location]);
   }, [coordsParams, zoomParams, viewportParams, map]);
-
-  // useEffect(() => {
-  //   if (map) {
-  //     // const urlParams = new URLSearchParams(location.search);
-  //     // const coordsParams = urlParams.get("coords");
-  //     if (zoomParams) {
-  //       // map.setCenter(newLatLng);
-  //       map.setZoom(zoomParams);
-  //       // mapOptions.zoom = zoomParams;
-  //     } else {
-  //       map.setZoom(14);
-  //       // mapOptions.zoom = 14;
-  //     }
-  //   } else {
-  //     if (zoomParams) {
-  //       // map.setCenter(newLatLng);
-  //       // map.setZoom(zoomParams);
-  //       mapOptions.zoom = zoomParams;
-  //     } else {
-  //       // map.setZoom(14);
-  //       mapOptions.zoom = 14;
-  //     }
-  // //   }
-  // //   // }, [location]);
-  // }, [zoomParams]);
-
-  // useEffect(() => {
-  //   if (zoomParams) {
-  //     mapOptions.zoom = zoomParams;
-  //   }
-  // }, [zoomParams]);
 
   useEffect(() => {
     if (map && mapOptions.center) {
@@ -125,29 +62,6 @@ function CarMap({
       map.panTo(newCenter);
     }
   }, [map, mapOptions.center]);
-
-  // useEffect(() => {
-  //   if (cityCoords) {
-  //     mapOptions.center = cityCoords;
-  //     mapOptions.zoom = cityZoom;
-  //     localStorage.clear();
-  //   }
-  // }, [cityCoords]);
-
-  // useEffect(() => {
-  //   if (cityZoom) {
-  //     mapOptions.zoom = cityZoom;
-  //     localStorage.clear();
-  //   }
-  // }, [cityZoom]);
-
-  // useEffect(() => {
-  //   if (coords) {
-  //     mapOptions.center = coords;
-  //     mapOptions.zoom = 14;
-  //     localStorage.clear();
-  //   }
-  // }, [coords]);
 
   useEffect(() => {
     if (!map) {

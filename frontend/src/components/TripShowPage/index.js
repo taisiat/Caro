@@ -20,8 +20,6 @@ const TripShowPage = () => {
   const sessionUser = useSelector((state) => state.session.user);
   const history = useHistory();
   const dispatch = useDispatch();
-  // const [startDate, setStartDate] = useState("");
-  // const [endDate, setEndDate] = useState("");
   const [errors, setErrors] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const protectionPrices = {
@@ -44,8 +42,6 @@ const TripShowPage = () => {
 
   useEffect(() => {
     if (trip) {
-      // setStartDate(formattedDate(trip.startDate));
-      // setEndDate(formattedDate(trip.endDate));
       setDateRange([
         formattedDate(trip.startDate),
         formattedDate(trip.endDate),
@@ -129,14 +125,11 @@ const TripShowPage = () => {
   };
 
   const handleDateInput = (selectedDates) => {
-    // console.log("selectedDates:", selectedDates, dateRange, "dateRange");
     if (selectedDates.length < 2) {
       return;
     } else if (selectedDates.length === 2) {
       setDateRange(selectedDates);
     }
-    // setFrom(selectedDates[0]);
-    // setUntil(selectedDates[1]);
   };
 
   return (
@@ -165,13 +158,9 @@ const TripShowPage = () => {
                   minDate: new Date().fp_incr(1),
                   defaultDate: dateRange,
                   onChange: handleDateInput,
-                  // onClose: handleOnClose,
                   altInput: true,
                   altFormat: "F j, Y",
                   mode: "range",
-                  // onReady: function (selectedDates, dateStr, instance) {
-                  // instance.setDate([from, until]);
-                  // },
                 }}
               />
             </div>
@@ -184,47 +173,6 @@ const TripShowPage = () => {
                 </p>
               );
           })}
-          {/* <p className="form-field-title">Trip start</p>
-          <div id="from-input-container-car-show">
-            <input
-              type="date"
-              className="search-input-car-show search-date"
-              value={startDate}
-              min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
-              onChange={(e) => setStartDate(e.target.value)}
-            ></input>
-          </div>
-          {errors &&
-            errors.map((error) => {
-              if (error.includes("Start"))
-                return (
-                  <p className="booking-error-msg" key={error}>
-                    {error}
-                  </p>
-                );
-            })}
-          <p className="form-field-title">Trip end</p>
-          <div id="until-input-container-car-show">
-            <input
-              type="date"
-              value={endDate}
-              min={startDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className={`search-input-car-show search-date${
-                endDate < startDate ? " date-input-error" : ""
-              }`}
-            ></input>
-          </div>
-          {errors &&
-            errors.map((error) => {
-              if (error.includes("End"))
-                return (
-                  <p className="booking-error-msg" key={error}>
-                    {error}
-                  </p>
-                );
-            })} */}
-
           <h2 className="form-field-title">Please select a protection plan</h2>
           <div id="protection-plan-options-container">
             <label

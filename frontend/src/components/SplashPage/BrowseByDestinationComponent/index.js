@@ -15,12 +15,6 @@ const BrowseByDestinationComponent = () => {
         lat: 37.773972,
         lng: -122.431297,
       },
-      // viewport: {
-      //   west: -123.1328309,
-      //   east: -122.28178,
-      //   north: 37.6398299,
-      //   south: 37.9298239,
-      // },
       zoom: 12,
       name: "SF",
       fullName: "San Francisco, CA, USA",
@@ -30,12 +24,6 @@ const BrowseByDestinationComponent = () => {
         lat: 47.6062,
         lng: -122.3321,
       },
-      // viewport: {
-      //   west: -122.2244331,
-      //   east: -122.4596959,
-      //   north: 47.734145,
-      //   south: 47.4919119,
-      // },
       zoom: 11,
       name: "SEATTLE",
       fullName: "Seattle, WA, USA",
@@ -45,12 +33,6 @@ const BrowseByDestinationComponent = () => {
         lat: 36.1369025286101,
         lng: -115.13567472862186,
       },
-      // viewport: {
-      //   west: -115.414625,
-      //   east: -115.062072,
-      //   north: 36.1296229,
-      //   south: 36.380623,
-      // },
       zoom: 12,
       name: "LV",
       fullName: "Las Vegas, NV, USA",
@@ -62,61 +44,18 @@ const BrowseByDestinationComponent = () => {
   dayAfter.setDate(dayAfter.getDate() + 2);
 
   const handleCityClick = (city) => {
-    // searchParams.set("coords", cityOptions[city].coords);
     searchParams.set(
       "coords",
       `${cityOptions[city].coords.lat},${cityOptions[city].coords.lng}`
     );
     searchParams.set("zoom", cityOptions[city].zoom);
-    // searchParams.set(
-    //   "viewport",
-    //   `${cityOptions[city].viewport.west},${cityOptions[city].viewport.east}, ${cityOptions[city].viewport.north}, ${cityOptions[city].viewport.south}`
-    // );
     searchParams.set("dates", `${tomorrow},${dayAfter}`);
     searchParams.set("location", cityOptions[city].fullName);
-
-    // history.push(`${location.pathname}?${searchParams.toString()}`);
     history.push({
       pathname: "/cars",
       search: searchParams.toString(),
     });
   };
-
-  // const handleSFClick = () => {
-  //   localStorage.setItem(
-  //     "cityCoords",
-  //     JSON.stringify({
-  //       lat: 37.773972,
-  //       lng: -122.431297,
-  //     })
-  //   );
-  //   localStorage.setItem("cityZoom", 12);
-  //   history.push("/cars");
-  // };
-
-  // const handleSeattleClick = () => {
-  //   localStorage.setItem(
-  //     "cityCoords",
-  //     JSON.stringify({
-  //       lat: 47.6062,
-  //       lng: -122.3321,
-  //     })
-  //   );
-  //   localStorage.setItem("cityZoom", 11);
-  //   history.push("/cars");
-  // };
-
-  // const handleLVClick = () => {
-  //   localStorage.setItem(
-  //     "cityCoords",
-  //     JSON.stringify({
-  //       lat: 36.1369025286101,
-  //       lng: -115.13567472862186,
-  //     })
-  //   );
-  //   localStorage.setItem("cityZoom", 12);
-  //   history.push("/cars");
-  // };
 
   return (
     <div id="destination-container">

@@ -27,7 +27,6 @@ nav {
 
 #logo {
   height: 35px;
-  /* transition: opacity 0.2s ease-in-out; */
   position: relative;
   transition: transform 0.2s ease-in-out;
 }

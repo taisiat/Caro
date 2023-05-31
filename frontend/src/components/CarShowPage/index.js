@@ -28,21 +28,11 @@ function CarShowPage() {
   const { carId } = useParams();
   const car = useSelector((state) => state.cars[carId]);
   const reviews = car ? Object.values(car.reviews) : null;
-  // const [startDate, setStartDate] = useState("");
-  // const [endDate, setEndDate] = useState("");
-  // const [dateRange, setDateRange] = useState("");
-  // const [searchPageWhere, setSearchPageWhere] = useState("");
-  // const fromDate = localStorage.getItem("fromDate");
-  // const untilDate = localStorage.getItem("untilDate");
-  // const where = localStorage.getItem("where");
-
   const dispatch = useDispatch();
   const [currentImg, setCurrentImg] = useState(0);
   const imageListLength = car?.photosUrl ? car.photosUrl.length : 0;
   const history = useHistory();
   const favorites = useSelector((state) => Object.values(state.favorites));
-  // const datesParam = urlParams.get("dates");
-  // const urlParams = new URLSearchParams(location.search);
   const location = useLocation();
   const existingSearchParams = new URLSearchParams(location.search);
   const zoomParams = existingSearchParams.get("zoom");
@@ -55,11 +45,6 @@ function CarShowPage() {
     window.scrollTo(0, 0);
   }, []);
 
-  // useEffect(() => {
-  //   // existingSearchParams.set("zoom", 17);
-  //   history.push(`${location.pathname}?${existingSearchParams.toString()}`);
-  // }, []);
-
   const handleImgSlider = (direction) => {
     handleChangeImage();
     setCurrentImg((prev) => {
@@ -71,24 +56,6 @@ function CarShowPage() {
   useEffect(() => {
     dispatch(fetchCar(carId));
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (fromDate) {
-  //     setStartDate(fromDate);
-  //   }
-  // }, [fromDate]);
-
-  // useEffect(() => {
-  //   if (untilDate) {
-  //     setEndDate(untilDate);
-  //   }
-  // }, [untilDate]);
-
-  // useEffect(() => {
-  //   if (where) {
-  //     setSearchPageWhere(where);
-  //   }
-  // }, [where]);
 
   if (!car) {
     return <Spinner />;
@@ -165,18 +132,10 @@ function CarShowPage() {
 
   return (
     <div id="car-show-container">
-      <SearchLine
-      // searchPageFromDate={startDate}
-      // setSearchPageFromDate={setStartDate}
-      // searchPageUntilDate={endDate}
-      // setSearchPageUntilDate={setEndDate}
-      // searchPageWhere={searchPageWhere}
-      // setSearchPageWhere={setSearchPageWhere}
-      />
+      <SearchLine />
       <div id="car-show-heart-container">
         <FavHeart className="heart-car-show" car={car} favorites={favorites} />
       </div>{" "}
-      // heartsedit
       <div id="car-show-imgs-container">
         {car.photosUrl && (
           <img

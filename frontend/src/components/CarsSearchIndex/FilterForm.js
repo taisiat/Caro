@@ -8,10 +8,6 @@ function FilterForm({
   maxPricing,
   superhostFilter,
   experienceType,
-  // setMinPricing,
-  // setMaxPricing,
-  // setSuperhostFilter,
-  // setExperienceType,
 }) {
   const history = useHistory();
   const location = useLocation();
@@ -44,23 +40,6 @@ function FilterForm({
     } else {
       searchParams.append(type, newVal);
     }
-    // switch (type) {
-    //   case changeTypes.MINPRICE:
-    //     setMinPricing(newVal);
-    //     break;
-    //   case changeTypes.MAXPRICE:
-    //     setMaxPricing(newVal);
-    //     break;
-    //   case changeTypes.SUPERHOST:
-    //     setSuperhostFilter(newVal);
-    //     break;
-    //   case changeTypes.EXPERIENCE:
-    //     setExperienceType(newVal);
-    //     break;
-    //   default:
-    //     break;
-    // }
-
     history.push(`${location.pathname}?${searchParams.toString()}`);
   };
 
@@ -80,10 +59,6 @@ function FilterForm({
               className={minPricing < 0 ? "price-input-too-low" : ""}
               placeholder="$"
               value={minPricing}
-              // onChange={(e) => setMinPricing(parseValue(e.target.value))}
-              // onChange={(e) =>
-              //   searchParams.set("minPrice", parseValue(e.target.value))
-              // }
               onChange={(e) =>
                 handleChange(
                   parseValue(e.target.value),
@@ -104,10 +79,6 @@ function FilterForm({
               min="0"
               className={maxPricing < 0 ? "price-input-too-low" : ""}
               value={maxPricing}
-              // onChange={(e) => setMaxPricing(parseValue(e.target.value))}
-              // onChange={(e) =>
-              //   searchParams.set("maxPrice", parseValue(e.target.value))
-              // }
               onChange={(e) =>
                 handleChange(
                   parseValue(e.target.value),
@@ -126,8 +97,6 @@ function FilterForm({
             htmlFor="superhosts-only"
             type="checkbox"
             value={superhostFilter}
-            // onChange={(e) => setSuperhostFilter(e.target.checked)}
-            // onChange={(e) => searchParams.set("superhost", e.target.checked)}
             onChange={(e) =>
               handleChange(e.target.checked, changeTypes.SUPERHOST.tag)
             }
@@ -140,8 +109,6 @@ function FilterForm({
           <select
             id="experience-type"
             value={experienceType}
-            // onChange={(e) => setExperienceType(e.target.value)}
-            // onChange={(e) => searchParams.set("experience", e.target.value)}
             onChange={(e) =>
               handleChange(e.target.value, changeTypes.EXPERIENCE.tag)
             }
