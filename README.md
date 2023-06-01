@@ -6,9 +6,9 @@ _Rails React fullstack clone of Turo_
 
 Caro is a fullstack clone of <a href="https://turo.com/">Turo</a>, which is a peer-to-peer car rental service ('Airbnb for cars').
 
-Caro features Google's autosuggest `Places Search Box` and `Google Maps`, with dynamic functionality to show the cars index based on the `Google Map` viewport and other search parameters.
+Caro features Google's autosuggest `Places Search Box` and `Google Maps`, with dynamic functionality to search the cars index based on the `Google Map` `viewport` and other `URL search parameters`.
 
-With Caro, users have CRUD functionalities for:
+Users have CRUD functionalities for:
 
 - booking (fake) cars (full CRUD)
 - writing car reviews (full CRUD)
@@ -28,7 +28,7 @@ In Caro, users are able to:
 
 - Search for cars with filters for dates available, car owner's 'Superhost' status, car experience type (ex: electric), daily rate, and location
 - See a `Google Map` with plotted car search results, and narrow down search results by:
-  - changing the `Google Map`'s viewport
+  - changing the `Google Map`'s `viewport`
   - searching locations in a Google autosuggest `Places Search Box`
 - Book cars, with validations that include prevention of overlap in each car's booked-out dates
 - View their trips, with ability to edit/delete future trips and add/edit/delete reviews of past trips; reviews flow through to update star ratings for cars and car hosts
@@ -57,17 +57,17 @@ This project is implemented with the following technologies:
 
 ### Car search
 
-A user can dynamically search cars and narrow down results using filters and `Google Map` viewport area.
+A user can dynamically search cars and narrow down results using filters and `Google Map` `viewport` area.
 
 Example search starting with the Google autosuggest `Places Search Box`:
 
-![Search via places searchbox](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWM0MWI5YzUwYWVhMTNkMzBjMjc3OTFkMGUyMjA1ZWZiMmVhMzY0NCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/XBFvDu4kJs7EZEEK3L/giphy.gif)
+![Search via places searchbox](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTIwNzc1NTU2MWQxNDc0ODk2NDQxNGNhZDc1YzgwYTE2MDgwM2JmMCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/64f21jDwQyBMo81CRE/giphy.gif)
 
 Example search starting with the city/experience tiles:
 
-![Search via city and experience selectors](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDNhZjc1ZmI5NWUwNDc0M2FkZTRjYWE4MjZhMWEzODI4M2U0Y2MxNCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/xZMqP1G9zBF5M6kn7s/giphy.gif)
+![Search via city and experience selectors](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjk5MDY1MGNjZTZjYjg2YzI1ZmFhOWI4MTFjOGZlNWNlMzNkZDk3NCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/7x94T1MrvpzVltTtPg/giphy.gif)
 
-The `CarsSearchIndex` listens to changes in filters and triggers a backend call to fetch cars based on those filters. Before dispatching the fetch request, it also normalizes dates to UTC.
+The `CarsSearchIndex` listens to changes in filters (shared as `URL search params` and stored as `state variables`) and triggers a backend call to fetch cars based on those filters. Before dispatching the fetch request, it also normalizes dates to UTC.
 
 <h5 a><strong><code>CarsSearchIndex/index.js</code></strong></h5>
 
@@ -91,7 +91,7 @@ useEffect(() => {
   ]);
 ```
 
-Notably, dragging or zooming the Google Map triggers dispatching a cars fetch request by changing the value of `bounds`, which is a set of lat/lng values representing the `Google Map`'s viewport. If a user opts to search via the `Places Search Box`, the search action feeds a location and `viewport` coordinates to the map, which also results in a change to `bounds`. `Viewport` coordinates result in dynamic zoom - specific addresses ('Ferry Building') will zoom in closer than less specific ones ('San Francisco').
+Notably, dragging or zooming the Google Map triggers dispatching a cars fetch request by changing the value of `bounds`, which is a set of lat/lng values representing the `Google Map`'s `viewport`. If a user opts to search via the `Places Search Box`, the search action feeds a location and Google-suggested `viewport` coordinates to the map, which also results in a change to `bounds`. Using `viewport` coordinates enables dynamic zoom level - specific addresses ('Ferry Building') will zoom in closer on the `Google Map` than less specific ones ('San Francisco').
 
 <h5 a><strong><code>CarsSearchIndex/index.js</code></strong></h5>
 
@@ -121,7 +121,7 @@ const mapEventHandlers = useMemo(
   );
 ```
 
-The backend then filters down the list of cars that meet criteria. An interesting filter to note is the last one that picks only cars that aren't booked out during the requested trip dates (if dates were provided). It checks the trips associated with each car and only selects the car if the possible overlap scenarios aren't happening between any of the car's trips and the requested trip dates.
+The backend then filters down the list of cars that meet criteria. An interesting filter to note is the last one that picks only cars that aren't booked out during the requested trip dates. It checks the trips associated with each car and only selects the car if the possible overlap scenarios aren't happening between any of the car's trips and the requested trip dates.
 
 <h5 a><strong><code>cars_controller.rb</code></strong></h5>
 
@@ -160,12 +160,13 @@ The resultant cars list gets passed to the `Google Map` for placement of markers
 
 ### An interesting search challenge
 
-Caro allows users to start a `Places Search Box` + dates search from any page via a navbar searchline or the splash page's searchbar. The search action triggers a jump over to the cars search index, which dispatches a cars fetch using the search inputs.
+Caro allows users to start a `Places Search Box` search from any page via a navbar searchline and the splash page's searchbar. The search action triggers a jump over to the cars search index, which dispatches a cars fetch using the search inputs.
 
-The challenge came with how to force a cars fetch when initiating a `Places Search Box` + dates search when ALREADY on the cars search index page. Unlike other cases, here the page and map are already rendered.
+The challenge came with how to force a cars fetch when initiating a search when ALREADY on the cars search index page. Unlike other cases, here the page and map are already rendered.
 
 #### My v0 solution
-My v0 solution was to utilize a custom `handleSearchClick` on the `SearchLine` search component that checks current URL location and pushs search parameters to the URL if it detects it is already on the search page.
+
+My initial solution was to utilize a custom `handleSearchClick` on the `SearchLine` search component that checked current URL location and pushed `URL search params` if it detected it was already on the search page. In other cases, `localStorage` was used to pass along search criteria.
 
 <h5 a><strong><code>SearchLine/index.js</code></strong></h5>
 
@@ -186,7 +187,7 @@ const handleSearchClick = () => {
 };
 ```
 
-Meanwhile the `CarMap` listens to changes in the URL, parses the value if it finds the appropriate key, and changes the `Google Map`'s center and zoom level.
+Meanwhile the `CarMap` listened to changes in the URL, parsed the value if it found the appropriate key, and changed the `Google Map`'s center and zoom level.
 
 <h5 a><strong><code>CarMap/index.js</code></strong></h5>
 
@@ -209,19 +210,18 @@ Meanwhile the `CarMap` listens to changes in the URL, parses the value if it fin
   }, [location]);
 ```
 
-The change in the `Google Map`'s viewport triggers a change to `bounds` as described above, which causes a new dispatch to fetch cars, refreshing the search results.
+The change in the `Google Map`'s viewport triggered a change to `bounds` as described above, which caused a new dispatch to fetch cars, refreshing the search results.
 
 #### My v1 solution
 
-I refactored my frontend search code to use URL search params instead of `localStorage`. Storing the search query in the URL has benefits such as ability to share the search parameters easily with friends and press backspace to return to the same search query. 
+I refactored my frontend search code to use `URL search params` in all cases instead of `localStorage`. Storing the search query in the URL has benefits such as ability to share the search parameters easily with friends and press backspace to return to the same search query. 
 
-This is what my code looks like now. This reflects a few refactors: `localStorage`-> URL search params, static zoom level -> viewport coordinates, and 'click to search' -> 'exit input box to search'.
+This is what my code looks like now. This reflects a few refactors: `localStorage`-> `URL search params`, static zoom level -> `viewport` coordinates, and 'click to search' -> 'exit input box to search'.
 
 <h5 a><strong><code>SearchLine/index.js, location input box example</code></strong></h5>
 
 ```JavaScript
 const existingSearchParams = new URLSearchParams(location.search);
-
 
 const handlePlaceOnSelect = (address) => {
     setWhere(address);
@@ -254,7 +254,7 @@ const handlePlaceOnSelect = (address) => {
   };
 ```
 
-To accomodate the refactor, the `Google Map` now pulls the needed info from URL params and parses viewport coordinates to determine what area to show on the map.
+To accomodate the refactor, the `Google Map` now pulls the needed info from `URL search params` and parses `viewport` coordinates to determine what area to show on the map.
 
 <h5 a><strong><code>CarMap/index.js</code></strong></h5>
 
