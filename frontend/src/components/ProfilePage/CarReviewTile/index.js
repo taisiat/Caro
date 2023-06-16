@@ -7,6 +7,7 @@ import { AiFillCar } from "react-icons/ai";
 const CarReviewTile = ({ review }) => {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
+  const currentSearchParams = new URLSearchParams(window.location.search);
 
   const dateFormat = (utcDateString) => {
     const options = { month: "long", day: "numeric", year: "numeric" };
@@ -43,13 +44,19 @@ const CarReviewTile = ({ review }) => {
     );
   };
 
+  const handleTileClick = () => {
+    currentSearchParams.delete("viewport");
+    currentSearchParams.set("zoom", 17);
+    history.push({
+      pathname: `/cars/${review.car.id}`,
+      search: currentSearchParams.toString(),
+    });
+  };
+
   return (
     <div id="review-index-item-container">
       <div>
-        <div
-          id="review-driver-image-container"
-          onClick={() => history.push(`/cars/${review.car.id}`)}
-        >
+        <div id="review-driver-image-container" onClick={handleTileClick}>
           {carPic()}
         </div>
       </div>
