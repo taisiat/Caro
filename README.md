@@ -50,6 +50,7 @@ This project is implemented with the following technologies:
 - `Heroku` for app hosting
 - `Webpack` to bundle and transpile the source code
 - `npm` to manage project dependencies
+- `bcrypt` and `has_secure_password` Active Record macro method for user auth
 
 ---
 
