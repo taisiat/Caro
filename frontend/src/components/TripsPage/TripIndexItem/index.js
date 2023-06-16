@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 
 const TripIndexItem = ({ trip, reviews }) => {
   const history = useHistory();
+  const currentSearchParams = new URLSearchParams(window.location.search);
+
   const dateFormat = (utcDateString) => {
     const options = { month: "long", day: "numeric" };
     const utcDate = new Date(utcDateString);
@@ -31,12 +33,18 @@ const TripIndexItem = ({ trip, reviews }) => {
     }
   };
 
+  const handleTileClick = () => {
+    currentSearchParams.delete("viewport");
+    currentSearchParams.set("zoom", 17);
+    history.push({
+      pathname: `/cars/${trip.car.id}`,
+      search: currentSearchParams.toString(),
+    });
+  };
+
   return (
     <div id="trips-item-container">
-      <div
-        id="trip-car-image-container"
-        onClick={() => history.push(`/cars/${trip.car.id}`)}
-      >
+      <div id="trip-car-image-container" onClick={handleTileClick}>
         <img
           src={trip.car.photosUrl[0]}
           alt="car image"

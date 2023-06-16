@@ -7,6 +7,7 @@ import Spinner from "../../Spinner";
 const FavoriteIndexItem = ({ favorite }) => {
   const car = favorite.car;
   const history = useHistory();
+  const currentSearchParams = new URLSearchParams(window.location.search);
 
   const avgCarRating = () => {
     const avg =
@@ -27,11 +28,17 @@ const FavoriteIndexItem = ({ favorite }) => {
     return <Spinner />;
   }
 
+  const handleTileClick = () => {
+    currentSearchParams.delete("viewport");
+    currentSearchParams.set("zoom", 17);
+    history.push({
+      pathname: `/cars/${car.id}`,
+      search: currentSearchParams.toString(),
+    });
+  };
+
   return (
-    <div
-      id="fav-index-item-container"
-      onClick={() => history.push(`/cars/${car.id}`)}
-    >
+    <div id="fav-index-item-container" onClick={handleTileClick}>
       <div id="fav-image-container">
         {car.photosUrl && (
           <img
@@ -41,7 +48,7 @@ const FavoriteIndexItem = ({ favorite }) => {
           />
         )}
       </div>
-      <div id="fav-tile-info" onClick={() => history.push(`/cars/${car.id}`)}>
+      <div id="fav-tile-info" onClick={handleTileClick}>
         <h2 id="fav-name">{`${car.make} ${car.model} ${car.year}`}</h2>
         <div id="fav-tile-trips-and-host-info">
           <p id="fav-tile-rating-trips-container">
@@ -56,10 +63,7 @@ const FavoriteIndexItem = ({ favorite }) => {
         </div>
       </div>
       <div id="fav-price-container">
-        <div
-          id="fav-price-container"
-          onClick={() => history.push(`/cars/${car.id}`)}
-        >
+        <div id="fav-price-container" onClick={handleTileClick}>
           <h3>{`$${car.dailyRate} / day`}</h3>
         </div>
       </div>
