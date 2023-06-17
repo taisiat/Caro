@@ -8,7 +8,6 @@ function FilterForm({
   maxPricing,
   superhostFilter,
   experienceType,
-  setSuperhostFilter,
 }) {
   const history = useHistory();
   const location = useLocation();
@@ -20,11 +19,6 @@ function FilterForm({
     SUPERHOST: { tag: "superhost", value: superhostFilter },
     EXPERIENCE: { tag: "experience", value: experienceType },
   };
-
-  useEffect(() => {
-    console.log("superhostFilter", superhostFilter);
-    // setSuperhostFilter(superhostFilter);
-  }, [superhostFilter]);
 
   useEffect(() => {
     const filters = Object.values(changeTypes);
@@ -102,7 +96,6 @@ function FilterForm({
           <Input
             htmlFor="superhosts-only"
             type="checkbox"
-            // value={superhostFilter}
             checked={superhostFilter}
             onChange={(e) =>
               handleChange(e.target.checked, changeTypes.SUPERHOST.tag)
