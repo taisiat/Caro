@@ -112,7 +112,6 @@ const SearchLine = () => {
               paramsDatesArr[0] !== dateRangeArr[0] ||
               paramsDatesArr[1] !== dateRangeArr[1]
             ) {
-              console.log(paramsDatesArr, dateRangeArr);
               existingSearchParams.set("dates", dateRange);
             }
             if (results[0].geometry.viewport) {

@@ -94,15 +94,6 @@ function CarsSearchIndex() {
   };
 
   useEffect(() => {
-    console.log(
-      minPricing,
-      maxPricing,
-      bounds,
-      experienceType,
-      superhostFilter,
-      searchPageFromDate,
-      searchPageUntilDate
-    );
     if (
       minPricing !== undefined &&
       maxPricing !== undefined &&
