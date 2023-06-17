@@ -73,22 +73,37 @@ The `CarsSearchIndex` listens to changes in filters (shared as `URL search param
 <h5 a><strong><code>CarsSearchIndex/index.js</code></strong></h5>
 
 ```JavaScript
-useEffect(() => {
+  useEffect(() => {
     if (
-      minPricing && maxPricing && bounds && experienceType &&
-      superhostFilter && searchPageFromDate && searchPageUntilDate
+      minPricing !== undefined &&
+      maxPricing !== undefined &&
+      bounds &&
+      experienceType &&
+      (superhostFilter === false || superhostFilter === true) &&
+      searchPageFromDate &&
+      searchPageUntilDate
     ) {
       dispatch(
         fetchCars({
-          minPricing, maxPricing, bounds, superhostFilter, experienceType,
+          minPricing,
+          maxPricing,
+          bounds,
+          superhostFilter: superhostFilter,
+          experienceType,
           tripStart: handleDateChange(searchPageFromDate),
           tripEnd: handleDateChange(searchPageUntilDate),
         })
       );
     }
   }, [
-    minPricing, maxPricing, bounds, superhostFilter, experienceType, searchPageFromDate,
-    searchPageUntilDate, dispatch,
+    minPricing,
+    maxPricing,
+    bounds,
+    superhostFilter,
+    experienceType,
+    searchPageFromDate,
+    searchPageUntilDate,
+    dispatch,
   ]);
 ```
 
@@ -105,15 +120,6 @@ const mapEventHandlers = useMemo(
       idle: (map) => {
         const newBounds = map.getBounds().toUrlValue();
         if (newBounds !== bounds) {
-          dispatch(
-            fetchCars({
-              minPricing, maxPricing,
-              bounds: newBounds,
-              superhostFilter, experienceType,
-              tripStart: handleDateChange(searchPageFromDate),
-              tripEnd: handleDateChange(searchPageUntilDate),
-            })
-          );
           setBounds(newBounds);
         }
       },
@@ -215,7 +221,7 @@ The change in the `Google Map`'s viewport triggered a change to `bounds` as desc
 
 #### My v1 solution
 
-I refactored my frontend search code to use `URL search params` in all cases instead of `localStorage`. Storing the search query in the URL has benefits such as ability to share the search parameters easily with friends and press backspace to return to the same search query. 
+I refactored my frontend search code to use `URL search params` in all cases instead of `localStorage`. Storing the search query in the URL has benefits such as ability to share the search parameters easily with friends and press backspace to return to the same search query.
 
 This is what my code looks like now. This reflects a few refactors: `localStorage`-> `URL search params`, static zoom level -> `viewport` coordinates, and 'click to search' -> 'exit input box to search'.
 
@@ -233,7 +239,21 @@ const handlePlaceOnSelect = (address) => {
             setCoords(latLng);
             existingSearchParams.set("coords", `${latLng.lat},${latLng.lng}`);
             existingSearchParams.delete("zoom");
-            existingSearchParams.set("dates", dateRange);
+            //only update date params if they are different from the ones already in URL
+            const paramsDatesArr = existingSearchParams
+              .get("dates")
+              .split(",")
+              .map((dateStr) => new Date(dateStr).toLocaleDateString("en-US"));
+            const dateRangeArr = dateRange.map((date) =>
+              date.toLocaleDateString("en-US")
+            );
+            if (
+              paramsDatesArr[0] !== dateRangeArr[0] ||
+              paramsDatesArr[1] !== dateRangeArr[1]
+            ) {
+              existingSearchParams.set("dates", dateRange);
+            }
+            //set viewport from Google Place's API callback
             if (results[0].geometry.viewport) {
               existingSearchParams.set(
                 "viewport",
@@ -297,6 +317,7 @@ To accomodate the refactor, the `Google Map` now pulls the needed info from `URL
     }
   }, [coordsParams, zoomParams, viewportParams, map]);
 ```
+
 ---
 
 ### Backend-call optimization
