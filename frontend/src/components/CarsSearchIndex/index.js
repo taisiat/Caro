@@ -65,9 +65,11 @@ function CarsSearchIndex() {
   }, [maxPricingParams]);
 
   useEffect(() => {
-    if (superhostParams) {
-      setSuperhostFilter(superhostParams);
-    }
+    const superhostParamsVal = superhostParams === "true";
+
+    // if (superhostParams) {
+    setSuperhostFilter(superhostParamsVal);
+    // }
   }, [superhostParams]);
 
   useEffect(() => {
@@ -100,7 +102,7 @@ function CarsSearchIndex() {
       maxPricing &&
       bounds &&
       experienceType &&
-      superhostFilter &&
+      // superhostFilter &&
       searchPageFromDate &&
       searchPageUntilDate
     ) {
