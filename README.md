@@ -240,10 +240,15 @@ const handlePlaceOnSelect = (address) => {
             existingSearchParams.set("coords", `${latLng.lat},${latLng.lng}`);
             existingSearchParams.delete("zoom");
             //only update date params if they are different from the ones already in URL
-            const paramsDatesArr = existingSearchParams
-              .get("dates")
-              .split(",")
-              .map((dateStr) => new Date(dateStr).toLocaleDateString("en-US"));
+            let paramsDatesArr = [];
+            if (existingSearchParams.get("dates")) {
+              paramsDatesArr = existingSearchParams
+                .get("dates")
+                .split(",")
+                .map((dateStr) =>
+                  new Date(dateStr).toLocaleDateString("en-US")
+                );
+            }
             const dateRangeArr = dateRange.map((date) =>
               date.toLocaleDateString("en-US")
             );
