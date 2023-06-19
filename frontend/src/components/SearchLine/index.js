@@ -101,7 +101,24 @@ const SearchLine = () => {
             setCoords(latLng);
             existingSearchParams.set("coords", `${latLng.lat},${latLng.lng}`);
             existingSearchParams.delete("zoom");
-            existingSearchParams.set("dates", dateRange);
+            let paramsDatesArr = [];
+            if (existingSearchParams.get("dates")) {
+              paramsDatesArr = existingSearchParams
+                .get("dates")
+                .split(",")
+                .map((dateStr) =>
+                  new Date(dateStr).toLocaleDateString("en-US")
+                );
+            }
+            const dateRangeArr = dateRange.map((date) =>
+              date.toLocaleDateString("en-US")
+            );
+            if (
+              paramsDatesArr[0] !== dateRangeArr[0] ||
+              paramsDatesArr[1] !== dateRangeArr[1]
+            ) {
+              existingSearchParams.set("dates", dateRange);
+            }
             if (results[0].geometry.viewport) {
               existingSearchParams.set(
                 "viewport",

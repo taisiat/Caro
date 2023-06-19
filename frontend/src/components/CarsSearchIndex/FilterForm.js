@@ -96,7 +96,7 @@ function FilterForm({
           <Input
             htmlFor="superhosts-only"
             type="checkbox"
-            value={superhostFilter}
+            checked={superhostFilter}
             onChange={(e) =>
               handleChange(e.target.checked, changeTypes.SUPERHOST.tag)
             }

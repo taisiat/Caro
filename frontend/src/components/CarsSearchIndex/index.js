@@ -65,9 +65,8 @@ function CarsSearchIndex() {
   }, [maxPricingParams]);
 
   useEffect(() => {
-    if (superhostParams) {
-      setSuperhostFilter(superhostParams);
-    }
+    const superhostParamsVal = superhostParams === "true";
+    setSuperhostFilter(superhostParamsVal);
   }, [superhostParams]);
 
   useEffect(() => {
@@ -96,11 +95,11 @@ function CarsSearchIndex() {
 
   useEffect(() => {
     if (
-      minPricing &&
-      maxPricing &&
+      minPricing !== undefined &&
+      maxPricing !== undefined &&
       bounds &&
       experienceType &&
-      superhostFilter &&
+      (superhostFilter === false || superhostFilter === true) &&
       searchPageFromDate &&
       searchPageUntilDate
     ) {
@@ -109,7 +108,7 @@ function CarsSearchIndex() {
           minPricing,
           maxPricing,
           bounds,
-          superhostFilter,
+          superhostFilter: superhostFilter,
           experienceType,
           tripStart: handleDateChange(searchPageFromDate),
           tripEnd: handleDateChange(searchPageUntilDate),
@@ -135,17 +134,6 @@ function CarsSearchIndex() {
       idle: (map) => {
         const newBounds = map.getBounds().toUrlValue();
         if (newBounds !== bounds) {
-          dispatch(
-            fetchCars({
-              minPricing,
-              maxPricing,
-              bounds: newBounds,
-              superhostFilter,
-              experienceType,
-              tripStart: handleDateChange(searchPageFromDate),
-              tripEnd: handleDateChange(searchPageUntilDate),
-            })
-          );
           setBounds(newBounds);
         }
       },

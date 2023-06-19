@@ -45,6 +45,17 @@ function CarShowPage() {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    if (!zoomParams && car) {
+      existingSearchParams.delete("viewport");
+      existingSearchParams.set("zoom", 17);
+      history.push({
+        pathname: `/cars/${car.id}`,
+        search: existingSearchParams.toString(),
+      });
+    }
+  }, [car]);
+
   const handleImgSlider = (direction) => {
     handleChangeImage();
     setCurrentImg((prev) => {
