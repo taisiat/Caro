@@ -101,10 +101,15 @@ const SearchLine = () => {
             setCoords(latLng);
             existingSearchParams.set("coords", `${latLng.lat},${latLng.lng}`);
             existingSearchParams.delete("zoom");
-            const paramsDatesArr = existingSearchParams
-              .get("dates")
-              .split(",")
-              .map((dateStr) => new Date(dateStr).toLocaleDateString("en-US"));
+            let paramsDatesArr = [];
+            if (existingSearchParams.get("dates")) {
+              paramsDatesArr = existingSearchParams
+                .get("dates")
+                .split(",")
+                .map((dateStr) =>
+                  new Date(dateStr).toLocaleDateString("en-US")
+                );
+            }
             const dateRangeArr = dateRange.map((date) =>
               date.toLocaleDateString("en-US")
             );
