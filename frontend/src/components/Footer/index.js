@@ -7,7 +7,6 @@ const Footer = () => {
   return (
     <div id="splash-footer">
       <div id="footer-icons-container">
-        {/* <p id="name">TAISIA KARASEVA</p> */}
         <a id="name" href="https://www.taisiat.com/" target="_blank">
           TAISIA KARASEVA
         </a>
