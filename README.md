@@ -18,9 +18,13 @@ Caro also has full user auth.
 
 Explore it here! <a href="https://caro.herokuapp.com/">https://caro.herokuapp.com/</a>
 <br>
-Or, watch the quick <a href="https://youtu.be/8bXo3bS2eqk">video walkthrough.</a>▶️
+Or, watch the quick <a href="https://youtu.be/8bXo3bS2eqk">▶️ video walkthrough.</a>
 
-See my <a href="https://github.com/taisiat">github</a> and <a href="https://www.linkedin.com/in/taisiakaraseva/">Linkedin</a>
+<a href="https://github.com/taisiat">Github</a>
+<br>
+<a href="https://www.linkedin.com/in/taisiakaraseva/">Linkedin</a>
+<br>
+<a href="https://www.taisiat.com/?utm_source=caro&utm_medium=readme">Portfolio</a>
 
 ---
 
