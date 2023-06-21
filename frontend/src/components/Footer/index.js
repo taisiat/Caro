@@ -7,7 +7,11 @@ const Footer = () => {
   return (
     <div id="splash-footer">
       <div id="footer-icons-container">
-        <a id="name" href="https://www.taisiat.com/" target="_blank">
+        <a
+          id="name"
+          href="https://www.taisiat.com/?utm_source=caro&utm_medium=footer"
+          target="_blank"
+        >
           TAISIA KARASEVA
         </a>
         <a
@@ -26,7 +30,7 @@ const Footer = () => {
         </a>
         <a
           className="footer-link"
-          href="https://www.taisiat.com/"
+          href="https://www.taisiat.com/?utm_source=caro&utm_medium=footer"
           target="_blank"
         >
           <BsStars />
