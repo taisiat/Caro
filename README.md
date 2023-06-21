@@ -16,7 +16,7 @@ Users have CRUD functionalities for:
 
 Caro also has full user auth.
 
-Explore it here! <a href="https://caro.herokuapp.com/">https://caro.herokuapp.com/</a>
+Explore it <a href="https://caro.herokuapp.com/?utm_source=caro&utm_medium=readme">🚘 here!</a>
 <br>
 Or, watch the quick <a href="https://youtu.be/8bXo3bS2eqk">▶️ video walkthrough.</a>
 
