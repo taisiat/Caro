@@ -34,7 +34,7 @@ const SearchBar = () => {
       if (results) {
         searchParams.set(
           "viewport",
-          `${results.geometry.viewport.Ha.hi},${results.geometry.viewport.Ha.lo}, ${results.geometry.viewport.Ua.hi}, ${results.geometry.viewport.Ua.lo}`
+          `${results.geometry.viewport.Ha.hi},${results.geometry.viewport.Ha.lo}, ${results.geometry.viewport.Va.hi}, ${results.geometry.viewport.Va.lo}`
         );
       }
       searchParams.delete("zoom");

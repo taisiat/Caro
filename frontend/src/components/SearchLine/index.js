@@ -122,7 +122,7 @@ const SearchLine = () => {
             if (results[0].geometry.viewport) {
               existingSearchParams.set(
                 "viewport",
-                `${results[0].geometry.viewport.Ha.hi},${results[0].geometry.viewport.Ha.lo}, ${results[0].geometry.viewport.Ua.hi}, ${results[0].geometry.viewport.Ua.lo}`
+                `${results[0].geometry.viewport.Ha.hi},${results[0].geometry.viewport.Ha.lo}, ${results[0].geometry.viewport.Va.hi}, ${results[0].geometry.viewport.Va.lo}`
               );
             }
             existingSearchParams.set("location", address);
