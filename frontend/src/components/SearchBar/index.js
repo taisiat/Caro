@@ -37,10 +37,6 @@ const SearchBar = () => {
           "viewport",
           `${viewportCoords.east},${viewportCoords.west}, ${viewportCoords.north}, ${viewportCoords.south}`
         );
-        // searchParams.set(
-        //   "viewport",
-        //   `${results.geometry.viewport.Ha.hi},${results.geometry.viewport.Ha.lo}, ${results.geometry.viewport.Va.hi}, ${results.geometry.viewport.Va.lo}`
-        // );
       }
       searchParams.delete("zoom");
     } else {
