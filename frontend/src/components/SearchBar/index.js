@@ -32,10 +32,15 @@ const SearchBar = () => {
       searchParams.set("coords", `${coords.lat},${coords.lng}`);
       searchParams.set("location", where);
       if (results) {
+        const viewportCoords = results.geometry.viewport.toJSON();
         searchParams.set(
           "viewport",
-          `${results.geometry.viewport.Ha.hi},${results.geometry.viewport.Ha.lo}, ${results.geometry.viewport.Va.hi}, ${results.geometry.viewport.Va.lo}`
+          `${viewportCoords.east},${viewportCoords.west}, ${viewportCoords.north}, ${viewportCoords.south}`
         );
+        // searchParams.set(
+        //   "viewport",
+        //   `${results.geometry.viewport.Ha.hi},${results.geometry.viewport.Ha.lo}, ${results.geometry.viewport.Va.hi}, ${results.geometry.viewport.Va.lo}`
+        // );
       }
       searchParams.delete("zoom");
     } else {

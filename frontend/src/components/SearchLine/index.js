@@ -120,9 +120,14 @@ const SearchLine = () => {
               existingSearchParams.set("dates", dateRange);
             }
             if (results[0].geometry.viewport) {
+              const viewportCoords = results[0].geometry.viewport.toJSON();
+              // existingSearchParams.set(
+              //   "viewport",
+              //   `${results[0].geometry.viewport.Ha.hi},${results[0].geometry.viewport.Ha.lo}, ${results[0].geometry.viewport.Va.hi}, ${results[0].geometry.viewport.Va.lo}`
+              // );
               existingSearchParams.set(
                 "viewport",
-                `${results[0].geometry.viewport.Ha.hi},${results[0].geometry.viewport.Ha.lo}, ${results[0].geometry.viewport.Va.hi}, ${results[0].geometry.viewport.Va.lo}`
+                `${viewportCoords.east},${viewportCoords.west}, ${viewportCoords.north}, ${viewportCoords.south}`
               );
             }
             existingSearchParams.set("location", address);
