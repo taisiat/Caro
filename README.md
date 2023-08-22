@@ -48,7 +48,7 @@ In Caro, users are able to:
 
 This project is implemented with the following technologies:
 
-- `React` and `JavaScript` frontend with `CSS` styling and `Redux state`
+- `React` and `JavaScript` frontend with `CSS` styling, `AJAX` techniques, and `Redux state`
 - `Ruby on Rails` backend with `JBuilder` to sculpt backend responses
 - Google `Maps JavaScript API`, `Places API`, and `Geocoding API` to enable the map and locations search
 - `AWS` for hosting car and user images and `Active Storage` for using images in app
